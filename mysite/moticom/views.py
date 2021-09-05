@@ -23,3 +23,13 @@ class HelpView(generic.TemplateView):
     
 class AdminView(generic.TemplateView):
     template_name = 'moticom/admin.html'
+    
+class CreateView(generic.TemplateView):
+    template_name = 'moticom/SC-03.html'
+    
+class SceretView(generic.TemplateView):
+    template_name = 'moticom/SC-04.html'
+    
+class CompleteView(generic.TemplateView):
+    template_name = 'moticom/SC-05.html'
+    
