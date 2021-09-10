@@ -5,6 +5,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="{% static 'moticom/css/bootstrap.min.css' %}">
+        <style>
+            .container-fluid::-webkit-scrollbar {
+            display:none;}
+        </style>
         {% block extra_css %}{% endblock %}
         
         <title>{% block title %}My books{% endblock %}</title>
@@ -23,27 +27,27 @@
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                            <a id="top" href="https://cab5154172a84647b907b2929a05d404.vfs.cloud9.us-east-2.amazonaws.com/moticom" class="nav-link text-white">
+                            <a id="top" href="{% url 'moticom:index' %}" class="nav-link text-white">
                                 ダッシュボード
                             </a>
                         </li>
                          <li>
-                            <a id="board" href="https://cab5154172a84647b907b2929a05d404.vfs.cloud9.us-east-2.amazonaws.com/moticom/board" class="nav-link text-white">
+                            <a id="board" href="{% url 'moticom:board' %}" class="nav-link text-white">
                                 投稿掲示板
                             </a>
                         </li>
                         <li>
-                            <a id="report" href="https://cab5154172a84647b907b2929a05d404.vfs.cloud9.us-east-2.amazonaws.com/moticom/report" class="nav-link text-white">
+                            <a id="report" href="{% url 'moticom:report' %}" class="nav-link text-white">
                                 問題報告
                             </a>
                         </li>
                         <li>
-                            <a id="complaints" href="https://cab5154172a84647b907b2929a05d404.vfs.cloud9.us-east-2.amazonaws.com/moticom/complaints" class="nav-link text-white">
+                            <a id="complaints" href="{% url 'moticom:complaints' %}" class="nav-link text-white">
                                 愚痴投稿
                             </a>
                         </li>
                         <li>
-                            <a id="help" href="https://cab5154172a84647b907b2929a05d404.vfs.cloud9.us-east-2.amazonaws.com/moticom/help" class="nav-link text-white">
+                            <a id="help" href="{% url 'moticom:help' %}" class="nav-link text-white">
                                 ヘルプ
                             </a>
                         </li>
@@ -52,7 +56,7 @@
                 </div>
             </div>
             <!-- ページ内容領域 -->
-            <div class="container-fluid">
+            <div class="container-fluid" style="overflow: scroll; overflow-y: scroll; -ms-overflow-style: none; scrollbar-width: none;">
                 {% block content %}
                 {{ content }}
                 {% endblock %}
