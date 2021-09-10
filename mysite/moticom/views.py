@@ -33,3 +33,5 @@ class SceretView(generic.TemplateView):
 class CompleteView(generic.TemplateView):
     template_name = 'moticom/SC-05.html'
     
+class CompleteView(generic.TemplateView):
+    template_name = 'moticom/SC-08.html'
