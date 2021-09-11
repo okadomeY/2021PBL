@@ -20,7 +20,15 @@ class BoardView(generic.TemplateView):
 class ReportView(generic.TemplateView):
     template_name = 'moticom/report.html'
     
-
+class GenreView(generic.TemplateView):
+    template_name = 'moticom/genre.html'
+    
+class CompleteView(generic.TemplateView):
+    template_name = 'moticom/complete.html'
+    
+class ProfileView(generic.TemplateView):
+    template_name = 'moticom/profile.html'
+    
 class ComplaintsView(generic.TemplateView):
     template_name = 'moticom/complaints.html'
     
