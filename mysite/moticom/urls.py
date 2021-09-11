@@ -12,6 +12,6 @@ urlpatterns = [
     path('report/SC-03', views.CreateView.as_view(), name='SC-03'),
     path('report/SC-04', views.SceretView.as_view(), name='SC-04'),
     path('report/SC-05', views.CompleteView.as_view(), name='SC-05'),
-    path('SC-08/', views.CompleteView.as_view(), name='SC-08')
+    path('SC-08/', views.ProfileView.as_view(), name='SC-08')
 
     ]
