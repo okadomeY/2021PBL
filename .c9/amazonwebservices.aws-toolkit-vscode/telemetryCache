@@ -1,1 +1,1 @@
-[{"MetricName":"session_end","Value":14268403,"EpochTimestamp":1631110677521,"Unit":"None","Passive":true,"Metadata":[{"Key":"awsAccount","Value":"n/a"},{"Key":"computeRegion","Value":"us-east-2"}]}]
+[{"MetricName":"session_end","Value":10169122,"EpochTimestamp":1631617299834,"Unit":"None","Passive":true,"Metadata":[{"Key":"awsAccount","Value":"n/a"},{"Key":"computeRegion","Value":"us-east-2"}]}]
