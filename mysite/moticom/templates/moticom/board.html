@@ -1,21 +1,20 @@
-{% extends "moticom/base.html" %}
-
-{% block extra_css %}
-<style type="text/css">
-    #board {background: rgb(255, 0, 0);}
-</style>
-{% endblock %}
-
-{% block title %}Moticom{% endblock title %}
-
-{% block content %}
-    <div class="container">
-        <h2 class="mt-2 border-bottom pb-2">投稿掲示板</h2>
-        <div class="d-flex pt-3">
-            <p class="pb-3 mb-0 small lh-sm border-bottom">
-                <strong class="d-block">@ユーザー名</strong>
-                投稿内容
-            </p>
+{% load i18n static %}
+<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" style="height: 100%;">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'moticom/css/bootstrap.min.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="mt-2 border-bottom pb-2">投稿掲示板</h2>
+            <div class="d-flex pt-3">
+                <p class="pb-3 mb-0 small lh-sm border-bottom">
+                    <strong class="d-block">@ユーザー名</strong>
+                    投稿内容
+                </p>
+            </div>
         </div>
-    </div> 
-{% endblock content %}
+    </body>
+</html>

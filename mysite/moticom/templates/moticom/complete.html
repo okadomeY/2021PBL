@@ -1,42 +1,40 @@
-{% extends "moticom/base.html" %}
-
-{% block extra_css %}
-<style type="text/css">
-    #report {background: rgb(255, 0, 0);}
-</style>
-{% endblock %}
-
-{% block title %}Moticom{% endblock title %}
-
-{% block content %}
+{% load i18n static %}
+<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" style="height: 100%;">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="{% static 'moticom/css/bootstrap.min.css' %}">
+  </head>
+  <body>
     <div class="container">
         <h2 class="mt-2 border-bottom pb-2">問題報告</h2>
     </div> 
     <div class="row justify-content-md-center">
-    <div class="col-md-6">
-      <div class="container mt-5">
-        <form class="card">
-          <div class="card-header">投稿画面</div>
-          <div class="card-body">
-            <h5 class="card-title">投稿内容</h5>
-            <textarea class="form-control" name="input_textarea" rows="5" cols="80" maxlength="300">
-              報告内容をここに表示するイメージです
-              報告内容をここに表示するイメージです
-              報告内容をここに表示するイメージです
-            </textarea>
-          </div>
-          <div class="mb-3 row" style="padding-left: 20px;">
-            <label for="staticEmail" class="col-sm-2 col-form-label">ジャンル</label>
-            <div class="col-sm-10">
-              <input class="form-control" type="text" placeholder="メール関連" aria-label="Disabled input example" disabled>
+      <div class="col-md-6">
+        <div class="container mt-5">
+          <form class="card">
+            <div class="card-header">投稿画面</div>
+            <div class="card-body">
+              <h5 class="card-title">投稿内容</h5>
+              <textarea class="form-control" name="input_textarea" rows="5" cols="80" maxlength="300">
+                報告内容をここに表示するイメージです
+                報告内容をここに表示するイメージです
+                報告内容をここに表示するイメージです
+              </textarea>
             </div>
-          </div>
-          <div class="card-footer" style="text-align: center;">
-            <a class="btn btn-primary" href="{% url 'moticom:index' %}" role="button">topに戻る</a>
-          </div>
+            <div class="mb-3 row" style="padding-left: 20px;">
+              <label for="staticEmail" class="col-sm-2 col-form-label">ジャンル</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="text" placeholder="メール関連" aria-label="Disabled input example" disabled>
+              </div>
+            </div>
+            <div class="card-footer" style="text-align: center;">
+              <a class="btn btn-primary" href="{% url 'moticom:report' %}" role="button">topに戻る</a>
+            </div>
+          </form>
+        </div>
       </div>
-      </form>
     </div>
-  </div>
-  </div>
-{% endblock content %}
+  </body>
+</html>
