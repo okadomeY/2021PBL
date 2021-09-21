@@ -1,21 +1,8 @@
+{% extends 'moticom/base.html' %}
+
 {% load i18n static %}
-<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" style="height: 100%;">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="{% static 'moticom/css/bootstrap.min.css' %}">
-        <style>
-            .container-fluid::-webkit-scrollbar {
-            display:none;}
-            .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-            background-color:red;
-            }
-        </style>
-        {% block extra_css %}{% endblock %}
-        
-        <title>{% block title %}Moticom{% endblock %}</title>
-    </head>
+
+{% block content %}
     <!-- ページの共有レイアウト -->
     <body style="height: 100%; margin: 0;">
         <!-- ヘッダー -->
@@ -75,8 +62,5 @@
         <footer class="footer mt-auto py-3 d-flex align-items-center justify-content-center" style="background-color:rgb(255, 150, 128);">
             <small class="text-white-50">&copy; 2021 奥原PBL</small>
         </footer>
-        <script src="{% static 'moticom/js/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'moticom/js/bootstrap.bundle.min.js' %}"></script>
-        {% block extra_js %}{% endblock %}
     </body>
-</html>
+{% endblock content %}

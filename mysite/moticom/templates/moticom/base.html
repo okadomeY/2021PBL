@@ -5,11 +5,18 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="stylesheet" href="{% static 'moticom/css/bootstrap.min.css' %}">
+      <style>
+        .container-fluid::-webkit-scrollbar {display:none;}
+        .nav-pills .nav-link.active, .nav-pills .show > .nav-link {background-color:red;}
+      </style>
       {% block extra_css %}{% endblock extra_css %}
       <title>Moticom {% block title %}{% endblock title %}</title>
   </head>
+  <!-- 継承先HTMLファイルの内容を表示する領域-->
+  {% block content %}
+  {% endblock content %}
   
-  {% block content %}{% endblock content %}
-  
-  {% block extra_js %}{% endblock %}
+  <script src="{% static 'moticom/js/jquery-3.6.0.min.js' %}"></script>
+  <script src="{% static 'moticom/js/bootstrap.bundle.min.js' %}"></script>
+  {% block extra_js %}{% endblock extra_js %}
 </html>
