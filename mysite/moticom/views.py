@@ -5,7 +5,7 @@ from django.utils import timezone
 from .models import Report
 
 class TopView(generic.TemplateView):
-    template_name = 'moticom/base.html'
+    template_name = 'moticom/main.html'
     
 class IndexView(generic.ListView):
     template_name = 'moticom/index.html'

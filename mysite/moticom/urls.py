@@ -4,7 +4,7 @@ from . import views
 
 app_name = 'moticom'
 urlpatterns = [
-    path('', views.TopView.as_view(), name='base'),
+    path('', views.TopView.as_view(), name='main'),
     path('index', views.IndexView.as_view(), name='index'),
     path('board', views.BoardView.as_view(), name='board'),
     path('report', views.ReportView.as_view(), name='report'),
