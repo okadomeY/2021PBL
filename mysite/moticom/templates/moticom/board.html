@@ -6,11 +6,19 @@
     <body>
         <div class="container">
             <h2 class="mt-2 border-bottom pb-2">投稿掲示板</h2>
-            <div class="d-flex pt-3">
-                <p class="pb-3 mb-0 small lh-sm border-bottom">
-                    <strong class="d-block">@ユーザー名</strong>
-                    投稿内容
-                </p>
+            <div class="d-flex flex-column pt-3" style="background: rgb(150, 200, 200)">
+                 {% if report_list %}
+                        {% for report in report_list %}
+                            <p class="ps-3 pb-3 mt-0 mb-0 small lh-sm border-bottom">
+                                <strong class="d-block">@{{ report.user_id }}</strong>
+                                {{ report.report_text }}
+                            </p>
+                        {% endfor %}
+                {% else %}
+                        <p class="pb-3 mb-0 small lh-sm border-bottom">
+                            投稿がありません
+                        </p>
+                {% endif %}
             </div>
         </div>
     </body>
