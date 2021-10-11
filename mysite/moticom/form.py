@@ -2,4 +2,4 @@
 from django import forms
 
 class ReportForm(forms.Form):
-    text = forms.CharField()
+    text = forms.CharField(widget=forms.Textarea)
