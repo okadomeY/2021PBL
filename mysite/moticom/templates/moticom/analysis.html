@@ -2,10 +2,298 @@
 
 {% load i18n static %}
 
+{% block extra_css %}
+<style>
+    div.overflow-auto {
+        width: 800px;
+        height: 300px;
+        overflow: auto;
+    }
+</style>
+{% endblock extra_css %}
+
 {% block content %}
-    <div class="container">
-        <h2 class="mt-4 border-bottom">分析結果</h2>
-        <div></div>
-        <h2 class="mt-2 border-bottom pb-2">管理策一覧</h2>
-    </div> 
+<body>
+     <script src="{% static 'moticom/js/chart.js/dist/chart.js' %}"></script>
+    <div class="container gx-5" style="padding: 10px 10px 10px 10px;">
+        <div>
+            <h1>分析結果</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h5>グラフ１</h5>
+                <div style="width: 200px; height:200px">
+                    <canvas id="myChart1" width="200px" height="200px"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart1').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            // The type of chart we want to create
+                            type: 'bar',
+
+                            // The data for our dataset
+                            data: {
+                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                datasets: [{
+                                    label: '',
+                                    backgroundColor: 'rgb(255, 99, 0)',
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    data: [0, 10, 5, 100, 20, 30, 45]
+                                }]
+                            },
+
+                            // Configuration options go here
+                            options: {}
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="col">
+                <h5>グラフ２</h5>
+                <div style="width: 300px; height:200px">
+                    <canvas id="myChart2"></canvas>
+
+                    <script>
+                        var ctx = document.getElementById('myChart2').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            // The type of chart we want to create
+                            type: 'line',
+
+                            // The data for our dataset
+                            data: {
+                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                datasets: [{
+                                    label: '',
+                                    backgroundColor: 'rgb(255, 99, 0)',
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    data: [0, 10, 5, 100, 20, 30, 45]
+                                }]
+                            },
+
+                            // Configuration options go here
+                            options: {}
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="col">
+                <h5>グラフ３</h5>
+                <div style="width: 200px; height:200px">
+                    <canvas id="myChart3"></canvas>
+
+                    <script>
+                        var ctx = document.getElementById('myChart3').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            // The type of chart we want to create
+                            type: 'pie',
+
+                            // The data for our dataset
+
+                            data: {
+                                labels: ["賛成", "反対", "わからない", "未回答"], //データ項目のラベル
+                                datasets: [{
+                                    backgroundColor: [
+                                        "#c97586",
+                                        "#bbbcde",
+                                        "#93b881",
+                                        "#e6b422"
+                                    ],
+                                    data: [45, 32, 18, 5] //グラフのデータ
+                                }]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    //グラフタイトル
+                                    text: '新法案賛否'
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" style="padding-top: 50px;">
+            <div class="col">
+                <h5>グラフ４</h5>
+                <div style="width: 200px; height:200px">
+                    <canvas id="myChart4" width="200px" height="200px"></canvas>
+
+                    <script>
+
+                        var ctx = document.getElementById('myChart4').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            // The type of chart we want to create
+                            type: 'bar',
+
+                            // The data for our dataset
+                            data: {
+                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                datasets: [{
+                                    label: 'My First dataset',
+                                    backgroundColor: 'rgb(255, 99, 132)',
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    data: [0, 10, 5, 2, 20, 30, 45]
+                                }]
+                            },
+
+                            // Configuration options go here
+                            options: {}
+                        });
+
+                    </script>
+                </div>
+
+            </div>
+            <div class="col">
+                <h5>グラフ５</h5>
+                <div style="width: 300px; height:200px">
+                    <canvas id="myChart5"></canvas>
+                    <script>
+                        var ctx = document.getElementById('myChart5').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            // The type of chart we want to create
+                            type: 'line',
+
+                            // The data for our dataset
+                            data: {
+                                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                datasets: [{
+                                    label: 'My First dataset',
+                                    backgroundColor: 'rgb(255, 99, 132)',
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    data: [0, 10, 5, 2, 20, 30, 45]
+                                }]
+                            },
+
+                            // Configuration options go here
+                            options: {}
+                        });
+
+                    </script>
+                </div>
+            </div>
+
+            <div class="col">
+                <h5>グラフ６</h5>
+                <div style="width: 200px; height:200px">
+                    <canvas id="myChart6"></canvas>
+
+                    <script>
+                        var ctx = document.getElementById('myChart6').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            // The type of chart we want to create
+                            type: 'doughnut',
+
+                            // The data for our dataset
+
+                            data: {
+                                labels: ["賛成", "反対", "わからない", "未回答"], //データ項目のラベル
+                                datasets: [{
+                                    backgroundColor: [
+                                        "#c97586",
+                                        "#bbbcde",
+                                        "#93b881",
+                                        "#e6b422"
+                                    ],
+                                    data: [45, 32, 18, 5] //グラフのデータ
+                                }]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    //グラフタイトル
+                                    text: '新法案賛否'
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 50px;">
+                <div class="col-md-8 col-md-offset-2">
+                    <h7>データ一覧</h7>
+                    <div class="overflow-auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">name</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Taro</td>
+                                    <td>Suzuki</td>
+                                    <td>suzuki@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Yuko</td>
+                                    <td>Tanaka</td>
+                                    <td>tanaka@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Zin</td>
+                                    <td>Kato</td>
+                                    <td>kato@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Taro</td>
+                                    <td>Suzuki</td>
+                                    <td>suzuki@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Yuko</td>
+                                    <td>Tanaka</td>
+                                    <td>tanaka@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Zin</td>
+                                    <td>Kato</td>
+                                    <td>kato@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Yuko</td>
+                                    <td>Tanaka</td>
+                                    <td>tanaka@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Zin</td>
+                                    <td>Kato</td>
+                                    <td>kato@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Taro</td>
+                                    <td>Suzuki</td>
+                                    <td>suzuki@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Yuko</td>
+                                    <td>Tanaka</td>
+                                    <td>tanaka@sample.com</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Zin</td>
+                                    <td>Kato</td>
+                                    <td>kato@sample.com</td>
+                                </tr>
+</body>
+
 {% endblock content %}

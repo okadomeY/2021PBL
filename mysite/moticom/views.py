@@ -5,14 +5,15 @@ from django.shortcuts import render
 from django.views import generic
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
+from django.http import HttpResponse
 
 from .models import Report
 
 #データ抽出日付調整
 d = datetime.date.today()
 yd = (d - datetime.timedelta(days=1))
-fd = yd.replace(day=1)
-ed = yd.replace(day=calendar.monthrange(d.year, d.month)[1])
+fd = d.replace(day=1)
+ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
 #各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
 class TopView(generic.TemplateView):
@@ -22,6 +23,8 @@ class TopView(generic.TemplateView):
 #TOP
 class IndexView(generic.ListView):
     template_name = 'moticom/index.html'
+    #テスト用※完作業了後要削除
+#    template_name = 'moticom/index.1.html'
     context_object_name = 'latest_report_list'
     
     #最新投稿10件の取得
@@ -29,26 +32,82 @@ class IndexView(generic.ListView):
         return Report.objects.filter(
             created_at__lte=timezone.now()
             ).order_by('-created_at')[:10]
-    
-    #グラフ用データを取得
+            
+#現行使用版:グラフ用データを取得(要改善/DB側で処理できそう/細部に関しても要改善)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-#        d_box = Report.objects.filter(created_at__date__range=[fd, ed])
-        i = 1
-        label_date =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
-        data_list = []
+        #直近１ヶ月投稿数抽出
+        monthly_date_label =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
+        monthly_posts_count = []
         
-        for i in label_date:
-            data_list.append(Report.objects.filter(created_at__date=i).count())
-        context['graph_date_list'] = json.dumps([i.strftime("%m/%d") for i in label_date])
-        context['graph_data_list'] = json.dumps(data_list)
+        for i in monthly_date_label:
+            monthly_posts_count.append(Report.objects.filter(created_at__date=i).count())
+            
+        context['monthly_day_list'] = json.dumps([i.strftime("%m/%d") for i in monthly_date_label])
+        context['monthly_data_list'] = json.dumps(monthly_posts_count)
+        
+        #過去1週間の投稿数抽出
+        weekly_date_label = [d + datetime.timedelta(days=i) for i in range(-6, 1)]
+        weekly_posts_count = []
+        
+        for i in weekly_date_label:
+            weekly_posts_count.append(Report.objects.filter(created_at__date=i).count())
+        
+        context['weekly_day_list'] = json.dumps([i.strftime("%m/%d") for i in weekly_date_label])
+        context['weekly_data_list'] = json.dumps(weekly_posts_count)
+        
+        #過去1年間の月別投稿数抽出（DBのタイムゾーンの設定を行えば__monthでフィルターが使える）←現状でも使用可能だった
+        bymonth_date_label =[d + relativedelta(months=i) for i in range(-11, 1)]
+        bymonth_posts_count = []
+        
+        for i in bymonth_date_label:
+            bymonth_posts_count.append(Report.objects.filter(created_at__month=i.month).count())
+            
+        context['bymonth_day_list'] = json.dumps([i.strftime("%y/%m") for i in bymonth_date_label])
+        context['bymonth_data_list'] = json.dumps(bymonth_posts_count)
+        
         return context
-    
-    
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        context['graph_data_list'] = Report.objects.filter(created_at__date = d)
-#        return context
+
+"""
+#グラフ切り替えテスト版
+def Chart_Sw(request):
+    if request.method == 'GET':
+        if 'monthly' in request.GET:
+            monthly_date_label =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
+            monthly_posts_count = []
+        
+            for i in monthly_date_label:
+                monthly_posts_count.append(Report.objects.filter(created_at__date=i).count())
+                
+            day_list = json.dumps([i.strftime("%m/%d") for i in monthly_date_label])
+            data_list = json.dumps(monthly_posts_count)
+            
+        elif 'weekly' in request.GET:
+            weekly_date_label = [d + datetime.timedelta(days=i) for i in range(-6, 1)]
+            weekly_posts_count = []
+        
+            for i in weekly_date_label:
+                weekly_posts_count.append(Report.objects.filter(created_at__date=i).count())
+                    
+            day_list = json.dumps([i.strftime("%m/%d") for i in weekly_date_label])
+            data_list = json.dumps(weekly_posts_count)
+            
+        elif 'yearly' in request.GET:
+            bymonth_date_label =[d + relativedelta(months=i) for i in range(-11, 1)]
+            bymonth_posts_count = []
+            
+            for i in bymonth_date_label:
+                bymonth_posts_count.append(Report.objects.filter(created_at__month=i.month).count())
+                
+            day_list = json.dumps([i.strftime("%y/%m") for i in bymonth_date_label])
+            data_list = json.dumps(bymonth_posts_count)
+        
+        data_set = {
+            'day_list': day_list,
+            'data_list': data_list,
+        }
+        return HttpResponse(data_set)
+"""
 
 #掲示板
 class BoardView(generic.ListView):
@@ -57,7 +116,7 @@ class BoardView(generic.ListView):
             ).order_by('-created_at')
     template_name = 'moticom/board.html'
     
-#
+#報告画面
 class ReportView(generic.TemplateView):
     template_name = 'moticom/report.html'
     

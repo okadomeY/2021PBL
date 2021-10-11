@@ -6,6 +6,8 @@ app_name = 'moticom'
 urlpatterns = [
     path('', views.TopView.as_view(), name='main'),
     path('index', views.IndexView.as_view(), name='index'),
+    #chart表示用test
+#    path('charts', views.Chart_Sw, name='chart'),
     path('board', views.BoardView.as_view(), name='board'),
     path('report', views.ReportView.as_view(), name='report'),
     path('genre', views.GenreView.as_view(), name='genre'),
@@ -13,6 +15,7 @@ urlpatterns = [
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('complaints', views.ComplaintsView.as_view(), name='complaints'),
     path('help', views.HelpView.as_view(), name='help'),
+    #管理者用ページ↓
     path('admin', views.AdminView.as_view(), name='admin'),
     path('analysis', views.AnalysisView.as_view(), name='analysis'),
     path('user', views.UserView.as_view(), name='user'),

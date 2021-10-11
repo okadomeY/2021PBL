@@ -3,8 +3,99 @@
 {% load i18n static %}
 
 {% block content %}
-    <div class="container">
-        <h2 class="mt-4 border-bottom">フィルター設定</h2>
-        <div></div>
-    </div> 
+    <body>
+    <div class="container gx-5" style="padding: 10px 10px 10px 10px;">
+        <h2 class="mt-2 border-bottom pb-2">NGワード機能</h2>
+        <div style="padding-top: 20px;">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                    value="option1">
+                <label class="form-check-label" for="inlineRadio1">有効にする</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                    value="option2">
+                <label class="form-check-label" for="inlineRadio2">無効にする</label>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <div style="padding-top: 20px;">
+            <div class="card" style="width: 45rem;">
+                <div class="card-body">
+                    <h4 class="card-title">NGワードリスト</h4>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal-1">
+                        NGワード１
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal-2">
+                        NGワード２
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal-1" tabindex="-1" aria-labelledby="exampleModalLabel-1"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel-1">NGワード</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        NGワード１
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="exampleModal-2" tabindex="-1" aria-labelledby="exampleModalLabel-2"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel-2">NGワード</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        NGワード２
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3" style="padding-top: 20px;">
+            <div class="col">
+                <input type="text" class="form-control" aria-label="NG-Word">
+            </div>
+            <div class="col">
+                <a class="btn btn-primary" href="#" role="button">追加する</a>
+            </div>
+        </div>
+        <div style="text-align: center; padding-left: 30%; padding-top:30px;">
+            <a class="btn btn-primary" href="#" role="button">topへ</a>
+        </div>
+    </div>
+
+
+
+    <script>
+        var myModal = document.getElementById('myModal')
+        var myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', function () {
+            myInput.focus()
+        })
+    </script>
+
+</body> 
 {% endblock content %}

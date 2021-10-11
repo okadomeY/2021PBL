@@ -2,8 +2,242 @@
 
 {% load i18n static %}
 
+{% block extra_css %}
+<style>
+        div.overflow-auto {
+            width: 700px;
+            height: 300px;
+            overflow: auto;
+        }
+</style>
+{% endblock extra_css %}
+
 {% block content %}
 <body>
-    <h2>ユーザー確認・登録</h2>
+    <div class="container gx-5" style="padding: 100px 10px 10px 230px;">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 style="padding-bottom: 20px;">ユーザー一覧</h1>
+                <div class="overflow-auto">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Taro</td>
+                                <td>Suzuki</td>
+                                <td>suzuki@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Yuko</td>
+                                <td>Tanaka</td>
+                                <td>tanaka@sample.com</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Zin</td>
+                                <td>Kato</td>
+                                <td>kato@sample.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label" style="padding-top: 20px;">ユーザー新規ID登録</label>
+                    <input type="text" class="form-control" id="new-user">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label" style="padding-top: 20px;">新規パスワード</label>
+                    <input type="text" class="form-control" id="new-passwprd">
+                </div>
+                <div style="text-align: center; padding-left: 90%;">
+                    <a class="btn btn-primary" href="#" role="button">追加</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 {% endblock content %}
