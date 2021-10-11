@@ -2,9 +2,87 @@
 
 {% load i18n static %}
 
+{% block extra_css %}
+<style>
+    div.overflow-auto {
+        width: 700px;
+        height: 200px;
+        overflow: auto;
+    }
+</style>
+{% endblock extra_css %}
+
 {% block content %}
-    <div class="container">
-        <h2 class="mt-4 border-bottom">セキュリティ対策紐付・追加</h2>
-        <div></div>
-    </div> 
+ <body>
+    <div class="container gx-5" style="padding: 10px 10px 10px 10px;">
+        <h2 class="mt-2 border-bottom pb-2">セキュリティ対策振り分けルール追加設定</h2>
+        <div style="padding-top: 20px;">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h5 style="padding-bottom: 10px;">正規表現表</h5>
+                    <div class="overflow-auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">＃</th>
+                                    <th scope="col">＃</th>
+                                    <th scope="col">＃</th>
+                                    <th scope="col">＃</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                    <td>＃</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding-top: 30px;">
+            <h5 style="padding-bottom: 10px;">機械学習済みルール</h5>
+            <div class="card" style="width: 45rem;">
+                <div class="card-body">
+                    <p class="card-text">ルール１</p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3" style="padding-top: 20px;">
+            <div class="col">
+                <input type="text" class="form-control" aria-label="NG-Word">
+            </div>
+            <div class="col">
+                <a class="btn btn-primary" href="#" role="button">追加する</a>
+            </div>
+        </div>
+    </div>
+</body>
 {% endblock content %}

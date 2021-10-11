@@ -2,9 +2,167 @@
 
 {% load i18n static %}
 
+{% block extra_css %}
+<style>
+    div.overflow-auto {
+        width: 700px;
+        height: 200px;
+        overflow: auto;
+    }
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+    table td {
+        overflow-wrap: break-word;
+    }
+</style>
+{% endblock extra_css %}
+
 {% block content %}
-    <div class="container">
-        <h2 class="mt-4 border-bottom">報告再振り分け</h2>
-        <div></div>
-    </div> 
+<body>
+    <div class="container gx-5" style="padding: 10px 10px 10px 10px;">
+        <h2 class="mt-2 border-bottom pb-2">報告再振り分け</h2>
+        <div style="padding-top: 20px;">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h5 style="padding-bottom: 10px;">報告一覧</h5>
+                    <div class="row justify-content-center" style="padding-bottom: 10px;">
+                        <div class="col-4">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-dark" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="overflow-auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">#</th>
+                                    <th scope="col" width="100">ganre</th>
+                                    <th scope="col" width="150">title</th>
+                                    <th scope="col" width="400">text</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>パスワード系</td>
+                                    <td>パスワード管理</td>
+                                    <td>パスワードを付箋に貼って管理していました</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>メール系</td>
+                                    <td>〇〇〇</td>
+                                    <td>・・・・・・・・・・・・・・・・・・・・・・・</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>持ち出し系</td>
+                                    <td>〇〇〇〇〇〇</td>
+                                    <td>・・・・・・・・・・・・・・・・・・・・・・・・</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>〇〇〇系</td>
+                                    <td>〇〇〇〇〇〇</td>
+                                    <td>・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>△△△系</td>
+                                    <td>△△△</td>
+                                    <td>・・・・・・・・・・・・・・・・・・・・・・・・・・</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="padding-top: 40px;">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h5 style="padding-bottom: 20px;">報告再振り分け</h5>
+                                <div class="overflow-auto">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" width="50">#</th>
+                                                <th scope="col" width="100">ganre</th>
+                                                <th scope="col" width="150">title</th>
+                                                <th scope="col" width="400">text</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th onclick="getElementById('checkbox').click();">
+                                                    <input type="checkbox" id="checkbox" onclick="this.click()">
+                                                </th>
+                                                <td>パスワード系</td>
+                                                <td>パスワード管理</td>
+                                                <td>パスワードを付箋に貼って管理していました</td>
+                                            </tr>
+                                            <tr>
+                                                <th onclick="getElementById('checkbox2').click();">
+                                                    <input type="checkbox" id="checkbox2" onclick="this.click()">
+                                                </th>
+                                                <td>メール系</td>
+                                                <td>〇〇〇</td>
+                                                <td>・・・・・・・・・・・・・・・・・・・・・・・</td>
+                                            </tr>
+                                            <tr>
+                                                <th onclick="getElementById('checkbox3').click();">
+                                                    <input type="checkbox" id="checkbox3" onclick="this.click()">
+                                                </th>
+                                                <td>持ち出し系</td>
+                                                <td>〇〇〇〇〇〇</td>
+                                                <td>・・・・・・・・・・・・・・・・・・・・・・・・</td>
+                                            </tr>
+                                            <tr>
+                                                <th onclick="getElementById('checkbox4').click();">
+                                                    <input type="checkbox" id="checkbox4" onclick="this.click()">
+                                                </th>
+                                                <td>〇〇〇系</td>
+                                                <td>〇〇〇〇〇〇</td>
+                                                <td>・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th onclick="getElementById('checkbox5').click();">
+                                                    <input type="checkbox" id="checkbox5" onclick="this.click()">
+                                                </th>
+                                                <td>△△△系</td>
+                                                <td>△△△</td>
+                                                <td>・・・・・・・・・・・・・・・・・・・・・・・・・・</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-6" style="padding-top: 20px;">
+                                    <h5 style="padding-bottom: 10px;">振り分け先</h5>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>選択してください</option>
+                                        <option value="#">メール系</option>
+                                        <option value="#">パスワード系</option>
+                                        <option value="#">持ち出し系</option>
+                                        <option value="#">〇〇〇系</option>
+                                        <option value="#">△△△系</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; padding-left: 80%;">
+                            <a class="btn btn-primary" href="#" role="button">実行</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 {% endblock content %}
