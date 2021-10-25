@@ -10,31 +10,16 @@
     <div class="row justify-content-md-center">
       <div class="col-md-6">
         <div class="container mt-5">
-          <form action="{% url 'moticom:complete' %}" method='post' class="card">
+          <form class="card">
             <div class="card-header">ジャンルの選択画面</div>
             <div class="card-body">
               <h5 class="card-title">以下より、もっとも当てはまるジャンルを選択してください</h5>
-             {% csrf_token %}
-             {% for radio in form.genre_id %}
               <div class="form-check" style="padding-bottom: 2%;">
-                <input class="form-check-input" type="radio" name="input_radio" value="{{ genre.id }}">
+                <input class="form-check-input" type="radio" name="input_radio" value="A" checked>
                 <label class="form-check-label">
-                  {{ radio }}
+                  メール系
                 </label>
               </div>
-              {% endfor %}
-            </div>
-            <div class="card-footer" style="text-align: center; padding-left: 80%;">
-              <input type="submit" value="送信"class="btn btn-primary" role="button">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </body>
-{% endblock content %}
-
-              <!--
               <div class="form-check" style="padding-bottom: 2%;">
                 <input class="form-check-input" type="radio" name="input_radio" value="B">
                 <label class="form-check-label">
@@ -59,4 +44,13 @@
                   △△△系
                 </label>
               </div>
-              -->
+            </div>
+            <div class="card-footer" style="text-align: center; padding-left: 80%;">
+              <a class="btn btn-primary" href="{% url 'moticom:complete' %}" role="button">送信</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock content %}
