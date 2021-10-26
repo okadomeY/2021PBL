@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'moticom',
-        'USER': '2021PBL',
+        'USER': 'PBL2021',
         'PASSWORD': 'moticom_okuhara',
         'HOST': '',
         'PORT': '',
