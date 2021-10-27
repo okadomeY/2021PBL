@@ -41,11 +41,14 @@ class IndexView(generic.ListView):
         monthly_date_label =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
         monthly_posts_count = []
         
+        print(monthly_date_label)
+        
         for i in monthly_date_label:
             monthly_posts_count.append(Report.objects.filter(created_at__date=i).count())
             
         context['monthly_day_list'] = json.dumps([i.strftime("%m/%d") for i in monthly_date_label])
         context['monthly_data_list'] = json.dumps(monthly_posts_count)
+        
         
         #過去1週間の投稿数抽出
         weekly_date_label = [d + datetime.timedelta(days=i) for i in range(-6, 1)]
@@ -169,13 +172,10 @@ def create_genre(request):
     if request.method == 'POST':
         form_addgenre = {
             'genre_name':request.POST.get('genre_name'),
-            'cm_id':'3'
         }
         form = AddGenre(form_addgenre)
         if form.is_valid():
             form.save()
-        else:
-            return HttpResponse('失敗した')
 
     return redirect('moticom:genre_manage')
 #

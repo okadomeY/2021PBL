@@ -24,15 +24,14 @@ class CreatePost(forms.ModelForm):
         widgets = {'report_text':forms.HiddenInput,
                    'user_id':forms.HiddenInput,
                    'genre_id':forms.RadioSelect(attrs={'class':'form-check-input',}),
-                   }
+                    }
+                   
 
 class AddGenre(forms.ModelForm):
     class Meta:
         model = Genre
-        fields = ('genre_name', 'cm_id')
+        fields = ('genre_name',)
         labels = {'genre_name':""}
-        
-        widgets = {'cm_id':forms.HiddenInput,}
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
