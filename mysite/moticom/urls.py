@@ -11,21 +11,9 @@ urlpatterns = [
 #    path('charts', views.Chart_Sw, name='chart'),
 
     path('board', views.BoardView.as_view(), name='board'),
-
-#フォーム表示の為一時除外（現在：解除中）
     path('report', views.ReportView.as_view(), name='report'),
-
-#move_to_genreでは後続の処理に対応できなかったため、削除予定
-#    path('genre', views.move_to_genre, name='genre'),
-
     path('save_report', views.save_report, name='save_report'),
-
-#save_reportのテストのためコメントアウト中
-#    path('genre', views.GenreView.as_view(), name='genre'),
     path('genre', views.GenreView.as_view(), name='genre'),
-
-#create_postのテストのためコメントアウト中
-#    path('complete', views.CompleteView.as_view(), name='complete'),
     path('complete', views.create_post, name='complete'),
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('complaints', views.ComplaintsView.as_view(), name='complaints'),
@@ -34,7 +22,8 @@ urlpatterns = [
     #管理者用ページ↓
     path('admin', views.AdminView.as_view(), name='admin'),
     path('analysis', views.AnalysisView.as_view(), name='analysis'),
-    path('admin_board', views.Admin_BoardView.as_view(), name='admin_board'),
+    path('admin_board', views.Admin_BoardView, name='admin_board'),
+    path('delete_comment', views.DeleteComment, name='delete_comment'),
     path('user', views.UserView.as_view(), name='user'),
     path('layout', views.LayoutView.as_view(), name='layout'),
     path('genre_manage', views.Genre_ManageView.as_view(), name='genre_manage'),

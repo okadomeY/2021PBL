@@ -1,7 +1,7 @@
 #作成途中
 from django import forms
 
-from .models import Report, Genre, ControlMeasure
+from .models import Report, Genre, ControlMeasure, Comment
 
 class ReportForm(forms.Form):
     report_text = forms.CharField(label="",
@@ -38,20 +38,17 @@ class AddGenre(forms.ModelForm):
         self.fields['genre_name'].widget.attrs['class'] = "form-control"
 
 class CreativeControlMeasure(forms.ModelForm):
-  class Meta:
-    model = ControlMeasure
-    fields = ("cm_name", "cm_contents", "genre_id")
+    class Meta:
+        model = ControlMeasure
+        fields = ("cm_name", "cm_contents", "genre_id")
 
-
-#以下seve_reportが上手く行っているため、削除の可能性あり
-#    text = forms.CharField(label="", widget=forms.Textarea, max_length=300)
-"""
+class CreateComment(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("comment_text", "report_id",)
+        widgets = {'report_id':forms.HiddenInput,}
+        labels = {'comment_text':"",}
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
-        self.fields['report_text'].widget.attrs['class'] = "form-control"
-        self.fields['report_text'].widget.attrs['cols'] = "50"
-        self.fields['report_text'].widget.attrs['rows'] = "6"
-        self.fields['report_text'].widget.attrs['onkeyup'] = 'ShowLength(value)'
-        self.fields['report_text'].widget = forms.Textarea
-"""

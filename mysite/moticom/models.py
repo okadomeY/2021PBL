@@ -47,7 +47,3 @@ class Like(models.Model):
 class Bad(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     report_id = models.ForeignKey(Report, on_delete=models.CASCADE)
-    
-    
-#削除
-#    cm_id = models.ForeignKey(ControlMeasure, on_delete=models.CASCADE)

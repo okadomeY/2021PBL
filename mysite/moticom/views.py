@@ -7,8 +7,8 @@ from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Report, Genre, ControlMeasure
-from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure
+from .models import Report, Genre, ControlMeasure, Comment
+from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -24,8 +24,6 @@ class TopView(generic.TemplateView):
 #TOP
 class IndexView(generic.ListView):
     template_name = 'moticom/index.html'
-#テスト用※完作業了後要削除
-#    template_name = 'moticom/index.1.html'
     context_object_name = 'latest_report_list'
     
     #最新投稿10件の取得
@@ -140,12 +138,36 @@ class AdminView(generic.TemplateView):
 class AnalysisView(generic.TemplateView):
     template_name = 'moticom/analysis.html'
 
-#
-class Admin_BoardView(generic.ListView):
-    template_name = 'moticom/admin_board.html'
-    queryset = Report.objects.filter(
-            created_at__lte=timezone.now()
-            ).order_by('-created_at')
+#コメント投稿用
+def Admin_BoardView(request):
+    queryset = Report.objects.all().order_by('-created_at')
+    if request.method == 'POST':
+        comment_contents = {
+            'comment_text':request.POST.get('comment_text'),
+            'report_id':request.POST.get('report_id'),
+        }
+        print(comment_contents)
+        comment = CreateComment(comment_contents)
+        if comment.is_valid():
+            comment.save()
+            
+        else:
+            return redirect('moticom:admin_board')
+    
+    else:
+        comment = CreateComment()
+    
+    context = {
+        'report_list': queryset,
+        'form': comment
+    }
+    return render(request, 'moticom/admin_board.html', context)
+
+#コメント削除用
+def DeleteComment(request):
+    if request.method == 'POST':
+        Comment.objects.get(id=request.POST.get('comment_id')).delete()
+    return redirect('moticom:admin_board')
 #
 class UserView(generic.TemplateView):
     template_name = 'moticom/user.html'
@@ -221,85 +243,3 @@ class DeleteControlMeasureView(generic.DeleteView):
     template_name = "moticom/cm_delete_form.html"
     model = ControlMeasure
     success_url = "/moticom/cm_create" #正しいところに移ったときに修正
-
-"""
-#グラフ切り替えテスト版（不要な場合は要削除）
-現在のままだと、うまく機能しない。（要改良）
-def Chart_Sw(request):
-    if request.method == 'GET':
-        if 'monthly' in request.GET:
-            monthly_date_label =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
-            monthly_posts_count = []
-        
-            for i in monthly_date_label:
-                monthly_posts_count.append(Report.objects.filter(created_at__date=i).count())
-                
-            day_list = json.dumps([i.strftime("%m/%d") for i in monthly_date_label])
-            data_list = json.dumps(monthly_posts_count)
-            
-        elif 'weekly' in request.GET:
-            weekly_date_label = [d + datetime.timedelta(days=i) for i in range(-6, 1)]
-            weekly_posts_count = []
-        
-            for i in weekly_date_label:
-                weekly_posts_count.append(Report.objects.filter(created_at__date=i).count())
-                    
-            day_list = json.dumps([i.strftime("%m/%d") for i in weekly_date_label])
-            data_list = json.dumps(weekly_posts_count)
-            
-        elif 'yearly' in request.GET:
-            bymonth_date_label =[d + relativedelta(months=i) for i in range(-11, 1)]
-            bymonth_posts_count = []
-            
-            for i in bymonth_date_label:
-                bymonth_posts_count.append(Report.objects.filter(created_at__month=i.month).count())
-                
-            day_list = json.dumps([i.strftime("%y/%m") for i in bymonth_date_label])
-            data_list = json.dumps(bymonth_posts_count)
-        
-        data_set = {
-            'day_list': day_list,
-            'data_list': data_list,
-        }
-        return HttpResponse(data_set)
-"""
-
-"""報告画面フォーム追加用move_to_genreが上手く行けば削除
-現在、move_to_genreが上手く機能している
-
-def report_form(request):
-    modelform_dict = {
-        'title':'modelformテスト',
-        'form':ReportForm(),
-    }
-    #テスト用のためreport_copy.htmlを使用(本番使用可能)
-    return render(request, 'moticom/report_copy.html', modelform_dict)
-"""
-
-"""ジャンル選択画面用
-テストのため1時的にコメントアウト→不要な可能性あり    
-#
-class GenreView(generic.TemplateView):
-    template_name = 'moticom/genre.html'
-"""
-
-
-"""move_to_genreではその後の処理に対応できないと判明したためコメントアウト
-def move_to_genre(request):
-    context = {
-        'report_text':request.POST.get('report_text'),
-        'genres':Genre.objects.all(),
-        'form':ReportForm(),
-    }
-    return render(request, 'moticom/genre.html', context)
-"""
-
-"""    context = {
-            'session':request.session['request_text'],
-            'genres':Genre.objects.all(),
-            'form':ReportForm(),
-        }"""
-        
-#create_postのテストのためコメントアウト中
-#class CompleteView(generic.TemplateView):
-#    template_name = 'moticom/complete.html'
