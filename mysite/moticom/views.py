@@ -7,8 +7,8 @@ from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Report, Genre
-from .forms import ReportForm, CreatePost, AddGenre
+from .models import Report, Genre, ControlMeasure
+from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -40,8 +40,6 @@ class IndexView(generic.ListView):
         #直近１ヶ月投稿数抽出
         monthly_date_label =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
         monthly_posts_count = []
-        
-        print(monthly_date_label)
         
         for i in monthly_date_label:
             monthly_posts_count.append(Report.objects.filter(created_at__date=i).count())
@@ -121,11 +119,6 @@ def create_post(request):
         
     return render(request, 'moticom/complete.html', context)
 
-    
-#create_postのテストのためコメントアウト中
-#class CompleteView(generic.TemplateView):
-#    template_name = 'moticom/complete.html'
-    
 #
 class ProfileView(generic.TemplateView):
     template_name = 'moticom/profile.html'
@@ -147,6 +140,12 @@ class AdminView(generic.TemplateView):
 class AnalysisView(generic.TemplateView):
     template_name = 'moticom/analysis.html'
 
+#
+class Admin_BoardView(generic.ListView):
+    template_name = 'moticom/admin_board.html'
+    queryset = Report.objects.filter(
+            created_at__lte=timezone.now()
+            ).order_by('-created_at')
 #
 class UserView(generic.TemplateView):
     template_name = 'moticom/user.html'
@@ -190,7 +189,38 @@ class SortingView(generic.TemplateView):
 class LinkingView(generic.TemplateView):
     template_name = 'moticom/linking.html'
     
-    
+#
+class Cm_CreateView(generic.TemplateView):
+    template_name = 'moticom/cm_create.html'
+
+class CreativeControlMeasureView(generic.CreateView):
+    template_name = "moticom/cm_create_forms.html"
+    model         = ControlMeasure
+    form_class    = CreativeControlMeasure
+    success_url   = "/moticom/cm_create.html" #正しいところに移ったときに修正
+    def get_form(self):
+        form = super(CreativeControlMeasureView, self).get_form()
+        form.fields['cm_name'].label = '管理策名'
+        form.fields['cm_contents'].label = '管理策'
+        form.fields['genre_id'].label = 'ジャンル'
+        return form
+#管理策データ修正
+class UpdateControlMeasureView(generic.UpdateView):
+    template_name = "moticom/cm_update_form.html"
+    model         = ControlMeasure
+    form_class    = CreativeControlMeasure
+    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
+    def get_form(self):
+        form = super(UpdateControlMeasureView, self).get_form()
+        form.fields['cm_name'].label = '管理策名'
+        form.fields['cm_contents'].label = '管理策'
+        form.fields['genre_id'].label = 'ジャンル'
+        return form
+#管理策データ削除
+class DeleteControlMeasureView(generic.DeleteView):
+    template_name = "moticom/cm_delete_form.html"
+    model = ControlMeasure
+    success_url = "/moticom/cm_create" #正しいところに移ったときに修正
 
 """
 #グラフ切り替えテスト版（不要な場合は要削除）
@@ -269,3 +299,7 @@ def move_to_genre(request):
             'genres':Genre.objects.all(),
             'form':ReportForm(),
         }"""
+        
+#create_postのテストのためコメントアウト中
+#class CompleteView(generic.TemplateView):
+#    template_name = 'moticom/complete.html'

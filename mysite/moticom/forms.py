@@ -1,7 +1,7 @@
 #作成途中
 from django import forms
 
-from .models import Report, Genre
+from .models import Report, Genre, ControlMeasure
 
 class ReportForm(forms.Form):
     report_text = forms.CharField(label="",
@@ -11,7 +11,6 @@ class ReportForm(forms.Form):
                                                         'onkeyup':'ShowLength(value)',
                                                         }),
                            max_length=300)
-    
     
 
 class CreatePost(forms.ModelForm):
@@ -38,6 +37,10 @@ class AddGenre(forms.ModelForm):
         self.label_suffix = ""
         self.fields['genre_name'].widget.attrs['class'] = "form-control"
 
+class CreativeControlMeasure(forms.ModelForm):
+  class Meta:
+    model = ControlMeasure
+    fields = ("cm_name", "cm_contents", "genre_id")
 
 
 #以下seve_reportが上手く行っているため、削除の可能性あり

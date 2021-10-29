@@ -1,0 +1,15 @@
+{% extends 'moticom/base.html' %}
+{% load i18n static %}
+{% block content %}
+  <body>
+    <div class="container">
+        <h2 class="mt-4 border-bottom">管理策追加画面</h2>
+        <div></div>
+    </div>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="保存">
+    </form>
+  </body>
+{% endblock content %}
