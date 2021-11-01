@@ -14,16 +14,14 @@
             <div class="card-header">投稿画面</div>
             <div class="card-body">
               <h5 class="card-title">投稿内容</h5>
-              <textarea class="form-control" name="input_textarea" rows="5" cols="80" maxlength="300">
-                報告内容をここに表示するイメージです
-                報告内容をここに表示するイメージです
-                報告内容をここに表示するイメージです
+              <textarea class="form-control" name="input_textarea" rows="5" cols="60" maxlength="300">
+                {{ report_text }}
               </textarea>
             </div>
             <div class="mb-3 row" style="padding-left: 20px;">
               <label for="staticEmail" class="col-sm-2 col-form-label">ジャンル</label>
               <div class="col-sm-10">
-                <input class="form-control" type="text" placeholder="メール関連" aria-label="Disabled input example" disabled>
+                <input class="form-control" type="text" placeholder="{{ genre_id }}" aria-label="Disabled input example" disabled>
               </div>
             </div>
             <div class="card-footer" style="text-align: center;">

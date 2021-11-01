@@ -1,0 +1,58 @@
+{% extends 'moticom/base.html' %}
+
+{% load i18n static %}
+
+{% block content %}
+    <body>
+        <div class="container">
+            <h2 class="mt-2 border-bottom pb-2">投稿掲示板</h2>
+            <div class="d-flex flex-column pt-3" style="background: rgb(150, 200, 200)">
+                 {% if report_list %}
+                        {% for report in report_list %}
+                            <p class="ps-3 pb-3 mt-0 mb-0 small lh-sm border-bottom">
+                                <strong class="d-block">@{{ report.user_id }}</strong>
+                                <p>{{ report.report_text }}</p>
+                                {% for comment in report.comment_set.all %}
+                                <div>{{ comment.comment_text }} 
+                                    <form action="{% url 'moticom:delete_comment' %}" method='post'>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                        <input type="submit" value="削除"class="btn btn-primary" role="button">
+                                    </form>
+                                </div>
+                                {% endfor %}
+                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample{{report.id}}" role="button"
+                                aria-expanded="false" aria-controls="multiCollapseExample{{report.id}}">コメントする</a>
+                                <div class="collapse multi-collapse" id="multiCollapseExample{{report.id}}">
+                                    <div class="card card-body">
+                                        <div class="mb-3">
+                                            <label for="formGroupExampleInput" class="form-label">コメント</label>
+                                            <form action="{% url 'moticom:admin_board' %}" method='post'>
+                                                {% csrf_token %}
+                                                {{ form }}
+                                                <input type="hidden" name="report_id" value="{{ report.id }}">
+                                                <div style="padding-top: 20px;">
+                                                    <input type="submit" value="送信"class="btn btn-primary" role="button">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                        {% endfor %}
+                {% else %}
+                        <p class="pb-3 mb-0 small lh-sm border-bottom">
+                            投稿がありません
+                        </p>
+                {% endif %}
+            </div>
+        </div>
+        <script>
+        var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+        var collapseList = collapseElementList.map(function (collapseEl) {
+                                                    return new bootstrap.Collapse(collapseEl)
+                                                    }
+                                                   )
+        </script>
+    </body>
+{% endblock content %}

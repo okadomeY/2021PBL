@@ -1,0 +1,42 @@
+{% extends 'moticom/base.html' %}
+
+{% load i18n static %}
+
+{% block content %}
+    <body>
+      <div class="container">
+          <h2 class="mt-2 border-bottom pb-2">問題報告</h2>
+      </div> 
+      <div class="row justify-content-md-center">
+        <div class="col-md-6">
+          <div class="container mt-5">
+            <form action="{% url 'moticom:save_report' %}" method="post" class="card">
+              <div class="card-header">報告画面</div>
+              <div class="card-body">
+                <h5 class="card-title">ここにインシデントのタネを記入してください</h5>
+                <p class="card-text">※インシデントのタネとは？ --あわよくば事故に繋がるようなミスのこと。</p>
+                <p class="card-text">例: 機密情報を添付したメール宛先が社外の人に設定されていた等</p>
+                <!--現在未実装の為非表示
+                <p class="card-text">NGワード: ---------</p>
+                -->
+                </p>記入内容</p>
+                {% csrf_token %}
+                {{ form }}
+                <p id="inputlength">残り300字</p>
+                <script>
+                  function ShowLength(str) {
+                    document.getElementById("inputlength").innerHTML = "残り" + (300 - str.length) + "字"
+                  }
+                </script>
+              </div>
+              <div class="card-footer" style="text-align: center;">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <input type="submit" value="次へ" class="btn btn-primary" role="button">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </body>
+{% endblock content %}

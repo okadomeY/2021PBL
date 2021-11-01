@@ -6,17 +6,20 @@
     <!-- ページの共有レイアウト -->
     <body style="height: 100%; margin: 0;">
         <!-- ヘッダー -->
-        <header class="d-flex sticky-top" style="height: 40px; margin: 0; background-color:rgb(255, 150, 128);">
+        <header class="d-flex sticky-top" style="height: 5%; margin: 0; background-color:rgb(255, 150, 128);">
             <h2 class="text-white ms-3">Moticom</h2>
         </header>
         <!-- サイドバー＋ページ内容領域（内容は別HTMLファイルに書く） -->
-        <main style="display:flex; height: 100%; margin-top: 0;">
+        <main style="display:flex; height: 90%; margin-top: 0;">
             <!-- サイドバー -->
             <div class="d-flex align-items-start" id="sidebar-tabs" style="width:250px; height: 100%; background-color:rgb(255, 150, 128);">
                 <div class="nav flex-column nav-pills text-white w-100" role="tablist" aria-orientation="vertical" style="position: sticky; top: 40px;">
                     <hr>
                     <a class="nav-link active text-white" id="sidebar-analysis-tab" data-bs-toggle="pill" href="#sidebar-analysis" role="tab" aria-controls="sidebar-analysis" aria-selected="true">
                         分析結果
+                    </a>
+                    <a class="nav-link text-white" id="sidebar-board-tab" data-bs-toggle="pill" href="#sidebar-board" role="tab" aria-controls="sidebar-bpard" aria-selected="false">
+                        投稿掲示板
                     </a>
                     <a class="nav-link text-white" id="sidebar-user-tab" data-bs-toggle="pill" href="#sidebar-user" role="tab" aria-controls="sidebar-user" aria-selected="false">
                         ユーザ確認・登録
@@ -36,13 +39,19 @@
                     <a class="nav-link text-white" id="sidebar-linking-tab" data-bs-toggle="pill" href="#sidebar-linking" role="tab" aria-controls="sidebar-linking" aria-selected="false">
                         セキュリティ対策紐付・追加
                     </a>
+                    <a class="nav-link text-white" id="sidebar-cm_create-tab" data-bs-toggle="pill" href="#sidebar-cm_create" role="tab" aria-controls="sidebar-cm_create" aria-selected="false">
+                        管理策追加
+                    </a>
                     <hr>
                 </div>
             </div>
             <!-- ページ内容領域 -->
-            <div class="container-fluid tab-content"  style="overflow: scroll; overflow-y: scroll;">
+            <div class="container-fluid tab-content">
                 <div class="tab-pane fade show active w-100 h-100" id="sidebar-analysis" role="tabpanel" aria-labelledby="sidebar-analysis-tab">
                     <iframe class="w-100 h-100" src="{% url 'moticom:analysis' %}"></iframe>
+                </div>
+                <div class="tab-pane fade w-100 h-100" id="sidebar-board" role="tabpanel" aria-labelledby="sidebar-board-tab">
+                    <iframe class="w-100 h-100" src="{% url 'moticom:admin_board' %}"></iframe>
                 </div>
                 <div class="tab-pane fade w-100 h-100" id="sidebar-user" role="tabpanel" aria-labelledby="sidebar-user-tab">
                     <iframe class="w-100 h-100" src="{% url 'moticom:user' %}"></iframe>
@@ -62,10 +71,13 @@
                 <div class="tab-pane fade w-100 h-100" id="sidebar-linking" role="tabpanel" aria-labelledby="sidebar-linking-tab">
                     <iframe class="w-100 h-100" src="{% url 'moticom:linking' %}"></iframe>
                 </div>
+                <div class="tab-pane fade w-100 h-100" id="sidebar-cm_create" role="tabpanel" aria-labelledby="sidebar-cm_create-tab">
+                    <iframe class="w-100 h-100" src="{% url 'moticom:cm_create' %}"></iframe>
+                </div>
             </div>
         </main>
         <!-- フッター -->
-        <footer class="footer d-flex align-items-center mt-auto py-3 text-white-50" style="background-color:rgb(255, 150, 128);">
+        <footer class="footer mt-auto mb-0 py-3 d-flex align-items-center justify-content-center" style="height: 5%; background-color:rgb(255, 150, 128);">
             <small>&copy; 2021 奥原PBL</small>
         </footer>
     </body>
