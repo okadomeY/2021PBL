@@ -1,0 +1,16 @@
+{% extends 'moticom/base.html' %}
+{% load i18n static %}
+{% block content %}
+  <body>
+    <div class="container">
+        <h2 class="mt-4 border-bottom">管理策編集画面</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="保存">
+            <!-- helpから移送されたらcm_deleteに修正 -->
+            <a class="btn btn-primary" href="{% url 'moticom:delete' controlmeasure.pk %}" role="button">管理策を削除したいときはこちら</a>
+        </form>
+    </div>
+</body>
+{% endblock content %}

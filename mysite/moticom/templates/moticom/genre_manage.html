@@ -4,7 +4,7 @@
 
 {% block content %}
 <body>
-    <div class="container gx-5" style="padding: 100px 10px 10px 230px;">
+    <div class="container gx-5" style="padding: 50px 10px 10px">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <h1 style="padding-bottom: 20px;">ジャンル管理</h1>
@@ -20,10 +20,13 @@
               <div class="card card-body">
                 <div class="mb-3">
                   <label for="formGroupExampleInput" class="form-label">追加ジャンル</label>
-                  <input type="text" class="form-control" id="cuurent-user">
+                  <form action="{% url 'moticom:add_genre' %}" method='post'>
+                  {% csrf_token %}
+                  {{ form }}
                   <div style="padding-top: 20px;">
-                    <a class="btn btn-primary" href="#" role="button">決定</a>
+                    <input type="submit" value="追加"class="btn btn-primary" role="button">
                   </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -72,11 +75,9 @@
         <div style="padding-top: 10px;">
           <h4>ジャンル名</h4>
           <ul>
-            <li>メール系</li>
-            <li>パスワード系</li>
-            <li>持ち出し系</li>
-            <li>〇〇〇系</li>
-            <li>△△△系</li>
+          {% for genre in genre_list %}
+            <li>{{ genre }}</li>
+          {% endfor %}
           </ul>
         </div>
         <div style="text-align: center; padding-right: 500px">
