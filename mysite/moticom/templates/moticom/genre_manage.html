@@ -16,13 +16,20 @@
         </p>
         <div class="row">
           <div class="col">
+            {% if error %}
+            <div class="collapse multi-collapse show" id="multiCollapseExample1">
+            {% else %}
             <div class="collapse multi-collapse" id="multiCollapseExample1">
+            {% endif %}
               <div class="card card-body">
                 <div class="mb-3">
                   <label for="formGroupExampleInput" class="form-label">追加ジャンル</label>
                   <form action="{% url 'moticom:add_genre' %}" method='post'>
                   {% csrf_token %}
                   {{ form }}
+                  {% if error %}
+                  <p class="text-danger">{{ error }}</p>
+                  {% endif %}
                   <div style="padding-top: 20px;">
                     <input type="submit" value="追加"class="btn btn-primary" role="button">
                   </div>
