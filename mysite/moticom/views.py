@@ -192,7 +192,6 @@ class Genre_ManageView(generic.CreateView):
         context['genre_list'] = Genre.objects.all()
         return context
         
-#要改善（cm_idが空でも送信できるようにしたい）
 def create_genre(request):
     if request.method == 'POST':
         add_genre_name = request.POST.get('genre_name')
@@ -212,6 +211,11 @@ def create_genre(request):
         if form.is_valid():
             form.save()
 
+    return redirect('moticom:genre_manage')
+    
+def delete_genre(request):
+    if request.method == 'POST':
+        Genre.objects.get(id=request.POST.get('genre_id')).delete()
     return redirect('moticom:genre_manage')
 #
 class FilterView(generic.TemplateView):
