@@ -71,17 +71,14 @@ class IndexView(generic.ListView):
 
 #掲示板
 class BoardView(generic.ListView):
-    queryset = Report.objects.filter(
-            created_at__lte=timezone.now()
-            ).order_by('-created_at')
+    queryset = Report.objects.order_by('-created_at')
     template_name = 'moticom/board.html'
     
 #報告画面
 
 
 class ReportView(generic.FormView):
-#    template_name = 'moticom/report.html'
-    template_name = 'moticom/report_copy.html'
+    template_name = 'moticom/report.html'
     form_class = ReportForm
     
 #要追加→テキストが空白の場合の処理
@@ -98,11 +95,18 @@ class GenreView(generic.FormView):
 #ユーザーIDの取得と代入の必要あり
 def create_post(request):
     if request.method == 'POST':
-        form_contents = {
-            'report_text':request.session['request_text'],
-            'user_id':'1',#←暫定で"1"で適用中
-            'genre_id':request.POST.get('genre_id'),
-        }
+        if request.POST.get('anonymous'):
+            form_contents = {
+                'report_text':request.session['request_text'],
+                'user_id':'1',#←匿名用ユーザーID"1"を入れる
+                'genre_id':request.POST.get('genre_id'),
+            }
+        else:
+            form_contents = {
+                'report_text':request.session['request_text'],
+                'user_id':'2',#←暫定で"2"で適用中、本来はログインユーザーIDを取る
+                'genre_id':request.POST.get('genre_id'),
+            }
         form = CreatePost(form_contents)
         if form.is_valid():
             form.save()
@@ -188,16 +192,30 @@ class Genre_ManageView(generic.CreateView):
         context['genre_list'] = Genre.objects.all()
         return context
         
-#要改善（cm_idが空でも送信できるようにしたい）
 def create_genre(request):
     if request.method == 'POST':
-        form_addgenre = {
-            'genre_name':request.POST.get('genre_name'),
+        add_genre_name = request.POST.get('genre_name')
+        context = {
+            'genre_list': Genre.objects.all(),
+            'form': AddGenre(),
+            'error': "同名のジャンルが既に存在します",
         }
+        try:
+            Genre.objects.get(genre_name = add_genre_name)
+            return render(request, 'moticom/genre_manage.html', context)
+        except:
+            form_addgenre = {
+                'genre_name': add_genre_name,
+            }
         form = AddGenre(form_addgenre)
         if form.is_valid():
             form.save()
 
+    return redirect('moticom:genre_manage')
+    
+def delete_genre(request):
+    if request.method == 'POST':
+        Genre.objects.get(id=request.POST.get('genre_id')).delete()
     return redirect('moticom:genre_manage')
 #
 class FilterView(generic.TemplateView):
@@ -212,14 +230,15 @@ class LinkingView(generic.TemplateView):
     template_name = 'moticom/linking.html'
     
 #
-class Cm_CreateView(generic.TemplateView):
+class Cm_CreateView(generic.ListView):
     template_name = 'moticom/cm_create.html'
+    model         = ControlMeasure
 
 class CreativeControlMeasureView(generic.CreateView):
     template_name = "moticom/cm_create_forms.html"
     model         = ControlMeasure
     form_class    = CreativeControlMeasure
-    success_url   = "/moticom/cm_create.html" #正しいところに移ったときに修正
+    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
     def get_form(self):
         form = super(CreativeControlMeasureView, self).get_form()
         form.fields['cm_name'].label = '管理策名'
