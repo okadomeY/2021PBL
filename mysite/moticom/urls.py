@@ -28,6 +28,7 @@ urlpatterns = [
     path('layout', views.LayoutView.as_view(), name='layout'),
     path('genre_manage', views.Genre_ManageView.as_view(), name='genre_manage'),
     path('add_genre', views.create_genre, name='add_genre'),
+    path('delete_genre', views.delete_genre, name='delete_genre'),
     path('filter', views.FilterView.as_view(), name='filter'),
     path('sorting', views.SortingView.as_view(), name='sorting'),
     path('linking', views.LinkingView.as_view(), name='linking'),
