@@ -29,9 +29,10 @@
                     <h5 style="padding-bottom: 10px;">報告一覧</h5>
                     <div class="row justify-content-center" style="padding-bottom: 10px;">
                         <div class="col-4">
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-dark" type="submit">Search</button>
+                            <form class="d-flex"  action="{% url 'moticom:search'%}" method="POST">
+                                {% csrf_token %}
+                                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="freeword">
+                                <button class="btn btn-outline-dark" type="submit" value="search">Search</button>
                             </form>
                         </div>
                     </div>
@@ -40,44 +41,19 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="50">#</th>
-                                    <th scope="col" width="100">ganre</th>
-                                    <th scope="col" width="150">title</th>
+                                    <th scope="col" width="100">user</th>
+                                    <th scope="col" width="150">genre</th>
                                     <th scope="col" width="400">text</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>パスワード系</td>
-                                    <td>パスワード管理</td>
-                                    <td>パスワードを付箋に貼って管理していました</td>
+                            {% for report in report_list %}    
+                                 <tr>
+                                    <td>{{ report.user_id }}</td>
+                                    <td>{{ report.genre_id }}</td>
+                                    <td>{{ report.report_text }}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>メール系</td>
-                                    <td>〇〇〇</td>
-                                    <td>・・・・・・・・・・・・・・・・・・・・・・・</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>持ち出し系</td>
-                                    <td>〇〇〇〇〇〇</td>
-                                    <td>・・・・・・・・・・・・・・・・・・・・・・・・</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>〇〇〇系</td>
-                                    <td>〇〇〇〇〇〇</td>
-                                    <td>・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>△△△系</td>
-                                    <td>△△△</td>
-                                    <td>・・・・・・・・・・・・・・・・・・・・・・・・・・</td>
-                                </tr>
+                            {% endfor %}    
                             </tbody>
                         </table>
                     </div>

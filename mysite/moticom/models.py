@@ -1,12 +1,13 @@
 from django.db import models
+# ユーザー認証
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    user_name = models.CharField(max_length=50)
-    email_adress = models.CharField(max_length=255)
+class Account(models.Model):
+    user_name = models.OneToOneField(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
     pw_digest = models.CharField(max_length=130)
     def __str__(self):
-        return self.user_name
+        return self.user_name.username
     
 class ControlMeasure(models.Model):
     cm_name = models.CharField(max_length=200)
