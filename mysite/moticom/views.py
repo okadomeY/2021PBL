@@ -71,17 +71,30 @@ class IndexView(generic.ListView):
 
 #掲示板
 class BoardView(generic.ListView):
-    queryset = Report.objects.order_by('-created_at')
+    model = Report
     template_name = 'moticom/board.html'
     
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['report_list'] = Report.objects.order_by('-created_at')
+        context['genre_list'] = Genre.objects.all()
+        return context
+    
+#ジャンル別表示処理
+def genre_display(request):
+    context = {
+               'report_list':Report.objects.filter(genre_id=request.GET.get('genre_id')).order_by('-created_at'),
+               'genre_list':Genre.objects.all(),
+               }
+
+    return render(request, 'moticom/board.html', context)
+    
 #報告画面
-
-
 class ReportView(generic.FormView):
     template_name = 'moticom/report.html'
     form_class = ReportForm
     
-#要追加→テキストが空白の場合の処理
+#テキスト取得
 def save_report(request):
     request.session['request_text'] = request.POST.get('report_text')
     return redirect('moticom:genre')
@@ -110,7 +123,7 @@ def create_post(request):
         form = CreatePost(form_contents)
         if form.is_valid():
             form.save()
-            newPost = Report.objects.filter(user_id=1).order_by('-created_at')[0]
+            newPost = Report.objects.filter(user_id=2).order_by('-created_at')[0]
         else:
             return redirect('moticom:genre')
             
