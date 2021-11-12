@@ -1,16 +1,26 @@
 #作成途中
 from django import forms
+from django.core.validators import ValidationError
 
 from .models import Report, Genre, ControlMeasure, Comment
 
+#NGワード処理（要修正→NGワードをDBから取得、NGワード判定）
+def ng_word(value):
+    NG_WORDS=['アル中', 'キチガイ',]#←DBから取得するように修正が必要
+    for ng in NG_WORDS:
+        if value.find(ng) != -1:
+            raise ValidationError('禁止用語が含まれています。')
+
 class ReportForm(forms.Form):
     report_text = forms.CharField(label="",
-                           widget=forms.Textarea(attrs={'class':'form-control',
+                                  widget=forms.Textarea(attrs={'class':'form-control',
                                                         'cols':'50',
                                                         'rows':'6',
                                                         'onkeyup':'ShowLength(value)',
                                                         }),
-                           max_length=300)
+                                  max_length=300,
+                                  validators=[ng_word],
+                                 )
     
 
 class CreatePost(forms.ModelForm):

@@ -94,11 +94,22 @@ class ReportView(generic.FormView):
     template_name = 'moticom/report.html'
     form_class = ReportForm
     
+    def post(self, request, *args, **kwargs):
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            request.session['request_text'] = request.POST.get('report_text')
+            return redirect('moticom:genre')
+        else:
+            return render(request, 'moticom/report.html', {'form':form})
+    
+"""
 #テキスト取得
 def save_report(request):
     request.session['request_text'] = request.POST.get('report_text')
-    return redirect('moticom:genre')
-
+    if form.is_valid():
+        return redirect('moticom:genre')
+    
+"""
 
 class GenreView(generic.FormView):
     template_name = 'moticom/genre.html'
