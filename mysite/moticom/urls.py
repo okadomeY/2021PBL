@@ -11,8 +11,9 @@ urlpatterns = [
 #    path('charts', views.Chart_Sw, name='chart'),
 
     path('board', views.BoardView.as_view(), name='board'),
+    path('genre_display', views.genre_display, name='genre_display'),
     path('report', views.ReportView.as_view(), name='report'),
-    path('save_report', views.save_report, name='save_report'),
+#    path('save_report', views.save_report, name='save_report'),
     path('genre', views.GenreView.as_view(), name='genre'),
     path('complete', views.create_post, name='complete'),
     path('profile', views.ProfileView.as_view(), name='profile'),
