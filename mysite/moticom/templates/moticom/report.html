@@ -10,7 +10,7 @@
       <div class="row justify-content-md-center">
         <div class="col-md-6">
           <div class="container mt-5">
-            <form action="{% url 'moticom:save_report' %}" method="post" class="card">
+            <form action="{% url 'moticom:report' %}" method="post" class="card">
               <div class="card-header">報告画面</div>
               <div class="card-body">
                 <h5 class="card-title">ここにインシデントのタネを記入してください</h5>
@@ -29,6 +29,13 @@
                   }
                 </script>
               </div>
+              {% if form.errors %}
+                <ul>
+                  {% for error in form.non_field_errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
               <div class="card-footer" style="text-align: center;">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <input type="submit" value="次へ" class="btn btn-primary" role="button">
