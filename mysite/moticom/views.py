@@ -4,6 +4,7 @@ import json
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.views import LoginView
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -21,6 +22,11 @@ class TopView(generic.TemplateView):
     template_name = 'moticom/main.html'
 
 #各ページ内容表示用
+#ログイン画面
+
+class login(LoginView):
+    template_name = 'moticom/login.html'
+
 #TOP
 class IndexView(generic.ListView):
     template_name = 'moticom/index.html'
