@@ -1,12 +1,12 @@
 from django.urls import path
-
+from django.contrib.auth.views import LogoutView
 from . import views
 
 app_name = 'moticom'
 urlpatterns = [
     path('', views.TopView.as_view(), name='main'),
     path('index', views.IndexView.as_view(), name='index'),
-    path('login', views.login.as_view(), name='login'),
+
 #    chart表示用test
 #    path('charts', views.Chart_Sw, name='chart'),
 

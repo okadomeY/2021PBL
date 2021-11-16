@@ -110,15 +110,13 @@
                     </script>
             </div>
             <h2 class="mt-2 border-bottom pb-2">新着投稿</h2>
-            <div class="d-flex flex-column pt-3">
+            <div class="d-flex flex-column pt-3" style="background: rgb(150, 200, 200)">
                  {% if latest_report_list %}
                         {% for report in latest_report_list %}
-                            <div class="card" style="background: rgb(150, 200, 200)">
-                                <p class="ps-3 pb-3 mt-0 mb-0 small lh-sm border-bottom">
-                                    <strong class="d-block">@{{ report.user_id }}</strong>
-                                    {{ report.report_text }}
-                                </p>
-                            </div>
+                            <p class="ps-3 pb-3 mt-0 mb-0 small lh-sm border-bottom">
+                                <strong class="d-block">@{{ report.user_id }}</strong>
+                                {{ report.report_text }}
+                            </p>
                         {% endfor %}
                 {% else %}
                         <p class="pb-3 mb-0 small lh-sm border-bottom">

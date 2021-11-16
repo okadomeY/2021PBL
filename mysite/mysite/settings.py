@@ -134,3 +134,11 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 X_FRAME_OPTIONS = 'ON' 
+
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = 'moticom:main'
+
+LOGOUT_URL = '/logout/'
+
+LOGOUT_REDIRECT_URL = '/login/'
