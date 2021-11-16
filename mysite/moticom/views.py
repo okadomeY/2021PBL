@@ -7,6 +7,8 @@ from django.utils import timezone
 from django.contrib.auth.views import LoginView
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
+from moticom.forms import UserCreationForm
+from django.contrib import messages
 
 from .models import Report, Genre, ControlMeasure, Comment
 from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment
@@ -23,9 +25,21 @@ class TopView(generic.TemplateView):
 
 #各ページ内容表示用
 #ログイン画面
-
 class login(LoginView):
-    template_name = 'moticom/login.html'
+    template_name = 'moticom/auth.html'
+
+#ユーザ作成
+def signup(request):
+    context = {}
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            #user.is_active = False
+            user.save()
+            messages.success(request, '登録完了！！！')
+            return redirect('moticom:main')
+    return render(request, 'moticom/auth.html', context)
 
 #TOP
 class IndexView(generic.ListView):
