@@ -1,6 +1,7 @@
 #作成途中
 from django import forms
 from django.core.validators import ValidationError
+from django.contrib.auth import get_user_model
 
 from .models import Report, Genre, ControlMeasure, Comment
 
@@ -62,3 +63,21 @@ class CreateComment(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
+        
+class UserCreationForm(forms.ModelForm):
+    password = forms.CharField()
+
+    class Meta:
+        model = get_user_model()
+        fields = ('email',)
+    
+    def clean_password(self):
+        password = self.cleaned_data.get("password")
+        return password
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
