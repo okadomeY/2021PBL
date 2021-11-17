@@ -24,62 +24,51 @@
             <div class="card" style="width: 45rem;">
                 <div class="card-body">
                     <h4 class="card-title">NGワードリスト</h4>
+                    {% for ng in ngword_list %}
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal-1">
-                        NGワード１
+                        data-bs-target="#exampleModal-{{ng.id}}">
+                        {{ ng }}
                     </button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal-2">
-                        NGワード２
-                    </button>
+                    {% endfor %}
                 </div>
             </div>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal-1" tabindex="-1" aria-labelledby="exampleModalLabel-1"
+        {% for ng in ngword_list %}
+        <div class="modal fade" id="exampleModal-{{ng.id}}" tabindex="-1" aria-labelledby="exampleModalLabel-{{ng.id}}"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel-1">NGワード</h5>
+                        <h5 class="modal-title" id="exampleModalLabel-{{ng.id}}">NGワード</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        NGワード１
+                        {{ ng }}
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Delete</button>
-                    </div>
+                    <form action="{% url 'moticom:delete_NGword' %}" method="post">
+                        <div class="modal-footer">
+                            {% csrf_token %}
+                            <input type="hidden" name="ngword_id" value="{{ng.id}}">
+                            <input type="submit" value="削除" class="btn btn-primary" data-bs-dismiss="modal">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <div class="modal fade" id="exampleModal-2" tabindex="-1" aria-labelledby="exampleModalLabel-2"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel-2">NGワード</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        NGワード２
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
 
         <div class="row g-3" style="padding-top: 20px;">
-            <div class="col">
-                <input type="text" class="form-control" aria-label="NG-Word">
-            </div>
-            <div class="col">
-                <a class="btn btn-primary" href="#" role="button">追加する</a>
-            </div>
+            <form action="{% url 'moticom:filter' %}" method="post">
+                <div class="col">
+                    {% csrf_token %}
+                    {{ form }}
+                </div>
+                <div class="col">
+                    <input type="submit" value="追加する" class="btn btn-primary" role="button">
+                </div>
+            </form>
         </div>
         <div style="text-align: center; padding-left: 30%; padding-top:30px;">
             <a class="btn btn-primary" href="#" role="button">topへ</a>

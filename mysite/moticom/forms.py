@@ -3,11 +3,12 @@ from django import forms
 from django.core.validators import ValidationError
 from django.contrib.auth import get_user_model
 
-from .models import Report, Genre, ControlMeasure, Comment
+from .models import Report, Genre, ControlMeasure, Comment, NGWord
 
 #NGワード処理（要修正→NGワードをDBから取得、NGワード判定）
 def ng_word(value):
-    NG_WORDS=['アル中', 'キチガイ',]#←DBから取得するように修正が必要
+    NG_WORDS=NGWord.objects.all().values_list('ng_words', flat=True)#←DBから取得するように修正が必要
+    print(NG_WORDS)
     for ng in NG_WORDS:
         if value.find(ng) != -1:
             raise ValidationError('禁止用語が含まれています。')
@@ -63,7 +64,7 @@ class CreateComment(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
-        
+
 class UserCreationForm(forms.ModelForm):
     password = forms.CharField()
 
@@ -81,3 +82,10 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class AddNgWord(forms.ModelForm):
+    class Meta:
+        model = NGWord
+        fields = ('ng_words',)
+        labels = {'ng_words':"",}
+        

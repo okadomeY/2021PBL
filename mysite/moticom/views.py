@@ -10,8 +10,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from moticom.forms import UserCreationForm
 from django.contrib import messages
 
-from .models import Report, Genre, ControlMeasure, Comment
-from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment
+from .models import Report, Genre, ControlMeasure, Comment, NGWord
+from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment, AddNgWord
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -261,10 +261,30 @@ def delete_genre(request):
     if request.method == 'POST':
         Genre.objects.get(id=request.POST.get('genre_id')).delete()
     return redirect('moticom:genre_manage')
-#
-class FilterView(generic.TemplateView):
+
+#NGワード追加
+class FilterView(generic.FormView):
     template_name = 'moticom/filter.html'
+    model = NGWord
+    form_class = AddNgWord
     
+    def post(self, request, *args, **kwargs):
+        form = AddNgWord(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('moticom:filter')
+        
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['ngword_list'] = NGWord.objects.all()
+        return context
+        
+#NGワード削除
+def delete_NGword(request):
+    if request.method == 'POST':
+        NGWord.objects.get(id=request.POST.get('ngword_id')).delete()
+    return redirect('moticom:filter')
+
 #
 class SortingView(generic.TemplateView):
     template_name = 'moticom/sorting.html'

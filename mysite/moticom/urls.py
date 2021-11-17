@@ -1,5 +1,5 @@
 from django.urls import path
-from django.contrib.auth.views import LogoutView
+
 from . import views
 
 app_name = 'moticom'
@@ -13,7 +13,6 @@ urlpatterns = [
     path('board', views.BoardView.as_view(), name='board'),
     path('genre_display', views.genre_display, name='genre_display'),
     path('report', views.ReportView.as_view(), name='report'),
-#    path('save_report', views.save_report, name='save_report'),
     path('genre', views.GenreView.as_view(), name='genre'),
     path('complete', views.create_post, name='complete'),
     path('profile', views.ProfileView.as_view(), name='profile'),
@@ -31,6 +30,7 @@ urlpatterns = [
     path('add_genre', views.create_genre, name='add_genre'),
     path('delete_genre', views.delete_genre, name='delete_genre'),
     path('filter', views.FilterView.as_view(), name='filter'),
+    path('delete_NGword', views.delete_NGword, name='delete_NGword'),
     path('sorting', views.SortingView.as_view(), name='sorting'),
     path('linking', views.LinkingView.as_view(), name='linking'),
     path('cm_create', views.Cm_CreateView.as_view(), name='cm_create'),
@@ -38,7 +38,3 @@ urlpatterns = [
     path('<int:pk>/update', views.UpdateControlMeasureView.as_view(), name='update'), #正しいところに移ったらcm_updateに修正
     path('<int:pk>/delete', views.DeleteControlMeasureView.as_view(), name='delete'), #正しいところに移ったらcm_deleteに修正
     ]
-    
-    
-#フォーム表示用move_to_genreが上手く行けば不要
-#    path('report', views.report_form, name='report'),
