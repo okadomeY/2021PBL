@@ -23,14 +23,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">username</th>
-                                <th scope="col">Email</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for user in user_list %}    
                                 <tr>
-                                    <td>{{ user.user_name }}</td>
-                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.username }}</td>
                                 </tr>
                             {% endfor %}  
                         </tbody>

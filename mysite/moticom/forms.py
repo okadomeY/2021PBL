@@ -3,7 +3,7 @@ from django import forms
 
 from .models import Report, Genre, Account
 
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 
 from django.contrib.auth.models import User
 
@@ -88,7 +88,7 @@ class SearchForm(forms.Form):
 
 class AccountForm(forms.ModelForm):
     # パスワード入力：非表示対応
-    #password = forms.CharField(widget=forms.PasswordInput(),label="パスワード")
+    password = forms.CharField(widget=forms.PasswordInput(),label="パスワード")
 
     class Meta():
         # ユーザー認証
@@ -104,3 +104,12 @@ class AccountForm(forms.ModelForm):
 #        model = Account
 #        fields = ('user_name',)
 #        labels = {'user_name':"名前",}
+
+
+class MyPasswordChangeForm(PasswordChangeForm):
+    """パスワード変更フォーム"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'

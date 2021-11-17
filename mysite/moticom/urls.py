@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+from django.contrib.auth import views as auth_views
+
 app_name = 'moticom'
 urlpatterns = [
     path('', views.TopView.as_view(), name='main'),
@@ -33,8 +35,8 @@ urlpatterns = [
     #管理者用ページ↓
     path('admin', views.AdminView.as_view(), name='admin'),
     path('analysis', views.AnalysisView.as_view(), name='analysis'),
-    #path('user', views.UserView.as_view(), name='user'),
-    path('user', views.user, name='user'),
+    path('user', views.UserView.as_view(), name='user'),
+    #path('user', views.user, name='user'),
     path('layout', views.LayoutView.as_view(), name='layout'),
     path('genre_manage', views.Genre_ManageView.as_view(), name='genre_manage'),
     path('add_genre', views.create_genre, name='add_genre'),
@@ -43,11 +45,16 @@ urlpatterns = [
     path('linking', views.LinkingView.as_view(), name='linking'),
     path('search', views.Search, name='search'),
     #path('sorting', views.SortingView.as_view(), name='sorting'),
-    path('login', views.Login, name='login'),
+    path('login/', views.Login, name='login'),
     path('logout', views.Logout.as_view(), name='logout'),
     path('signup', views.SignUp.as_view(), name='signup'),
+    #path('password_change', views.PasswordChange.as_view(), name='password_change'), #パスワード変更
+    #path('password_change/done', views.PasswordChangeDone.as_view(), name='password_change_done'), #パスワード完了
+    path('password_change/', views.PasswordChange.as_view(), name='password_change'),
+    path('password_change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
+    #path('change_password/', auth_views.PasswordChangeView.as_view(template_name='moticom/password_change.html', success_url = '/'),name='password_change'),
+   
     ]
-    
-    
+
 #フォーム表示用move_to_genreが上手く行けば不要
 #    path('report', views.report_form, name='report'),

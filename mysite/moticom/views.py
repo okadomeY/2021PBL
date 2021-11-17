@@ -10,20 +10,20 @@ from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy, reverse
 
 from .models import Report, Genre, Account
-from .forms import ReportForm, CreatePost, AddGenre, SearchForm#, LoginForm
+from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm#LoginForm
 from django.db.models import Q
 from django.contrib import messages
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView, PasswordChangeDoneView
 
-from django.contrib.auth import login
 from django.views.generic.edit import CreateView
 
 from django.contrib.auth.decorators import login_required
 
 from .forms import AccountForm#, AddAccountForm # ユーザーアカウントフォーム
-from django.contrib.auth import authenticate
 
 from django.contrib.auth import authenticate, login, logout
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -34,8 +34,13 @@ fd = d.replace(day=1)
 ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
 #各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
-class TopView(generic.TemplateView):
+class TopView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'moticom/main.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
+        context["form_name"] = "main"
+        return context
 
 #各ページ内容表示用
 #TOP
@@ -206,10 +211,15 @@ class AnalysisView(generic.TemplateView):
 #class UserView(generic.TemplateView):
 #      template_name = 'moticom/user.html'
 
-def user(request):
-    user_list = Account.objects.all()
-    params = {'user_list':user_list}
-    return render(request, 'moticom/user.html', params)
+#def user(request):
+#    user_list = Account.objects.all()
+#    params = {'user_list':user_list}
+#    return render(request, 'moticom/user.html', params)
+
+class UserView(ListView):
+    template_name = 'moticom/user.html'
+    model = Account
+    context_object_name = 'user_list'
 
 #
 class LayoutView(generic.TemplateView):
@@ -371,3 +381,29 @@ class  SignUp(generic.TemplateView):
             print(self.params["account_form"].errors)
 
         return render(request,"moticom/signup.html",context=self.params)
+        
+
+#class PasswordChange(LoginRequiredMixin, PasswordChangeView):
+#    """パスワード変更ビュー"""
+#    success_url = reverse_lazy('moticom:password_change_done')
+#    template_name = 'moticom/password_change.html'
+
+#    def get_context_data(self, **kwargs):
+#        context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
+#        context["form_name"] = "password_change"
+#        return context
+
+#class PasswordChangeDone(LoginRequiredMixin,PasswordChangeDoneView):
+#    """パスワード変更完了"""
+#    template_name = 'moticom/password_change_done.html'
+
+class PasswordChange(PasswordChangeView):
+    """パスワード変更ビュー"""
+    form_class = MyPasswordChangeForm
+    success_url = reverse_lazy('moticom:password_change_done')
+    template_name = 'moticom/password_change.html'
+
+
+class PasswordChangeDone(PasswordChangeDoneView):
+    """パスワード変更しました"""
+    template_name = 'moticom/password_change_done.html'
