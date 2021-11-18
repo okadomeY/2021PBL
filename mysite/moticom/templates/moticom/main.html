@@ -7,7 +7,12 @@
     <body style="height: 100%; margin: 0;">
         <!-- ヘッダー -->
         <header class="d-flex sticky-top" style="height: 5%; margin: 0; background-color:rgb(255, 150, 128);">
-            <h2 class="text-white ms-3">Moticom</h2>
+            <div>
+                <h2 class="text-white ms-3">Moticom</h2>
+            </div>
+            <div style="text-align: center; padding-left: 80%;">
+                 <a class="btn btn-outline-primary" type="button"  href="{% url 'moticom:logout' %}">logout</a>
+            </div>
         </header>
         <!-- サイドバー＋ページ内容領域（内容は別HTMLファイルに書く） -->
         <main style="display:flex; height: 90%; margin-top: 0;">
@@ -36,7 +41,13 @@
                     <a class="nav-link text-white" id="sidebar-help-tab" data-bs-toggle="pill" href="#sidebar-help" role="tab" aria-controls="sidebar-help" aria-selected="false">
                         ヘルプ
                     </a>
+<<<<<<< HEAD
                     -->
+=======
+                     <a class="nav-link text-white" id="sidebar-logout-tab" data-bs-toggle="pill" href="#sidebar-logout" role="tab" aria-controls="sidebar-logout" aria-selected="false">
+                        ログアウト
+                    </a>
+>>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
                     <hr>
                 </div>
             </div>
@@ -61,6 +72,9 @@
                 </div>
                 <div class="tab-pane fade w-100 h-100" id="sidebar-help" role="tabpanel" aria-labelledby="sidebar-help-tab">
                     <iframe class="w-100 h-100" src="{% url 'moticom:help' %}"></iframe>
+                </div>
+                <div class="tab-pane fade w-100 h-100" id="sidebar-logout" role="tabpanel" aria-labelledby="sidebar-logout-tab">
+                    <iframe class="w-100 h-100" src="{% url 'moticom:logout' %}"></iframe>
                 </div>
             </div>
         </main>

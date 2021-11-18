@@ -1,0 +1,55 @@
+{% extends "moticom/base.html" %}
+
+{% load i18n static %}
+
+{% block extra_css %}
+<style>
+    div.overflow-auto {
+        width: 700px;
+        height: 200px;
+        overflow: auto;
+    }
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+    table td {
+        overflow-wrap: break-word;
+    }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<body>
+    <div class="container gx-5" style="padding: 10px 10px 10px 10px;">
+        <h2 class="mt-2 border-bottom pb-2">報告再振り分け</h2>
+        <div style="padding-top: 20px;">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h5 style="padding-bottom: 10px;">検索結果</h5>
+                    <div class="overflow-auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="100">user</th>
+                                    <th scope="col" width="150">genre</th>
+                                    <th scope="col" width="400">text</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for report in search_list %}    
+                                 <tr>
+                                    <td>{{ report.user_id }}</td>
+                                    <td>{{ report.genre_id }}</td>
+                                    <td>{{ report.report_text }}</td>
+                                </tr>
+                            {% endfor %}    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}
