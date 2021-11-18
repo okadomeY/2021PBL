@@ -1,10 +1,11 @@
 #作成途中
 from django import forms
-<<<<<<< HEAD
 from django.core.validators import ValidationError
 from django.contrib.auth import get_user_model
+from .models import Report, Genre, ControlMeasure, Comment, NGWord, Account
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.models import User
 
-from .models import Report, Genre, ControlMeasure, Comment, NGWord
 
 #NGワード処理（要修正→NGワードをDBから取得、NGワード判定）
 def ng_word(value):
@@ -16,32 +17,14 @@ def ng_word(value):
 
 class ReportForm(forms.Form):
     report_text = forms.CharField(label="",
-                                  widget=forms.Textarea(attrs={'class':'form-control',
-=======
-
-from .models import Report, Genre, Account
-
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-
-from django.contrib.auth.models import User
-
-
-class ReportForm(forms.Form):
-    report_text = forms.CharField(label="",
                            widget=forms.Textarea(attrs={'class':'form-control',
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
                                                         'cols':'50',
                                                         'rows':'6',
                                                         'onkeyup':'ShowLength(value)',
                                                         }),
-<<<<<<< HEAD
                                   max_length=300,
                                   validators=[ng_word],
                                  )
-=======
-                           max_length=300)
-    
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
     
 
 class CreatePost(forms.ModelForm):
@@ -68,7 +51,6 @@ class AddGenre(forms.ModelForm):
         self.label_suffix = ""
         self.fields['genre_name'].widget.attrs['class'] = "form-control"
 
-<<<<<<< HEAD
 class CreativeControlMeasure(forms.ModelForm):
     class Meta:
         model = ControlMeasure
@@ -109,7 +91,6 @@ class AddNgWord(forms.ModelForm):
         fields = ('ng_words',)
         labels = {'ng_words':"",}
         
-=======
 
 
 #以下seve_reportが上手く行っているため、削除の可能性あり
@@ -180,4 +161,3 @@ class MyPasswordChangeForm(PasswordChangeForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451

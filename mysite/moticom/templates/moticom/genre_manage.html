@@ -27,12 +27,9 @@
                   <form action="{% url 'moticom:add_genre' %}" method='post'>
                   {% csrf_token %}
                   {{ form }}
-<<<<<<< HEAD
                   {% if error %}
                   <p class="text-danger">{{ error }}</p>
                   {% endif %}
-=======
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
                   <div style="padding-top: 20px;">
                     <input type="submit" value="追加"class="btn btn-primary" role="button">
                   </div>
