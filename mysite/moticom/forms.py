@@ -1,5 +1,6 @@
 #作成途中
 from django import forms
+<<<<<<< HEAD
 from django.core.validators import ValidationError
 from django.contrib.auth import get_user_model
 
@@ -16,13 +17,31 @@ def ng_word(value):
 class ReportForm(forms.Form):
     report_text = forms.CharField(label="",
                                   widget=forms.Textarea(attrs={'class':'form-control',
+=======
+
+from .models import Report, Genre, Account
+
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+
+from django.contrib.auth.models import User
+
+
+class ReportForm(forms.Form):
+    report_text = forms.CharField(label="",
+                           widget=forms.Textarea(attrs={'class':'form-control',
+>>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
                                                         'cols':'50',
                                                         'rows':'6',
                                                         'onkeyup':'ShowLength(value)',
                                                         }),
+<<<<<<< HEAD
                                   max_length=300,
                                   validators=[ng_word],
                                  )
+=======
+                           max_length=300)
+    
+>>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
     
 
 class CreatePost(forms.ModelForm):
@@ -49,6 +68,7 @@ class AddGenre(forms.ModelForm):
         self.label_suffix = ""
         self.fields['genre_name'].widget.attrs['class'] = "form-control"
 
+<<<<<<< HEAD
 class CreativeControlMeasure(forms.ModelForm):
     class Meta:
         model = ControlMeasure
@@ -89,3 +109,75 @@ class AddNgWord(forms.ModelForm):
         fields = ('ng_words',)
         labels = {'ng_words':"",}
         
+=======
+
+
+#以下seve_reportが上手く行っているため、削除の可能性あり
+#    text = forms.CharField(label="", widget=forms.Textarea, max_length=300)
+"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.label_suffix = ""
+        self.fields['report_text'].widget.attrs['class'] = "form-control"
+        self.fields['report_text'].widget.attrs['cols'] = "50"
+        self.fields['report_text'].widget.attrs['rows'] = "6"
+        self.fields['report_text'].widget.attrs['onkeyup'] = 'ShowLength(value)'
+        self.fields['report_text'].widget = forms.Textarea
+"""
+
+class SearchForm(forms.Form):
+    freeword = forms.CharField(min_length=1, max_length=20, label='', required=False)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+#class LoginForm(AuthenticationForm):
+#    def __init__(self, *args, **kwargs):
+#        super().__init__(*args, **kwargs)
+#        
+#        for field in self.fields.values():
+#            field.widget.attrs['class'] = 'form-control'
+
+        
+#class SignUpForm(UserCreationForm):
+#
+#    class Meta:
+#        model = User
+#        if User.USERNAME_FIELD == 'email':
+#            fields = ('email',)
+#        else:
+#            fields = ('username', 'email')
+#
+#    def __init__(self, *args, **kwargs):
+#        super().__init__(*args, **kwargs)
+#        for field in self.fields.values():
+#            field.widget.attrs['class'] = 'form-control'
+
+class AccountForm(forms.ModelForm):
+    # パスワード入力：非表示対応
+    password = forms.CharField(widget=forms.PasswordInput(),label="パスワード")
+
+    class Meta():
+        # ユーザー認証
+        model = User
+        # フィールド指定
+        fields = ('username','email','password')
+        # フィールド名指定
+        labels = {'username':"ユーザーID",'email':"メール"}
+
+#class AddAccountForm(forms.ModelForm):
+#    class Meta():
+#        # モデルクラスを指定
+#        model = Account
+#        fields = ('user_name',)
+#        labels = {'user_name':"名前",}
+
+
+class MyPasswordChangeForm(PasswordChangeForm):
+    """パスワード変更フォーム"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+>>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451

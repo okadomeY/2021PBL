@@ -88,8 +88,6 @@ DATABASES = {
 }
 
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -99,6 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS':{"min_length":8},
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -133,6 +132,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+<<<<<<< HEAD
 X_FRAME_OPTIONS = 'ON' 
 
 LOGIN_URL = 'moticom:login'
@@ -153,3 +153,10 @@ MESSAGE_TAGS = {
     messages.DEBUG: 'rounded-0 alert alert-secondary',
  }
 # --------- massage tab with bootstrap alert class ---------------------
+=======
+X_FRAME_OPTIONS = 'ON'
+
+# ログイン機能の追加
+#LOGIN_URL = 'moticom:login'
+#LOGIN_REDIRECT_URL = 'moticom:main'
+>>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
