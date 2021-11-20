@@ -13,12 +13,9 @@ urlpatterns = [
 #    path('charts', views.Chart_Sw, name='chart'),
 
     path('board', views.BoardView.as_view(), name='board'),
-<<<<<<< HEAD
     path('genre_display', views.genre_display, name='genre_display'),
-=======
 
 #フォーム表示の為一時除外（現在：解除中）
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
     path('report', views.ReportView.as_view(), name='report'),
 
 #move_to_genreでは後続の処理に対応できなかったため、削除予定
@@ -29,12 +26,9 @@ urlpatterns = [
 #save_reportのテストのためコメントアウト中
 #    path('genre', views.GenreView.as_view(), name='genre'),
     path('genre', views.GenreView.as_view(), name='genre'),
-<<<<<<< HEAD
-=======
 
 #create_postのテストのためコメントアウト中
 #    path('complete', views.CompleteView.as_view(), name='complete'),
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
     path('complete', views.create_post, name='complete'),
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('complaints', views.ComplaintsView.as_view(), name='complaints'),
@@ -50,18 +44,12 @@ urlpatterns = [
     path('layout', views.LayoutView.as_view(), name='layout'),
     path('genre_manage', views.Genre_ManageView.as_view(), name='genre_manage'),
     path('add_genre', views.create_genre, name='add_genre'),
-<<<<<<< HEAD
     path('delete_genre', views.delete_genre, name='delete_genre'),
-    path('filter', views.FilterView.as_view(), name='filter'),
     path('delete_NGword', views.delete_NGword, name='delete_NGword'),
-    path('sorting', views.SortingView.as_view(), name='sorting'),
-    path('linking', views.LinkingView.as_view(), name='linking'),
     path('cm_create', views.Cm_CreateView.as_view(), name='cm_create'),
     path('create', views.CreativeControlMeasureView.as_view(), name='create'),#正しいところに移ったらcm_createに修正
     path('<int:pk>/update', views.UpdateControlMeasureView.as_view(), name='update'), #正しいところに移ったらcm_updateに修正
     path('<int:pk>/delete', views.DeleteControlMeasureView.as_view(), name='delete'), #正しいところに移ったらcm_deleteに修正
-    ]
-=======
     path('filter', views.FilterView.as_view(), name='filter'),
     path('sorting', views.sorting, name='sorting'),
     path('linking', views.LinkingView.as_view(), name='linking'),
@@ -78,6 +66,6 @@ urlpatterns = [
    
     ]
 
+
 #フォーム表示用move_to_genreが上手く行けば不要
 #    path('report', views.report_form, name='report'),
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451

@@ -7,34 +7,23 @@ from django.utils import timezone
 from django.contrib.auth.views import LoginView
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
-<<<<<<< HEAD
 from moticom.forms import UserCreationForm
 from django.contrib import messages
-
 from .models import Report, Genre, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment, AddNgWord
-=======
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy, reverse
-
 from .models import Report, Genre, Account
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm#LoginForm
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView, PasswordChangeDoneView
-
 from django.views.generic.edit import CreateView
-
 from django.contrib.auth.decorators import login_required
-
 from .forms import AccountForm#, AddAccountForm # ユーザーアカウントフォーム
-
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -42,8 +31,8 @@ yd = (d - datetime.timedelta(days=1))
 fd = d.replace(day=1)
 ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
-#各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
-class TopView(LoginRequiredMixin, generic.TemplateView):
+#各ページ共通部品表示用（ヘッダー・フッター・サイドバー）LoginRequiredMixin, 
+class TopView(generic.TemplateView):
     template_name = 'moticom/main.html'
     
     def get_context_data(self, **kwargs):
@@ -119,14 +108,11 @@ class IndexView(generic.ListView):
 
 #掲示板
 class BoardView(generic.ListView):
-<<<<<<< HEAD
     model = Report
-=======
     context_object_name = 'latest_report_list'
     queryset = Report.objects.filter(
             created_at__lte=timezone.now()
             ).order_by('-created_at')
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
     template_name = 'moticom/board.html'
     
     def get_context_data(self):
@@ -145,7 +131,7 @@ def genre_display(request):
     return render(request, 'moticom/board.html', context)
     
 #報告画面
-<<<<<<< HEAD
+
 class ReportView(generic.FormView):
     template_name = 'moticom/report.html'
     form_class = ReportForm
@@ -171,26 +157,14 @@ class GenreView(generic.FormView):
     template_name = 'moticom/genre.html'
     model = Genre
     form_class = CreatePost
-=======
-class ReportView(generic.TemplateView):
-#    template_name = 'moticom/report.html'
-    template_name = 'moticom/report_copy.html'
-    form_class = ReportForm
-    
-    
-    
+
+
 #要追加→テキストが空白の場合の処理
 def save_report(request):
     request.session['request_text'] = request.POST.get('report_text')
     return redirect('moticom:genre')
         
         
-#
-class GenreView(generic.TemplateView):
-    template_name = 'moticom/genre.html'
-    model = Genre
-    form_class = CreatePost
-    
 
 #ユーザーIDの取得と代入の必要あり
 def create_post(request):
@@ -217,8 +191,7 @@ def create_post(request):
 #
 #class CompleteView(generic.TemplateView):
 #    template_name = 'moticom/complete.html'
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
-    
+
 #ユーザーIDの取得と代入の必要あり
 def create_post(request):
     if request.method == 'POST':
@@ -323,9 +296,6 @@ class Genre_ManageView(generic.CreateView):
     model = Genre
     form_class = AddGenre
     success_url = 'moticom/genre_manage.html'
-<<<<<<< HEAD
-=======
-    
     def get_context_data(self):
         context = super().get_context_data()
         context['genre_list'] = Genre.objects.all()
@@ -341,8 +311,7 @@ def create_genre(request):
             form.save()
 
     return redirect('moticom:genre_manage')
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
-    
+
     def get_context_data(self):
         context = super().get_context_data()
         context['genre_list'] = Genre.objects.all()
@@ -407,7 +376,6 @@ def sorting(request):
 class LinkingView(generic.TemplateView):
     template_name = 'moticom/linking.html'
     
-<<<<<<< HEAD
 #
 class Cm_CreateView(generic.ListView):
     template_name = 'moticom/cm_create.html'
@@ -441,7 +409,7 @@ class DeleteControlMeasureView(generic.DeleteView):
     template_name = "moticom/cm_delete_form.html"
     model = ControlMeasure
     success_url = "/moticom/cm_create" #正しいところに移ったときに修正
-=======
+
 def Search(request):
     if request.method == 'POST':
         searchform = SearchForm(request.POST)
@@ -587,4 +555,3 @@ class PasswordChange(PasswordChangeView):
 class PasswordChangeDone(PasswordChangeDoneView):
     """パスワード変更しました"""
     template_name = 'moticom/password_change_done.html'
->>>>>>> e083bf5f4462247b5f994f65cd34c400cf2d1451
