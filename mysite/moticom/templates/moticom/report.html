@@ -10,15 +10,18 @@
       <div class="row justify-content-md-center">
         <div class="col-md-6">
           <div class="container mt-5">
-            <form class="card">
+            <form action="{% url 'moticom:report' %}" method="post" class="card">
               <div class="card-header">報告画面</div>
               <div class="card-body">
                 <h5 class="card-title">ここにインシデントのタネを記入してください</h5>
                 <p class="card-text">※インシデントのタネとは？ --あわよくば事故に繋がるようなミスのこと。</p>
                 <p class="card-text">例: 機密情報を添付したメール宛先が社外の人に設定されていた等</p>
+                <!--現在未実装の為非表示
                 <p class="card-text">NGワード: ---------</p>
-                <label class="form-label">記入内容</label>
-                <textarea  class="form-control" id="report_text" cols="50" rows="6" maxlength="300" onkeyup="ShowLength(value);"></textarea>
+                -->
+                </p>記入内容</p>
+                {% csrf_token %}
+                {{ form }}
                 <p id="inputlength">残り300字</p>
                 <script>
                   function ShowLength(str) {
@@ -26,9 +29,16 @@
                   }
                 </script>
               </div>
+              {% if form.errors %}
+                <ul>
+                  {% for error in form.non_field_errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
               <div class="card-footer" style="text-align: center;">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <a class="btn btn-primary" href="{% url 'moticom:genre' %}" role="button">次へ</a>
+                  <input type="submit" value="次へ" class="btn btn-primary" role="button">
                 </div>
               </div>
             </form>

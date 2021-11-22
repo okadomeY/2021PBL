@@ -1,0 +1,16 @@
+{% extends 'moticom/base.html' %}
+{% load i18n static %}
+{% block content %}
+    <body>
+        <div class="container">
+            <h2 class="mt-4 border-bottom">管理策削除画面</h2>
+            <form method="post">
+              {% csrf_token %}
+              <p>{{ controlmeasure.cm_name }}/{{ controlmeasure.cm_contents }}/{{ controlmeasure.genre_id }}を削除しますか？</p>
+              <!-- help から正しいところに置かれたら cm_update に修正 -->
+              <a class="btn btn-primary" href="{% url 'moticom:update' controlmeasure.pk %}" role="button">戻る</a>
+              <input type="submit" value="削除する">
+            </form>
+        </div>
+    </body>
+{% endblock content %}
