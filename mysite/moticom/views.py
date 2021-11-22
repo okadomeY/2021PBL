@@ -17,12 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
-
-
-
-
-
-
+from .functions import get_charts_count
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -31,7 +26,7 @@ fd = d.replace(day=1)
 ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
 #各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
-class TopView(TemplateView):#(LoginRequiredMixin, TemplateView):
+class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
     template_name = 'moticom/main.html'
     
     def get_context_data(self, **kwargs):
@@ -41,7 +36,7 @@ class TopView(TemplateView):#(LoginRequiredMixin, TemplateView):
 
 #各ページ内容表示用
 #ログイン画面
-class login(LoginView):
+class Login(LoginView):
     template_name = 'moticom/auth.html'
 
 #ユーザ作成
@@ -73,34 +68,18 @@ class IndexView(ListView):
         context = super().get_context_data(**kwargs)
         #直近１ヶ月投稿数抽出
         monthly_date_label =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
-        monthly_posts_count = []
-        
-        for i in monthly_date_label:
-            monthly_posts_count.append(Report.objects.filter(created_at__date=i).count())
-            
         context['monthly_day_list'] = json.dumps([i.strftime("%m/%d") for i in monthly_date_label])
-        context['monthly_data_list'] = json.dumps(monthly_posts_count)
-        
+        context['monthly_data_list'] = get_charts_count(monthly_date_label)
         
         #過去1週間の投稿数抽出
         weekly_date_label = [d + datetime.timedelta(days=i) for i in range(-6, 1)]
-        weekly_posts_count = []
-        
-        for i in weekly_date_label:
-            weekly_posts_count.append(Report.objects.filter(created_at__date=i).count())
-        
         context['weekly_day_list'] = json.dumps([i.strftime("%m/%d") for i in weekly_date_label])
-        context['weekly_data_list'] = json.dumps(weekly_posts_count)
+        context['weekly_data_list'] = get_charts_count(weekly_date_label)
         
         #過去1年間の月別投稿数抽出（DBのタイムゾーンの設定を行えば__monthでフィルターが使える）←現状でも使用可能だった
         bymonth_date_label =[d + relativedelta(months=i) for i in range(-11, 1)]
-        bymonth_posts_count = []
-        
-        for i in bymonth_date_label:
-            bymonth_posts_count.append(Report.objects.filter(created_at__month=i.month).count())
-            
         context['bymonth_day_list'] = json.dumps([i.strftime("%y/%m") for i in bymonth_date_label])
-        context['bymonth_data_list'] = json.dumps(bymonth_posts_count)
+        context['bymonth_data_list'] = get_charts_count(bymonth_date_label)
         
         return context
 
@@ -348,6 +327,7 @@ class Logout(LogoutView):
 #        return HttpResponseRedirect(self.get_success_url()) # リダイレクト
         
         
+"""
 #ログイン
 def Login(request):
     # POST
@@ -376,7 +356,7 @@ def Login(request):
     # GET
     else:
         return render(request, 'moticom/login.html')
-
+"""
 #ログアウト
 #@login_required
 #def Logout(request):

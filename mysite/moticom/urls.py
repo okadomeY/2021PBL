@@ -37,12 +37,13 @@ urlpatterns = [
     path('<int:pk>/update', views.UpdateControlMeasureView.as_view(), name='update'), #正しいところに移ったらcm_updateに修正
     path('<int:pk>/delete', views.DeleteControlMeasureView.as_view(), name='delete'), #正しいところに移ったらcm_deleteに修正
     path('search', views.Search, name='search'),
-    path('login/', views.Login, name='login'),
+    path('login', views.Login.as_view(), name='login'),
     path('logout', views.Logout.as_view(), name='logout'),
     path('signup', views.SignUp.as_view(), name='signup'),
     path('password_change/', views.PasswordChange.as_view(), name='password_change'),
     path('password_change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
     ]
+    
 #コメントアウトされていたもの
 #    chart表示用test
 #    path('charts', views.Chart_Sw, name='chart'),

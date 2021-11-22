@@ -23,7 +23,7 @@ urlpatterns = [
     path('moticom/',include('moticom.urls')),
 #    path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
-    path('login', views.login.as_view(), name='login'),
+    path('login', views.Login.as_view(), name='login'),
     path('logout/', LogoutView.as_view()),
     path('signup/', views.signup),
 ]

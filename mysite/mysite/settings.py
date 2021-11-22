@@ -134,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 X_FRAME_OPTIONS = 'ON' 
 
+"""
 LOGIN_URL = 'moticom:login'
 
 LOGIN_REDIRECT_URL = 'moticom:main'
@@ -141,7 +142,7 @@ LOGIN_REDIRECT_URL = 'moticom:main'
 LOGOUT_URL = '/logout/'
 
 LOGOUT_REDIRECT_URL = 'login'
-
+"""
 # --------- massage tab with bootstrap alert class ---------------------
 from django.contrib import messages
 MESSAGE_TAGS = {
