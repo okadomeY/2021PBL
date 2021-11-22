@@ -28,10 +28,10 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'moticom.apps.MoticomConfig',
 #    'polls.apps.PollsConfig',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -134,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 X_FRAME_OPTIONS = 'ON' 
 
+<<<<<<< HEAD
 LOGIN_URL = 'moticom:login'
 
 LOGIN_REDIRECT_URL = 'moticom:main'
@@ -142,6 +143,16 @@ LOGOUT_URL = '/logout/'
 
 LOGOUT_REDIRECT_URL = 'login'
 
+=======
+#LOGIN_URL = 'moticom:login'
+
+#LOGIN_REDIRECT_URL = 'moticom:main'
+
+#LOGOUT_URL = '/logout/'
+
+#LOGOUT_REDIRECT_URL = 'login'
+
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60
 # --------- massage tab with bootstrap alert class ---------------------
 from django.contrib import messages
 MESSAGE_TAGS = {
@@ -155,3 +166,15 @@ MESSAGE_TAGS = {
 # ログイン機能の追加
 #LOGIN_URL = 'moticom:login'
 #LOGIN_REDIRECT_URL = 'moticom:main'
+<<<<<<< HEAD
+=======
+
+#ログイン機能の追加
+LOGIN_URL = 'accounts/login'
+
+LOGIN_REDIRECT_URL = 'moticom:main'
+
+LOGOUT_URL = ''
+
+LOGOUT_REDIRECT_URL = ''
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60

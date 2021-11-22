@@ -55,17 +55,22 @@ urlpatterns = [
     path('linking', views.LinkingView.as_view(), name='linking'),
     path('search', views.Search, name='search'),
     #path('sorting', views.SortingView.as_view(), name='sorting'),
-    path('login/', views.Login, name='login'),
-    path('logout', views.Logout.as_view(), name='logout'),
+    #path('login/', views.Login, name='login'),
+    #path('logout', views.Logout.as_view(), name='logout'),
     path('signup', views.SignUp.as_view(), name='signup'),
     #path('password_change', views.PasswordChange.as_view(), name='password_change'), #パスワード変更
     #path('password_change/done', views.PasswordChangeDone.as_view(), name='password_change_done'), #パスワード完了
-    path('password_change/', views.PasswordChange.as_view(), name='password_change'),
-    path('password_change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
+    #path('password_change/', views.PasswordChange.as_view(), name='password_change'),
+    #path('password_change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
     #path('change_password/', auth_views.PasswordChangeView.as_view(template_name='moticom/password_change.html', success_url = '/'),name='password_change'),
+    #path('password_change_form', auth_views.PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change_form'),    # 追加
+    #path('password_change_done', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), name='password_change_done'), # 追加
    
     ]
+<<<<<<< HEAD
 
 
 #フォーム表示用move_to_genreが上手く行けば不要
 #    path('report', views.report_form, name='report'),
+=======
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60

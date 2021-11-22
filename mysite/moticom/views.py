@@ -13,6 +13,10 @@ from django.contrib.auth.views import LoginView
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
 from moticom.forms import UserCreationForm
+<<<<<<< HEAD
+=======
+from django.contrib import messages
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60
 from .models import Report, Genre, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment, AddNgWord
 from django.views.generic import ListView, CreateView
@@ -20,10 +24,19 @@ from django.urls import reverse_lazy, reverse
 from .models import Report, Genre, Account
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm#LoginForm
 from django.db.models import Q
+<<<<<<< HEAD
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from .forms import AccountForm#, AddAccountForm # ユーザーアカウントフォーム
-
+=======
+from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView, PasswordChangeDoneView
+from django.views.generic.edit import CreateView
+from django.contrib.auth.decorators import login_required
+from .forms import AccountForm#, AddAccountForm # ユーザーアカウントフォーム
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60
 
 
 #データ抽出日付調整
@@ -33,7 +46,11 @@ fd = d.replace(day=1)
 ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
 #各ページ共通部品表示用（ヘッダー・フッター・サイドバー）LoginRequiredMixin, 
+<<<<<<< HEAD
 class TopView(generic.TemplateView):
+=======
+class TopView(LoginRequiredMixin, generic.TemplateView):
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60
     template_name = 'moticom/main.html'
     
     def get_context_data(self, **kwargs):
@@ -43,8 +60,13 @@ class TopView(generic.TemplateView):
 
 #各ページ内容表示用
 #ログイン画面
+<<<<<<< HEAD
 class login(LoginView):
     template_name = 'moticom/auth.html'
+=======
+#class login(LoginView):
+#    template_name = 'moticom/auth.html'
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60
 
 #ユーザ作成
 def signup(request):
@@ -431,8 +453,8 @@ def Search(request):
 #    template_name = 'moticom/login.html'
 #    
 #@login_required
-class Logout(LogoutView):
-    template_name = 'moticom/logout.html'
+#class Logout(LogoutView):
+#    template_name = 'moticom/logout.html'
 
 #class SignUp(CreateView):
 #    form_class = SignUpForm
@@ -447,33 +469,33 @@ class Logout(LogoutView):
         
         
 #ログイン
-def Login(request):
-    # POST
-    if request.method == 'POST':
+#def Login(request):
+#    # POST
+#    if request.method == 'POST':
         # フォーム入力のユーザーID・パスワード取得
-        ID = request.POST.get('username')
-        Pass = request.POST.get('password')
+#        ID = request.POST.get('username')
+#        Pass = request.POST.get('password')
 
         # Djangoの認証機能
-        user = authenticate(username=ID, password=Pass)
+#        user = authenticate(username=ID, password=Pass)
 
         # ユーザー認証
-        if user:
+#        if user:
             #ユーザーアクティベート判定
-            if user.is_active:
+#            if user.is_active:
                 # ログイン
-                login(request,user)
+#                login(request,user)
                 # ホームページ遷移
-                return HttpResponseRedirect(reverse('moticom:main'))
-            else:
+#                return HttpResponseRedirect(reverse('moticom:main'))
+#            else:
                 # アカウント利用不可
-                return HttpResponse("アカウントが有効ではありません")
+#                return HttpResponse("アカウントが有効ではありません")
         # ユーザー認証失敗
-        else:
-            return HttpResponse("ログインIDまたはパスワードが間違っています")
+#        else:
+#            return HttpResponse("ログインIDまたはパスワードが間違っています")
     # GET
-    else:
-        return render(request, 'moticom/login.html')
+#    else:
+#        return render(request, 'moticom:registration/login.html')
 
 #ログアウト
 #@login_required
@@ -546,13 +568,20 @@ class  SignUp(generic.TemplateView):
 #    """パスワード変更完了"""
 #    template_name = 'moticom/password_change_done.html'
 
-class PasswordChange(PasswordChangeView):
-    """パスワード変更ビュー"""
-    form_class = MyPasswordChangeForm
-    success_url = reverse_lazy('moticom:password_change_done')
-    template_name = 'moticom/password_change.html'
+#class PasswordChange(PasswordChangeView):
+#    """パスワード変更ビュー"""
+#    form_class = MyPasswordChangeForm
+#    success_url = reverse_lazy('moticom:password_change_done')
+#    template_name = 'moticom/password_change.html'
 
 
+<<<<<<< HEAD
 class PasswordChangeDone(PasswordChangeDoneView):
     """パスワード変更しました"""
     template_name = 'moticom/password_change_done.html'
+=======
+#class PasswordChangeDone(PasswordChangeDoneView):
+#    """パスワード変更しました"""
+#    template_name = 'moticom/password_change_done.html'
+    
+>>>>>>> 738d15127f96309cee2e66ad2716bf89bea35d60
