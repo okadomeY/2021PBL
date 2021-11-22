@@ -11,7 +11,6 @@ urlpatterns = [
     path('board', views.BoardView.as_view(), name='board'),
     path('genre_display', views.genre_display, name='genre_display'),
     path('report', views.ReportView.as_view(), name='report'),
-#    path('save_report', views.save_report, name='save_report'),
     path('genre', views.GenreView.as_view(), name='genre'),
     path('complete', views.create_post, name='complete'),
     path('profile', views.ProfileView.as_view(), name='profile'),
@@ -36,19 +35,28 @@ urlpatterns = [
     path('create', views.CreativeControlMeasureView.as_view(), name='create'),#正しいところに移ったらcm_createに修正
     path('<int:pk>/update', views.UpdateControlMeasureView.as_view(), name='update'), #正しいところに移ったらcm_updateに修正
     path('<int:pk>/delete', views.DeleteControlMeasureView.as_view(), name='delete'), #正しいところに移ったらcm_deleteに修正
+    path('sorting', views.sorting, name='sorting'),
+    path('linking', views.LinkingView.as_view(), name='linking'),
     path('search', views.Search, name='search'),
-    path('login', views.Login.as_view(), name='login'),
-    path('logout', views.Logout.as_view(), name='logout'),
     path('signup', views.SignUp.as_view(), name='signup'),
-    path('password_change/', views.PasswordChange.as_view(), name='password_change'),
-    path('password_change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
     ]
-    
-#コメントアウトされていたもの
-#    chart表示用test
-#    path('charts', views.Chart_Sw, name='chart'),
-#path('user', views.user, name='user'),
-#
-#path('password_change', views.PasswordChange.as_view(), name='password_change'), #パスワード変更
-#path('password_change/done', views.PasswordChangeDone.as_view(), name='password_change_done'), #パスワード完了
-#path('change_password/', auth_views.PasswordChangeView.as_view(template_name='moticom/password_change.html', success_url = '/'),name='password_change'),
+
+"""
+変更点
+・コメントアウトされているものを下に移動
+"""
+
+"""
+    #path('save_report', views.save_report, name='save_report'),
+    #path('sorting', views.SortingView.as_view(), name='sorting'),
+    #path('login/', views.Login, name='login'),
+    #path('logout', views.Logout.as_view(), name='logout'),
+    #path('password_change', views.PasswordChange.as_view(), name='password_change'), #パスワード変更
+    #path('password_change/done', views.PasswordChangeDone.as_view(), name='password_change_done'), #パスワード完了
+    #path('password_change/', views.PasswordChange.as_view(), name='password_change'),
+    #path('password_change/done/', views.PasswordChangeDone.as_view(), name='password_change_done'),
+    #path('change_password/', auth_views.PasswordChangeView.as_view(template_name='moticom/password_change.html', success_url = '/'),name='password_change'),
+    #path('password_change_form', auth_views.PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change_form'),    # 追加
+    #path('password_change_done', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), name='password_change_done'), # 追加
+   
+"""

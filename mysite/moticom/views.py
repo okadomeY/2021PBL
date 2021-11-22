@@ -1,19 +1,18 @@
 import datetime
 import calendar
 import json
-from django.shortcuts import render, redirect
-from django.utils import timezone
 from dateutil.relativedelta import relativedelta
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView, CreateView, TemplateView, FormView, UpdateView, DeleteView
+from django.utils import timezone
 from django.urls import reverse_lazy, reverse
-from django.db.models import Q
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
-from django.views.generic.edit import CreateView
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, CreateView, TemplateView, FormView, UpdateView, DeleteView
+from django.db.models import Q
 
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
@@ -36,8 +35,8 @@ class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
 
 #各ページ内容表示用
 #ログイン画面
-class Login(LoginView):
-    template_name = 'moticom/auth.html'
+#class login(LoginView):
+#    template_name = 'moticom/auth.html'
 
 #ユーザ作成
 def signup(request):
@@ -226,7 +225,6 @@ class Genre_ManageView(CreateView):
     model = Genre
     form_class = AddGenre
     success_url = 'moticom/genre_manage.html'
-
     
     def get_context_data(self):
         context = super().get_context_data()
@@ -292,6 +290,40 @@ def sorting(request):
 class LinkingView(TemplateView):
     template_name = 'moticom/linking.html'
     
+#
+class Cm_CreateView(ListView):
+    template_name = 'moticom/cm_create.html'
+    model         = ControlMeasure
+
+class CreativeControlMeasureView(CreateView):
+    template_name = "moticom/cm_create_forms.html"
+    model         = ControlMeasure
+    form_class    = CreativeControlMeasure
+    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
+    def get_form(self):
+        form = super(CreativeControlMeasureView, self).get_form()
+        form.fields['cm_name'].label = '管理策名'
+        form.fields['cm_contents'].label = '管理策'
+        form.fields['genre_id'].label = 'ジャンル'
+        return form
+#管理策データ修正
+class UpdateControlMeasureView(UpdateView):
+    template_name = "moticom/cm_update_form.html"
+    model         = ControlMeasure
+    form_class    = CreativeControlMeasure
+    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
+    def get_form(self):
+        form = super(UpdateControlMeasureView, self).get_form()
+        form.fields['cm_name'].label = '管理策名'
+        form.fields['cm_contents'].label = '管理策'
+        form.fields['genre_id'].label = 'ジャンル'
+        return form
+#管理策データ削除
+class DeleteControlMeasureView(DeleteView):
+    template_name = "moticom/cm_delete_form.html"
+    model = ControlMeasure
+    success_url = "/moticom/cm_create" #正しいところに移ったときに修正
+
 def Search(request):
     if request.method == 'POST':
         searchform = SearchForm(request.POST)
@@ -312,8 +344,8 @@ def Search(request):
 #    template_name = 'moticom/login.html'
 #    
 #@login_required
-class Logout(LogoutView):
-    template_name = 'moticom/logout.html'
+#class Logout(LogoutView):
+#    template_name = 'moticom/logout.html'
 
 #class SignUp(CreateView):
 #    form_class = SignUpForm
@@ -329,30 +361,30 @@ class Logout(LogoutView):
         
 """
 #ログイン
-def Login(request):
-    # POST
-    if request.method == 'POST':
+#def Login(request):
+#    # POST
+#    if request.method == 'POST':
         # フォーム入力のユーザーID・パスワード取得
-        ID = request.POST.get('username')
-        Pass = request.POST.get('password')
+#        ID = request.POST.get('username')
+#        Pass = request.POST.get('password')
 
         # Djangoの認証機能
-        user = authenticate(request, username=ID, password=Pass)
+#        user = authenticate(username=ID, password=Pass)
 
         # ユーザー認証
-        if user:
+#        if user:
             #ユーザーアクティベート判定
-            if user.is_active:
+#            if user.is_active:
                 # ログイン
-                login(request,user)
+#                login(request,user)
                 # ホームページ遷移
-                return HttpResponseRedirect(reverse('moticom:main'))
-            else:
+#                return HttpResponseRedirect(reverse('moticom:main'))
+#            else:
                 # アカウント利用不可
-                return HttpResponse("アカウントが有効ではありません")
+#                return HttpResponse("アカウントが有効ではありません")
         # ユーザー認証失敗
-        else:
-            return HttpResponse("ログインIDまたはパスワードが間違っています")
+#        else:
+#            return HttpResponse("ログインIDまたはパスワードが間違っています")
     # GET
     else:
         return render(request, 'moticom/login.html')
@@ -428,46 +460,68 @@ class  SignUp(TemplateView):
 #    """パスワード変更完了"""
 #    template_name = 'moticom/password_change_done.html'
 
-class PasswordChange(PasswordChangeView):
-    """パスワード変更ビュー"""
-    form_class = MyPasswordChangeForm
-    success_url = reverse_lazy('moticom:password_change_done')
-    template_name = 'moticom/password_change.html'
+#class PasswordChange(PasswordChangeView):
+#    """パスワード変更ビュー"""
+#    form_class = MyPasswordChangeForm
+#    success_url = reverse_lazy('moticom:password_change_done')
+#    template_name = 'moticom/password_change.html'
 
 
-class PasswordChangeDone(PasswordChangeDoneView):
-    """パスワード変更しました"""
-    template_name = 'moticom/password_change_done.html'
-#
-class Cm_CreateView(ListView):
-    template_name = 'moticom/cm_create.html'
-    model         = ControlMeasure
+#class PasswordChangeDone(PasswordChangeDoneView):
+#    """パスワード変更しました"""
+#    template_name = 'moticom/password_change_done.html'
+    
 
-class CreativeControlMeasureView(CreateView):
-    template_name = "moticom/cm_create_forms.html"
-    model         = ControlMeasure
-    form_class    = CreativeControlMeasure
-    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
-    def get_form(self):
-        form = super(CreativeControlMeasureView, self).get_form()
-        form.fields['cm_name'].label = '管理策名'
-        form.fields['cm_contents'].label = '管理策'
-        form.fields['genre_id'].label = 'ジャンル'
-        return form
-#管理策データ修正
-class UpdateControlMeasureView(UpdateView):
-    template_name = "moticom/cm_update_form.html"
-    model         = ControlMeasure
-    form_class    = CreativeControlMeasure
-    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
-    def get_form(self):
-        form = super(UpdateControlMeasureView, self).get_form()
-        form.fields['cm_name'].label = '管理策名'
-        form.fields['cm_contents'].label = '管理策'
-        form.fields['genre_id'].label = 'ジャンル'
-        return form
-#管理策データ削除
-class DeleteControlMeasureView(DeleteView):
-    template_name = "moticom/cm_delete_form.html"
-    model = ControlMeasure
-    success_url = "/moticom/cm_create" #正しいところに移ったときに修正
+"""
+変更点
+・以下重複していた記述をコメントアウト
+"""
+
+"""
+マージの際に記述が重複してしまったみたいです
+重複していると思われるためコメントアウト
+
+""
+#ログイン画面
+<<<<<<< HEAD
+class Login(LoginView):
+=======
+import datetime
+import calendar
+import json
+from dateutil.relativedelta import relativedelta
+from django.utils import timezone
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, CreateView, TemplateView, FormView, UpdateView, DeleteView
+from django.db.models import Q
+
+from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
+from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
+from .functions import get_charts_count
+
+#データ抽出日付調整
+d = datetime.date.today()
+yd = (d - datetime.timedelta(days=1))
+fd = d.replace(day=1)
+ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
+
+#各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
+class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
+    template_name = 'moticom/main.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
+        context["form_name"] = "main"
+        return context
+
+#各ページ内容表示用
+""
+
+"""
