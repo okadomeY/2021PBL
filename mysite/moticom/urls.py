@@ -6,7 +6,7 @@ from django.contrib.auth import views as auth_views
 
 app_name = 'moticom'
 urlpatterns = [
-    path('moticom/main/', views.TopView.as_view(), name='main'),
+    path('', views.TopView.as_view(), name='main'),
     path('index', views.IndexView.as_view(), name='index'),
 
 #    chart表示用test
