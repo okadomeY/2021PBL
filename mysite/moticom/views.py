@@ -1,6 +1,11 @@
 import datetime
 import calendar
 import json
+from django.contrib import messages
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView, PasswordChangeDoneView
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.utils import timezone
@@ -8,7 +13,6 @@ from django.contrib.auth.views import LoginView
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
 from moticom.forms import UserCreationForm
-from django.contrib import messages
 from .models import Report, Genre, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment, AddNgWord
 from django.views.generic import ListView, CreateView
@@ -16,13 +20,10 @@ from django.urls import reverse_lazy, reverse
 from .models import Report, Genre, Account
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm#LoginForm
 from django.db.models import Q
-from django.contrib import messages
-from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView, PasswordChangeDoneView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from .forms import AccountForm#, AddAccountForm # ユーザーアカウントフォーム
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 #データ抽出日付調整
