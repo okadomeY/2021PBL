@@ -8,9 +8,6 @@ class Account(models.Model):
     pw_digest = models.CharField(max_length=130)
     def __str__(self):
         return self.user_name.username
-    
-    def __str__(self):
-        return self.user_name
 
 class Genre(models.Model):
     genre_name = models.CharField(max_length=200)
@@ -23,6 +20,7 @@ class ControlMeasure(models.Model):
     cm_contents = models.CharField(max_length=300, default="")
     genre_id = models.ForeignKey(Genre, on_delete=models.CASCADE)
     
+    
     def __str__(self):
         return self.cm_name
 
@@ -31,6 +29,7 @@ class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     genre_id = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    cm_id = models.ForeignKey(ControlMeasure, on_delete=models.CASCADE, null=True, blank=True,)
     
     def __str__(self):
         return self.report_text
