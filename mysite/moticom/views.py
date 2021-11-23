@@ -16,7 +16,7 @@ from django.db.models import Q
 
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
-from .functions import get_charts_count
+from .functions import get_charts_count, monthly_count, weekly_count, bymonth_count
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -65,20 +65,15 @@ class IndexView(ListView):
 #現行使用版:グラフ用データを取得(要改善/DB側で処理できそう/細部に関しても要改善)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        #直近１ヶ月投稿数抽出
-        monthly_date_label =[fd + datetime.timedelta(days=i) for i in range(calendar.monthrange(d.year, d.month)[1])]
-        context['monthly_day_list'] = json.dumps([i.strftime("%m/%d") for i in monthly_date_label])
-        context['monthly_data_list'] = get_charts_count(monthly_date_label)
         
-        #過去1週間の投稿数抽出
-        weekly_date_label = [d + datetime.timedelta(days=i) for i in range(-6, 1)]
-        context['weekly_day_list'] = json.dumps([i.strftime("%m/%d") for i in weekly_date_label])
-        context['weekly_data_list'] = get_charts_count(weekly_date_label)
+        #直近１ヶ月投稿数取得
+        context['monthly_day_list'], context['monthly_data_list'] = monthly_count(d,fd)
         
-        #過去1年間の月別投稿数抽出（DBのタイムゾーンの設定を行えば__monthでフィルターが使える）←現状でも使用可能だった
-        bymonth_date_label =[d + relativedelta(months=i) for i in range(-11, 1)]
-        context['bymonth_day_list'] = json.dumps([i.strftime("%y/%m") for i in bymonth_date_label])
-        context['bymonth_data_list'] = get_charts_count(bymonth_date_label)
+        #過去1週間の投稿数取得
+        context['weekly_day_list'], context['weekly_data_list'] = weekly_count(d)
+        
+        #過去1年間の月別投稿数取得
+        context['bymonth_day_list'], context['bymonth_data_list'] = bymonth_count(d)
         
         return context
 
