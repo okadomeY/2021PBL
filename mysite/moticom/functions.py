@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 
-#データ抽出日付調整
+#データ抽出日付調整 ←一応コピペ（基本的に不要になる予定）
 #d = datetime.date.today()
 #yd = (d - datetime.timedelta(days=1))
 #fd = d.replace(day=1)

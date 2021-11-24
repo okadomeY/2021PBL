@@ -65,7 +65,6 @@ class IndexView(ListView):
 #現行使用版:グラフ用データを取得(要改善/DB側で処理できそう/細部に関しても要改善)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
         #直近１ヶ月投稿数取得
         context['monthly_day_list'], context['monthly_data_list'] = monthly_count(d,fd)
         
@@ -174,11 +173,10 @@ def Admin_BoardView(request):
             'comment_text':request.POST.get('comment_text'),
             'report_id':request.POST.get('report_id'),
         }
-        print(comment_contents)
         comment = CreateComment(comment_contents)
         if comment.is_valid():
             comment.save()
-            
+            comment = CreateComment()
         else:
             return redirect('moticom:admin_board')
     
@@ -519,4 +517,39 @@ class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
 #各ページ内容表示用
 ""
 
+"""
+
+"""グラフの表示処理をfor文で実装しようとして失敗
+
+        #直近１ヶ月投稿数取得
+        monthly_day_list, monthly_data_list = monthly_count(d,fd)
+        
+        #過去1週間の投稿数取得
+        weekly_day_list, weekly_data_list = weekly_count(d)
+        
+        #過去1年間の月別投稿数取得
+        bymonth_day_list, bymonth_data_list = bymonth_count(d)
+        
+        context['data'] = {
+                         'monthly':{
+                                  'chart_id': "monthly",
+                                  'chart_type': json.dumps("line"),
+                                  'day_list': monthly_day_list,
+                                  'data_list': monthly_data_list,
+                                  },
+                         
+                         'weekly':{
+                                 'chart_id': "weekly",
+                                 'chart_type': json.dumps("line"),
+                                 'day_list': weekly_day_list,
+                                 'data_list': weekly_data_list,
+                                 },
+                        
+                        'bymonth':{
+                                 'chart_id': "bymonth",
+                                 'chart_type': json.dumps("line"),
+                                 'day_list': bymonth_day_list,
+                                 'data_list': bymonth_data_list,
+                                 },
+        }
 """
