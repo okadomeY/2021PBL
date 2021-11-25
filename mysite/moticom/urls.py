@@ -42,6 +42,7 @@ urlpatterns = [
     path('linking', views.LinkingView.as_view(), name='linking'),
     path('search', views.Search, name='search'),
     path('signup', views.SignUp.as_view(), name='signup'),
+    path('signup/finish', views.SignUpFinish.as_view(), name='signup_finish'),
     ]
 
 """
