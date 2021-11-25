@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 
 class Account(models.Model):
     user_name = models.OneToOneField(User, on_delete=models.CASCADE)
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    #user_name = models.CharField(max_length=50)
+    #email_adress = models.CharField(max_length=25
     pub_date = models.DateTimeField(auto_now_add=True)
     pw_digest = models.CharField(max_length=130)
     def __str__(self):

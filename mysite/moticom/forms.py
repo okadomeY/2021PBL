@@ -3,7 +3,7 @@ from django import forms
 from django.core.validators import ValidationError
 from django.contrib.auth import get_user_model
 from .models import Report, Genre, ControlMeasure, Comment, NGWord, Account
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm#, UserCreationForm #PasswordChangeForm
 from django.contrib.auth.models import User
 
 
@@ -121,30 +121,30 @@ class SearchForm(forms.Form):
 
         
 #class SignUpForm(UserCreationForm):
-#
+
 #    class Meta:
 #        model = User
 #        if User.USERNAME_FIELD == 'email':
 #            fields = ('email',)
 #        else:
 #            fields = ('username', 'email')
-#
+
 #    def __init__(self, *args, **kwargs):
 #        super().__init__(*args, **kwargs)
 #        for field in self.fields.values():
 #            field.widget.attrs['class'] = 'form-control'
 
-class AccountForm(forms.ModelForm):
+#class AccountForm(forms.ModelForm):
     # パスワード入力：非表示対応
-    password = forms.CharField(widget=forms.PasswordInput(),label="パスワード")
+#    password = forms.CharField(widget=forms.PasswordInput(),label="パスワード")
 
-    class Meta():
+#    class Meta():
         # ユーザー認証
-        model = User
+#        model = User
         # フィールド指定
-        fields = ('username','email','password')
+#        fields = ('username','email','password')
         # フィールド名指定
-        labels = {'username':"ユーザーID",'email':"メール"}
+#        labels = {'username':"ユーザーID",'email':"メール"}
 
 #class AddAccountForm(forms.ModelForm):
 #    class Meta():
@@ -154,10 +154,10 @@ class AccountForm(forms.ModelForm):
 #        labels = {'user_name':"名前",}
 
 
-class MyPasswordChangeForm(PasswordChangeForm):
-    """パスワード変更フォーム"""
+#class MyPasswordChangeForm(PasswordChangeForm):
+#    """パスワード変更フォーム"""
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+#    def __init__(self, *args, **kwargs):
+#        super().__init__(*args, **kwargs)
+#        for field in self.fields.values():
+#            field.widget.attrs['class'] = 'form-control'

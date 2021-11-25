@@ -7,20 +7,21 @@ from django.utils import timezone
 from django.contrib.auth.views import LoginView
 from dateutil.relativedelta import relativedelta
 from django.http import HttpResponse, HttpResponseRedirect
-from moticom.forms import UserCreationForm
+#from moticom.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Report, Genre, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, CreativeControlMeasure, CreateComment, AddNgWord
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy, reverse
 from .models import Report, Genre, Account
-from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm#LoginForm
+from .forms import ReportForm, CreatePost, AddGenre, SearchForm#, MyPasswordChangeForm#LoginForm
 from django.db.models import Q
 from django.contrib import messages
-from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView, PasswordChangeDoneView
+#from django.contrib.auth.views import LoginView, LogoutView#,PasswordChangeView, PasswordChangeDoneView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
-from .forms import AccountForm#, AddAccountForm # ユーザーアカウントフォーム
+#from .forms import AccountForm#, SignUpForm#, AddAccountForm # ユーザーアカウントフォーム
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -437,12 +438,12 @@ def Search(request):
 #    form_class = SignUpForm
 #    template_name = "moticom/signup.html" 
 #    success_url = reverse_lazy('moticom:user')
-#
+
 #    def form_valid(self, form):
 #        user = form.save() # formの情報を保存
 #        login(self.request, user) # 認証
 #        self.object = user 
-#        return HttpResponseRedirect(self.get_success_url()) # リダイレクト
+#        return HttpResponseRedirect(self.get_success_url('moticom:user')) # リダイレクト
         
         
 #ログイン
@@ -481,36 +482,48 @@ def Search(request):
 #    # ログイン画面遷移
 #    return HttpResponseRedirect(reverse('login'))
 
+class SignUp(CreateView):
+    template_name = 'moticom/signup.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('moticom:signup_finish')
+    
+class SignUpFinish(generic.TemplateView):
+    template_name = 'moticom/signup_finish.html'
 
-class  SignUp(generic.TemplateView):
+#class  SignUp(generic.TemplateView):
 
-    def __init__(self):
-        self.params = {
-        "AccountCreate":False,
-        "account_form": AccountForm(),
+#    def __init__(self):
+#        self.params = {
+#        "AccountCreate":False,
+#        "account_form": AccountForm(),
         #"add_account_form":AddAccountForm(),
-        }
+#        }
 
     # Get処理
-    def get(self,request):
-        self.params["account_form"] = AccountForm()
-        #self.params["add_account_form"] = AddAccountForm()
-        self.params["AccountCreate"] = False
-        return render(request,"moticom/signup.html",context=self.params)
+#    def get(self,request):
+#        self.params["account_form"] = AccountForm()
+#        #self.params["add_account_form"] = AddAccountForm()
+#        self.params["AccountCreate"] = False
+#        return render(request,"moticom/signup.html",context=self.params)
 
     # Post処理
-    def post(self,request):
-        self.params["account_form"] = AccountForm(data=request.POST)
+#    def post(self,request):
+#        self.params["account_form"] = AccountForm(data=request.POST)
         #self.params["add_account_form"] = AddAccountForm(data=request.POST)
 
         # フォーム入力の有効検証
-        if self.params["account_form"].is_valid(): #and self.params["add_account_form"].is_valid():
+#        if self.params["account_form"].is_valid(): #and self.params["add_account_form"].is_valid():
             # アカウント情報をDB保存
-            account = self.params["account_form"].save()
+#            account = self.params["account_form"].save()
             # パスワードをハッシュ化
-            #account.set_password(account.password)
+#            account.set_password(account.password)
+#           from django.contrib.auth.models import User
+
+#user = User(username=form.cleaned_data["username"])
+#user.set_password(form.cleaned_data["password"])
+#user.save()
             # ハッシュ化パスワード更新
-            account.save()
+#            account.save()
 
             # 下記追加情報
             # 下記操作のため、コミットなし
@@ -522,13 +535,13 @@ class  SignUp(generic.TemplateView):
             #add_account.save()
 
             # アカウント作成情報更新
-            self.params["AccountCreate"] = True
+#            self.params["AccountCreate"] = True
 
-        else:
+#        else:
             # フォームが有効でない場合
-            print(self.params["account_form"].errors)
+#            print(self.params["account_form"].errors)
 
-        return render(request,"moticom/signup.html",context=self.params)
+#        return render(request,"moticom/signup.html",context=self.params)
         
 
 #class PasswordChange(LoginRequiredMixin, PasswordChangeView):

@@ -58,6 +58,7 @@ urlpatterns = [
     #path('login/', views.Login, name='login'),
     #path('logout', views.Logout.as_view(), name='logout'),
     path('signup', views.SignUp.as_view(), name='signup'),
+    path('signup/finish', views.SignUpFinish.as_view(), name='signup_finish'),
     #path('password_change', views.PasswordChange.as_view(), name='password_change'), #パスワード変更
     #path('password_change/done', views.PasswordChangeDone.as_view(), name='password_change_done'), #パスワード完了
     #path('password_change/', views.PasswordChange.as_view(), name='password_change'),

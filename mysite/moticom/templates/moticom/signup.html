@@ -1,24 +1,23 @@
 {% extends 'moticom/base.html' %}
 {% load static %}
 {% block content %}
-
+<!--
 <body>
-<h1>新規登録</h1>
-
- {% if AccountCreate %}
-   <h1>登録完了!</h1>
-   <div>
-    <a class="btn btn-primary" href="{% url 'moticom:user' %}" role="button">ユーザー登録・確認に戻る</a>
-   </div>
-
- {% else %}
-   <div class="reg">
+    <div>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a class="btn btn-primary" href="{% url 'moticom:user' %}" role="button">ユーザー登録・確認に戻る</a>
+        </form>
+    </div>
+</body>
+<div class="reg">
    <table class="reg_form">
 
    <form enctype="multipart/form-data" method="post">
    {% csrf_token %}
    {{ account_form.as_table }}
-   <!--{{ add_account_form.as_table }}-->
+   {{ add_account_form.as_table }}
    <tr><td></td><td>
    <input class="btn" type="submit" name="" value="登録">
    </td></tr>
@@ -26,8 +25,17 @@
 
    </table>
    </div>
- {% endif %}
+
+-->
+<body>
+<h1>新規登録</h1>
+   <div>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録</button>
+        </form>
+    </div>
 
 </body>
-</html>
 {% endblock %}
