@@ -338,7 +338,7 @@ class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('moticom:signup_finish')
     
-class SignUpFinish(generic.TemplateView):
+class SignUpFinish(TemplateView):
     template_name = 'moticom/signup_finish.html'
 
 #class Login(LoginView):
