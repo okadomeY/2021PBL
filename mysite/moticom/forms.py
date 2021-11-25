@@ -3,7 +3,7 @@ from django import forms
 from django.core.validators import ValidationError
 from django.contrib.auth import get_user_model
 from .models import Report, Genre, ControlMeasure, Comment, NGWord, Account
-from django.contrib.auth.forms import AuthenticationForm#, UserCreationForm #PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm#, PasswordChangeForm
 from django.contrib.auth.models import User
 
 
@@ -121,14 +121,14 @@ class SearchForm(forms.Form):
 
         
 #class SignUpForm(UserCreationForm):
-
+#
 #    class Meta:
 #        model = User
 #        if User.USERNAME_FIELD == 'email':
 #            fields = ('email',)
 #        else:
 #            fields = ('username', 'email')
-
+#
 #    def __init__(self, *args, **kwargs):
 #        super().__init__(*args, **kwargs)
 #        for field in self.fields.values():

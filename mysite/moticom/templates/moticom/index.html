@@ -36,9 +36,9 @@
                                                 stepSize: 1
                                             }
                                     }
+                                }
                             }
-                        }
-                    });
+                        });
                     </script>
             </div>
             <div style="display:inline-block; width: 300px; height:300px">
@@ -71,8 +71,8 @@
                                             }
                                         }
                                   }
-                        }
-                    });
+                            }
+                        });
                     </script>
             </div>
             <div style="display:inline-block; width: 300px; height:300px">
@@ -105,8 +105,8 @@
                                             }
                                         }
                                 }
-                        }
-                    });
+                            }
+                        });
                     </script>
             </div>
             <h2 class="mt-2 border-bottom pb-2">新着投稿</h2>
@@ -127,3 +127,45 @@
         </div>
     </body>
 {% endblock content %}
+
+<!--
+チャート表示をforで処理しようとして失敗
+データ格納用の変数を重複して宣言しようとしてしまうため
+{% for chart_data in data.values %}
+            <div style="display:inline-block; width:300px; height:300px">
+                <canvas id="{{chart_data.chart_id}}" width="300px" height="300px"></canvas>
+                    <script>
+                        const label_list =  JSON.parse('{{ chart_data.day_list|safe }}');
+                        const data_list = JSON.parse('{{ chart_data.data_list|safe }}');
+                        
+                        var ctx = document.getElementById('{{chart_data.chart_id}}').getContext('2d');
+                        var chart = new Chart(ctx, {
+                        // The type of chart we want to create
+                        type: JSON.parse('{{chart_data.chart_type}}'),
+                        // The data for our dataset
+                        data: {
+                            labels: label_list,
+                            datasets: [{
+                                yAxisID: 'yAxes_1',
+                                label: '',
+                                backgroundColor: 'rgb(255, 99, 0)',
+                                borderColor: 'rgb(255, 99, 132)',
+                                data: data_list
+                            }]
+                        },
+                        // Configuration options go here
+                        options: {
+                            scales: {
+                                    "yAxes_1":{
+                                            beginAtZero: true,
+                                            ticks:{
+                                                stepSize: 1
+                                            }
+                                    }
+                            }
+                        }
+                    });
+                    </script>
+            </div>
+            {% endfor %}
+-->
