@@ -13,6 +13,7 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView, TemplateView, FormView, UpdateView, DeleteView
 from django.db.models import Q
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
@@ -326,6 +327,14 @@ def Search(request):
         
         return render(request, 'moticom/search.html', params)
 
+#ユーザ登録機能
+class SignUp(CreateView):
+    template_name = 'moticom/signup.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('moticom:signup_finish')
+    
+class SignUpFinish(generic.TemplateView):
+    template_name = 'moticom/signup_finish.html'
 
 #class Login(LoginView):
 #    form_class = LoginForm
@@ -385,35 +394,35 @@ def Search(request):
 #    return HttpResponseRedirect(reverse('login'))
 
 
-class  SignUp(TemplateView):
+#class  SignUp(TemplateView):
 
-    def __init__(self):
-        self.params = {
-        "AccountCreate":False,
-        "account_form": AccountForm(),
+#    def __init__(self):
+#        self.params = {
+#        "AccountCreate":False,
+#        "account_form": AccountForm(),
         #"add_account_form":AddAccountForm(),
         }
 
     # Get処理
-    def get(self,request):
-        self.params["account_form"] = AccountForm()
+#    def get(self,request):
+#        self.params["account_form"] = AccountForm()
         #self.params["add_account_form"] = AddAccountForm()
-        self.params["AccountCreate"] = False
-        return render(request,"moticom/signup.html",context=self.params)
+#        self.params["AccountCreate"] = False
+#        return render(request,"moticom/signup.html",context=self.params)
 
     # Post処理
-    def post(self,request):
-        self.params["account_form"] = AccountForm(data=request.POST)
+#    def post(self,request):
+#        self.params["account_form"] = AccountForm(data=request.POST)
         #self.params["add_account_form"] = AddAccountForm(data=request.POST)
 
         # フォーム入力の有効検証
-        if self.params["account_form"].is_valid(): #and self.params["add_account_form"].is_valid():
+#        if self.params["account_form"].is_valid(): #and self.params["add_account_form"].is_valid():
             # アカウント情報をDB保存
-            account = self.params["account_form"].save()
+#            account = self.params["account_form"].save()
             # パスワードをハッシュ化
             #account.set_password(account.password)
             # ハッシュ化パスワード更新
-            account.save()
+#            account.save()
 
             # 下記追加情報
             # 下記操作のため、コミットなし
@@ -425,13 +434,13 @@ class  SignUp(TemplateView):
             #add_account.save()
 
             # アカウント作成情報更新
-            self.params["AccountCreate"] = True
+#            self.params["AccountCreate"] = True
 
-        else:
+#        else:
             # フォームが有効でない場合
-            print(self.params["account_form"].errors)
+#            print(self.params["account_form"].errors)
 
-        return render(request,"moticom/signup.html",context=self.params)
+#        return render(request,"moticom/signup.html",context=self.params)
         
 
 #class PasswordChange(LoginRequiredMixin, PasswordChangeView):
