@@ -17,7 +17,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
-from .functions import get_charts_count, monthly_count, weekly_count, bymonth_count
+from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -63,17 +63,12 @@ class IndexView(ListView):
             created_at__lte=timezone.now()
             ).order_by('-created_at')[:10]
             
-#現行使用版:グラフ用データを取得(要改善/DB側で処理できそう/細部に関しても要改善)
+#現行使用版:グラフ用データを取得
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        #直近１ヶ月投稿数取得
-        context['monthly_day_list'], context['monthly_data_list'] = monthly_count(d,fd)
-        
-        #過去1週間の投稿数取得
-        context['weekly_day_list'], context['weekly_data_list'] = weekly_count(d)
-        
-        #過去1年間の月別投稿数取得
-        context['bymonth_day_list'], context['bymonth_data_list'] = bymonth_count(d)
+        #日/週、日/月、月/年のグラフデータの取得
+        context = get_count_chart(context, d, fd)
         
         return context
 
@@ -528,37 +523,6 @@ class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
 
 """
 
-"""グラフの表示処理をfor文で実装しようとして失敗
+"""グラフの表示処理をfor文で実装（再検証）
 
-        #直近１ヶ月投稿数取得
-        monthly_day_list, monthly_data_list = monthly_count(d,fd)
-        
-        #過去1週間の投稿数取得
-        weekly_day_list, weekly_data_list = weekly_count(d)
-        
-        #過去1年間の月別投稿数取得
-        bymonth_day_list, bymonth_data_list = bymonth_count(d)
-        
-        context['data'] = {
-                         'monthly':{
-                                  'chart_id': "monthly",
-                                  'chart_type': json.dumps("line"),
-                                  'day_list': monthly_day_list,
-                                  'data_list': monthly_data_list,
-                                  },
-                         
-                         'weekly':{
-                                 'chart_id': "weekly",
-                                 'chart_type': json.dumps("line"),
-                                 'day_list': weekly_day_list,
-                                 'data_list': weekly_data_list,
-                                 },
-                        
-                        'bymonth':{
-                                 'chart_id': "bymonth",
-                                 'chart_type': json.dumps("line"),
-                                 'day_list': bymonth_day_list,
-                                 'data_list': bymonth_data_list,
-                                 },
-        }
 """
