@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -16,6 +16,9 @@ urlpatterns = [
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('complaints', views.ComplaintsView.as_view(), name='complaints'),
     path('help', views.HelpView.as_view(), name='help'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'), name='password_change_form'),    # 追加
+    path('accounts/password_change/done', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_finish.html'), name='password_change_done'), 
     
     #管理者用ページ↓
     path('admin', views.AdminView.as_view(), name='admin'),
@@ -39,6 +42,7 @@ urlpatterns = [
     path('linking', views.LinkingView.as_view(), name='linking'),
     path('search', views.Search, name='search'),
     path('signup', views.SignUp.as_view(), name='signup'),
+    path('signup/finish', views.SignUpFinish.as_view(), name='signup_finish'),
     ]
 
 """
