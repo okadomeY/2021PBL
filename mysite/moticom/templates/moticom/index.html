@@ -7,24 +7,57 @@
         <script src="{% static 'moticom/js/chart.js/dist/chart.js' %}"></script>
         <div class="container">
             <h2 class="mt-4 border-bottom">ダッシュボード</h2>
-            <div style="display:inline-block; width: 300px; height:300px">
-                <canvas id="monthly" width="300px" height="300px"></canvas>
+            <script>
+                let label_list;
+                let data_list;
+            </script>
+            <!--グラフ表示-->
+            {% for chart_data in data.values %}
+                {% include 'moticom/charts/line_plot.html' with chart_data=chart_data %}
+            {% endfor %}
+            
+            <h2 class="mt-2 border-bottom pb-2">新着投稿</h2>
+            <div class="d-flex flex-column pt-3" style="background: rgb(150, 200, 200)">
+                 {% if latest_report_list %}
+                        {% for report in latest_report_list %}
+                            <p class="ps-3 pb-3 mt-0 mb-0 small lh-sm border-bottom">
+                                <strong class="d-block">@{{ report.user_id }}</strong>
+                                {{ report.report_text }}
+                            </p>
+                        {% endfor %}
+                {% else %}
+                        <p class="pb-3 mb-0 small lh-sm border-bottom">
+                            投稿がありません
+                        </p>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+{% endblock content %}
+
+<!--
+チャート表示をforで処理しようとして失敗
+データ格納用の変数を重複して宣言しようとしてしまうため
+{% for chart_data in data.values %}
+            <div style="display:inline-block; width:300px; height:300px">
+                <canvas id="{{chart_data.chart_id}}" width="300px" height="300px"></canvas>
                     <script>
-                        const monthly_label_list =  JSON.parse('{{ monthly_day_list|safe }}');
-                        const monthly_data_list = JSON.parse('{{ monthly_data_list|safe }}');
-                        var ctx = document.getElementById('monthly').getContext('2d');
+                        const label_list =  JSON.parse('{{ chart_data.day_list|safe }}');
+                        const data_list = JSON.parse('{{ chart_data.data_list|safe }}');
+                        
+                        var ctx = document.getElementById('{{chart_data.chart_id}}').getContext('2d');
                         var chart = new Chart(ctx, {
                         // The type of chart we want to create
-                        type: 'line',
+                        type: JSON.parse('{{chart_data.chart_type}}'),
                         // The data for our dataset
                         data: {
-                            labels: monthly_label_list,
+                            labels: label_list,
                             datasets: [{
                                 yAxisID: 'yAxes_1',
                                 label: '',
                                 backgroundColor: 'rgb(255, 99, 0)',
                                 borderColor: 'rgb(255, 99, 132)',
-                                data: monthly_data_list
+                                data: data_list
                             }]
                         },
                         // Configuration options go here
@@ -41,6 +74,7 @@
                         });
                     </script>
             </div>
+<<<<<<< HEAD
             <div style="display:inline-block; width: 300px; height:300px">
                 <canvas id="weekly" width="300px" height="300px"></canvas>
                     <script>
@@ -167,5 +201,7 @@
                     });
                     </script>
             </div>
+=======
+>>>>>>> 5bc97c0a921515221f2143e39fd26824207e0ed9
             {% endfor %}
 -->

@@ -13,10 +13,11 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView, TemplateView, FormView, UpdateView, DeleteView
 from django.db.models import Q
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
-from .functions import get_charts_count, monthly_count, weekly_count, bymonth_count
+from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart
 
 #データ抽出日付調整
 d = datetime.date.today()
@@ -62,18 +63,12 @@ class IndexView(ListView):
             created_at__lte=timezone.now()
             ).order_by('-created_at')[:10]
             
-#現行使用版:グラフ用データを取得(要改善/DB側で処理できそう/細部に関しても要改善)
+#現行使用版:グラフ用データを取得
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        #直近１ヶ月投稿数取得
-        context['monthly_day_list'], context['monthly_data_list'] = monthly_count(d,fd)
-        
-        #過去1週間の投稿数取得
-        context['weekly_day_list'], context['weekly_data_list'] = weekly_count(d)
-        
-        #過去1年間の月別投稿数取得
-        context['bymonth_day_list'], context['bymonth_data_list'] = bymonth_count(d)
+        #日/週、日/月、月/年のグラフデータの取得
+        context = get_count_chart(context, d, fd)
         
         return context
 
@@ -338,7 +333,7 @@ class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('moticom:signup_finish')
     
-class SignUpFinish(TemplateView):
+class SignUpFinish(generic.TemplateView):
     template_name = 'moticom/signup_finish.html'
 
 #class Login(LoginView):
@@ -399,7 +394,7 @@ class SignUpFinish(TemplateView):
 #    return HttpResponseRedirect(reverse('login'))
 
 
-class  SignUp(TemplateView):
+#class  SignUp(TemplateView):
 
 #    def __init__(self):
 #        self.params = {
@@ -525,6 +520,7 @@ class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
 
 #各ページ内容表示用
 ""
+
 
 
 """
