@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HHBook</title>
+  <title>moticom</title>
   <!-- css -->
   <link href="{% static 'mystatic/css/style.css' %}">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -25,7 +25,7 @@
 <body>
   <div class="container">
     <header>
-      <div class="title">{% block titele %}Sample{% endblock %}</div>
+      <div class="title">{% block titele %}moticom{% endblock %}</div>
       {% if user.is_authenticated %}
       <p>{{ user.username }}でログイン中</p>
       {% else %}

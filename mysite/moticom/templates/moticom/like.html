@@ -1,9 +1,53 @@
-<form action="{% url 'like' %}" method="POST">
-    {% csrf_token %}
-    {% if report.id in liked_list %}
-        <button id="like" name="{{report.id}}"><i class="fas fa-lg fa-heart like-red"></i></button>
-    {% else %}
-        <button id="like" name="{{report.id}}"><i class="far fa-lg fa-heart"></i></button>      
-    {% endif %}
-</form>
-<p name="{{report.id}}-count" class="count"> {{ report.like_set.count }} </p>
+<!DOCTYPE html>
+<html>
+<head><!-- 裏設定エリアの開始 -->
+    <meta charset="utf-8"><!-- 文字化け防止 -->
+</head><!-- 裏設定エリアの終了 -->
+ 
+<body><!-- 画面に表示されるエリアの開始 -->
+{% extends 'moticom/base.html' %}
+{% block content %}
+
+     <div class="like-flame">
+       <!-- onclick="api_like() を定義すると、LIKEボタンを押した際以下で書いた
+            JavaScript関数が実行される。<span id="like_count"></span>に
+            追加されたいいねの数が反映される-->
+       <a id="like-a" onclick="api_like()">LIKE <span id="like_count"></span></a>
+     </div>
+
+
+<!--  javascript 部分 -->
+
+<script>　　
+   // ページが読み込まれた時にDBから記事に紐づいた「いいね」の数を取得する
+　　window.onload = function () {
+　　    document.getElementById("like_count").innerText = {{ like.like }}
+　　}
+　　
+　　// api_good関数が設定されたaタグがクリックされたら、非同期通信でgoodのカウントを1増やし画面に結果を反映する
+   function api_like() {
+      // いいねの数を増やす記事idをJavaScriptに渡す処理
+      var api_url = "{% url 'moticom:like' post.pk %}";
+      var btn = document.getElementById("like_count");
+      // 非同期通信をするための関数をインタンス化する
+      var request = new XMLHttpRequest();
+      request.onreadystatechange = function () {
+　      // 非同期通信が完了したら以下のifが処理される。request.readyState === 4部分が非同期処理完了を意味している
+          if (request.readyState === 4 && request.status === 200) {
+              var received_data = JSON.parse(request.responseText);
+             // 画面にいいねの数を反映する
+              btn.innerText = received_data.like;
+              // 画面をリロードするまでボタンを押せなくする処理
+              document.getElementById("like-a").removeAttribute( "onclick" );
+          }
+      }
+      // サーバーとの通信を実行する処理
+      request.open("GET",api_url);
+      request.send();
+    }
+
+</script>
+
+{% endblock %}
+</body><!-- 画面に表示されるエリアの終了 -->
+</html>

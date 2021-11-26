@@ -45,7 +45,8 @@ class Comment(models.Model):
 class Like(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     report_id = models.ForeignKey(Report, on_delete=models.CASCADE)
-    
+    like = models.IntegerField('Like',default=0)
+
 class Bad(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     report_id = models.ForeignKey(Report, on_delete=models.CASCADE)

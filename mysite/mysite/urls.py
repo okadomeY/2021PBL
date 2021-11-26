@@ -16,6 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+<<<<<<< HEAD
 from django.contrib.auth import views as auth_views
 #from moticom import views　←インポートできませんでした
 
@@ -23,6 +24,15 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),    # 追加
     path('accounts/password_change_form/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'), name='password_change_form'),    # 追加
     path('accounts/password_change_done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_finish.html'), name='password_change_done'), # 追加
+=======
+#from django.contrib.auth import views as auth_views
+#from moticom import views　←インポートできませんでした
+
+urlpatterns = [
+    #path('accounts/', include('django.contrib.auth.urls')),    # 追加
+    #path('accounts/password_change_form/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'), name='password_change_form'),    # 追加
+    #path('accounts/password_change_done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_finish.html'), name='password_change_done'), # 追加
+>>>>>>> bad7a37319c57bc1f0ddbba1e88ffd6d545aa749
     path('moticom/',include('moticom.urls')),
     path('admin/', admin.site.urls),
     #path('login', views.Login.as_view(), name='login'),　←viewsをインポートできなかったので、コメントアウト
