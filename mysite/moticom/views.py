@@ -11,14 +11,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 from django.contrib.auth.decorators import login_required
+from django.views import generic 
 from django.views.generic import ListView, CreateView, TemplateView, FormView, UpdateView, DeleteView
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
-
+#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
-from .forms import ReportForm, CreatePost, AddGenre, SearchForm, MyPasswordChangeForm, CreativeControlMeasure, CreateComment, AddNgWord, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
+from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord, UserCreationForm
+# MyPasswordChangeForm, AccountForm
 from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart
-
 #データ抽出日付調整
 d = datetime.date.today()
 yd = (d - datetime.timedelta(days=1))
