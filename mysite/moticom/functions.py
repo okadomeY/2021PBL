@@ -38,6 +38,20 @@ def bymonth_count(d):
     bymonth_date_label =[d + relativedelta(months=i) for i in range(-11, 1)]
     return json.dumps([i.strftime("%y/%m") for i in bymonth_date_label]), get_count(bymonth_date_label)
 
+def get_charts_context(context, chart_id, labels_list, data_list):
+    for ids, labels, data in zip(chart_id, labels_list, data_list):
+        added_data = {
+            ids:{
+                'chart_id':ids,
+                'label_list':labels,
+                'data_list':data,
+                },
+            }
+            
+        context['data'].update(added_data)
+    return context
+    
+
 def get_count_chart(context, d, fd):
     
     #直近１ヶ月投稿数取得
@@ -49,7 +63,19 @@ def get_count_chart(context, d, fd):
     #過去1年間の月別投稿数取得
     bymonth_day_list, bymonth_data_list = bymonth_count(d)
     
-    context['data'] = {
+    label_list = [monthly_day_list, weekly_day_list, bymonth_day_list]
+    data_list = [monthly_data_list, weekly_data_list, bymonth_data_list]
+    id_list = ["monthly", "weekly", "bymonth"]
+    
+    get_charts_context(context, id_list, label_list, data_list)
+    
+    return context
+
+
+
+
+"""
+context['data'] = {
                      'monthly':{
                               'chart_id': "monthly",
                               'day_list': monthly_day_list,
@@ -68,7 +94,4 @@ def get_count_chart(context, d, fd):
                              'data_list': bymonth_data_list,
                              },
                       }
-                      
-    return context
-
-
+"""
