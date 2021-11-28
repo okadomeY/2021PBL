@@ -17,8 +17,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 #, AddAccountForm # ユーザーアカウントフォーム #LoginForm
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
-from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord, UserCreationForm
-# MyPasswordChangeForm, AccountForm
+from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord#, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
 from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart
 #データ抽出日付調整
 d = datetime.date.today()
@@ -68,6 +67,7 @@ class IndexView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['data'] = {}
         #日/週、日/月、月/年のグラフデータの取得
         context = get_count_chart(context, d, fd)
         
@@ -334,7 +334,7 @@ class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('moticom:signup_finish')
     
-class SignUpFinish(generic.TemplateView):
+class SignUpFinish(TemplateView):
     template_name = 'moticom/signup_finish.html'
 
 #class Login(LoginView):
@@ -402,7 +402,7 @@ class SignUpFinish(generic.TemplateView):
 #        "AccountCreate":False,
 #        "account_form": AccountForm(),
         #"add_account_form":AddAccountForm(),
- #       }
+#        }
 
     # Get処理
 #    def get(self,request):
@@ -521,7 +521,5 @@ class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
 
 #各ページ内容表示用
 ""
-
-
 
 """
