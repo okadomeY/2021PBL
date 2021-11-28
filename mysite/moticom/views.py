@@ -18,7 +18,7 @@ from django.contrib.auth.forms import UserCreationForm
 #, AddAccountForm # ユーザーアカウントフォーム #LoginForm
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord#, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
-from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart
+from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart, get_genre_chart
 #データ抽出日付調整
 d = datetime.date.today()
 yd = (d - datetime.timedelta(days=1))
@@ -157,11 +157,20 @@ class HelpView(TemplateView):
 #
 class AdminView(TemplateView):
     template_name = 'moticom/admin.html'
-
 #
 class AnalysisView(TemplateView):
     template_name = 'moticom/analysis.html'
-
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['data'] = {}
+        context['genre_count'] = {}
+        #日/週、日/月、月/年のグラフデータの取得
+        context = get_count_chart(context, d, fd)
+        context = get_genre_chart(context)
+        return context
+        
+        
 #コメント投稿用
 def Admin_BoardView(request):
     queryset = Report.objects.all().order_by('-created_at')

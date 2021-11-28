@@ -1,7 +1,8 @@
-            {% if title %}
-                <h5>{{ title }}</h5>
+        <div class="col mt-5">
+            <div style="width: 300px; height:300px">
+            {% if chart_data.title %}
+                <h5>{{ chart_data.title }}</h5>
             {% endif %}
-            <div style="display:inline-block; width: 300px; height:300px">
                 <canvas id="{{chart_data.chart_id}}" width="300px" height="300px"></canvas>
                     <script>
                         label_list =  JSON.parse('{{ chart_data.label_list|safe }}');
@@ -15,7 +16,7 @@
                             labels: label_list,
                             datasets: [{
                                 yAxisID: 'yAxes_1',
-                                label: '',
+                                label: '投稿数',
                                 backgroundColor: 'rgb(255, 99, 0)',
                                 borderColor: 'rgb(255, 99, 132)',
                                 data: data_list
@@ -23,6 +24,12 @@
                         },
                         // Configuration options go here
                         options: {
+                            plugins: {
+                                colorschemes: {
+                                        scheme: 'brewer.Paired12'
+                                    }
+                                },
+                                
                             scales: {
                                     "yAxes_1":{
                                             beginAtZero: true,
@@ -35,3 +42,4 @@
                         });
                     </script>
             </div>
+        </div>

@@ -5,18 +5,16 @@
 {% block content %}
     <body>
         <script src="{% static 'moticom/js/chart.js/dist/chart.js' %}"></script>
+        <script src="https://unpkg.com/chartjs-plugin-colorschemes"></script>
         <div class="container">
             <h2 class="mt-4 border-bottom">ダッシュボード</h2>
-            <script>
-                let label_list;
-                let data_list;
-            </script>
             <!--グラフ表示-->
+            <div class="row">
             {% for chart_data in data.values %}
                 {% include 'moticom/charts/line_plot.html' with chart_data=chart_data %}
             {% endfor %}
             
-            <h2 class="mt-2 border-bottom pb-2">新着投稿</h2>
+            <h2 class="mt-5 border-bottom pb-2">新着投稿</h2>
             <div class="d-flex flex-column pt-3" style="background: rgb(150, 200, 200)">
                  {% if latest_report_list %}
                         {% for report in latest_report_list %}
