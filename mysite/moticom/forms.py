@@ -92,20 +92,6 @@ class AddNgWord(forms.ModelForm):
         labels = {'ng_words':"",}
         
 
-
-#以下seve_reportが上手く行っているため、削除の可能性あり
-#    text = forms.CharField(label="", widget=forms.Textarea, max_length=300)
-"""
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.label_suffix = ""
-        self.fields['report_text'].widget.attrs['class'] = "form-control"
-        self.fields['report_text'].widget.attrs['cols'] = "50"
-        self.fields['report_text'].widget.attrs['rows'] = "6"
-        self.fields['report_text'].widget.attrs['onkeyup'] = 'ShowLength(value)'
-        self.fields['report_text'].widget = forms.Textarea
-"""
-
 class SearchForm(forms.Form):
     freeword = forms.CharField(min_length=1, max_length=20, label='', required=False)
     

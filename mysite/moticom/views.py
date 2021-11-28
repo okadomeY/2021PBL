@@ -17,12 +17,7 @@ from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 #, AddAccountForm # ユーザーアカウントフォーム #LoginForm
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
-<<<<<<< HEAD
-from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord, UserCreationForm
-# MyPasswordChangeForm, AccountForm
-=======
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord#, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
->>>>>>> after_merge
 from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart
 #データ抽出日付調整
 d = datetime.date.today()
@@ -31,7 +26,7 @@ fd = d.replace(day=1)
 ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
 #各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
-class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
+class TopView(LoginRequiredMixin, TemplateView):#(LoginRequiredMixin,TemplateView):
     template_name = 'moticom/main.html'
     
     def get_context_data(self, **kwargs):
@@ -407,11 +402,7 @@ class SignUpFinish(TemplateView):
 #        "AccountCreate":False,
 #        "account_form": AccountForm(),
         #"add_account_form":AddAccountForm(),
-<<<<<<< HEAD
- #       }
-=======
 #        }
->>>>>>> after_merge
 
     # Get処理
 #    def get(self,request):
@@ -531,10 +522,4 @@ class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
 #各ページ内容表示用
 ""
 
-<<<<<<< HEAD
-
-
 """
-=======
-"""
->>>>>>> after_merge
