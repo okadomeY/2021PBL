@@ -38,40 +38,53 @@ def bymonth_count(d):
     bymonth_date_label =[d + relativedelta(months=i) for i in range(-11, 1)]
     return json.dumps([i.strftime("%y/%m") for i in bymonth_date_label]), get_count(bymonth_date_label)
 
-def get_charts_context(context, chart_id, labels_list, data_list):
-    for ids, labels, data in zip(chart_id, labels_list, data_list):
-        added_data = {
-            ids:{
-                'chart_id':ids,
-                'label_list':labels,
-                'data_list':data,
-                },
-            }
+def get_charts_context(context, chart_id, labels_list, data_list, title, data_name='data'):
+    added_data = {
+        chart_id:{
+            'title':title,
+            'chart_id':chart_id,
+            'label_list':labels_list,
+            'data_list':data_list,
+            },
+        }
             
-        context['data'].update(added_data)
+    context[data_name].update(added_data)
     return context
     
 
 def get_count_chart(context, d, fd):
-    
     #直近１ヶ月投稿数取得
     monthly_day_list, monthly_data_list = monthly_count(d,fd)
-    
     #過去1週間の投稿数取得
     weekly_day_list, weekly_data_list = weekly_count(d)
-    
     #過去1年間の月別投稿数取得
     bymonth_day_list, bymonth_data_list = bymonth_count(d)
-    
+    #リストに格納
     label_list = [monthly_day_list, weekly_day_list, bymonth_day_list]
     data_list = [monthly_data_list, weekly_data_list, bymonth_data_list]
     id_list = ["monthly", "weekly", "bymonth"]
+    titles_list = ["月間投稿数推移", "過去1週間の投稿数推移", "年間投稿数推移"]
     
-    get_charts_context(context, id_list, label_list, data_list)
+    for ids, labels, data, title in zip(id_list, label_list, data_list, titles_list):
+        get_charts_context(context, ids, labels, data, title)
     
     return context
 
+def genre_count():
+    labels = []
+    posts_count = []
+    genres = Genre.objects.all()
+    for genre in genres:
+        labels.append(genre.genre_name)
+        posts_count.append(Report.objects.filter(genre_id=genre.id).count())
+    return json.dumps(labels), json.dumps(posts_count)
 
+def get_genre_chart(context):
+    title = "ジャンル別投稿数"
+    ID = "genre"
+    get_charts_context(context, ID, *genre_count(), title, "genre_count")
+    return context
+    
 
 
 """
