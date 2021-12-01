@@ -18,7 +18,9 @@ from django.contrib.auth.forms import UserCreationForm
 #, AddAccountForm # ユーザーアカウントフォーム #LoginForm
 from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
 from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord#, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
-from .functions import get_count, monthly_count, weekly_count, bymonth_count, get_count_chart, get_genre_chart
+from .functions import (get_count, monthly_count, weekly_count, 
+                        bymonth_count, get_count_chart, get_genre_chart, 
+                        get_cm_chart, assign_cm)
 #データ抽出日付調整
 d = datetime.date.today()
 yd = (d - datetime.timedelta(days=1))
@@ -120,12 +122,14 @@ def create_post(request):
                 'report_text':request.session['request_text'],
                 'user_id':'1',#←匿名用ユーザーID"1"を入れる
                 'genre_id':request.POST.get('genre_id'),
+                'cm_id':assign_cm(request.session['request_text']),
             }
         else:
             form_contents = {
                 'report_text':request.session['request_text'],
                 'user_id':'2',#←暫定で"2"で適用中、本来はログインユーザーIDを取る
                 'genre_id':request.POST.get('genre_id'),
+                'cm_id':assign_cm(request.session['request_text']),
             }
         form = CreatePost(form_contents)
         if form.is_valid():
@@ -165,9 +169,11 @@ class AnalysisView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['data'] = {}
         context['genre_count'] = {}
+        context['cm_count'] = {}
         #日/週、日/月、月/年のグラフデータの取得
         context = get_count_chart(context, d, fd)
         context = get_genre_chart(context)
+        context = get_cm_chart(context)
         return context
         
         

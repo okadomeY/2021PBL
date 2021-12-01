@@ -55,3 +55,9 @@ class NGWord(models.Model):
     ng_words = models.CharField(max_length=30)
     def __str__(self):
         return self.ng_words
+        
+class KeyWord(models.Model):
+    key_words = models.CharField(max_length=30)
+    cm_id = models.ForeignKey(ControlMeasure, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.key_words
