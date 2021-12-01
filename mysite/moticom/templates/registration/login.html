@@ -1,10 +1,14 @@
 {% extends "common/base1.html" %}
 
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Login</button>
-</form>
+<div style="text-align:center">
+  <h4>Login</h4>
+  <form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}  
+  <div class="d-grid gap-2 col-1 mx-auto">
+  <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+  </div>
+</div>
 {% endblock %}
