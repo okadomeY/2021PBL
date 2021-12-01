@@ -2,10 +2,10 @@
 from django import forms
 from django.core.validators import ValidationError
 from django.contrib.auth import get_user_model
-from .models import Report, Genre, ControlMeasure, Comment, NGWord, Account
 from django.contrib.auth.forms import AuthenticationForm#, PasswordChangeForm
 from django.contrib.auth.models import User
 
+from .models import Report, Genre, ControlMeasure, Comment, NGWord, Account
 
 #NGワード処理（要修正→NGワードをDBから取得、NGワード判定）
 def ng_word(value):
@@ -29,14 +29,17 @@ class ReportForm(forms.Form):
 class CreatePost(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ['report_text', 'user_id', 'genre_id']
+        fields = ['report_text', 'user_id', 'genre_id', 'cm_id']
         labels = {'report_text':"",
                   'user_id':"",
-                  'genre_id':"",}
+                  'genre_id':"",
+                  'cm_id':"",
+                  }
         widgets = {'report_text':forms.HiddenInput,
                    'user_id':forms.HiddenInput,
                    'genre_id':forms.RadioSelect(attrs={'class':'form-check-input',}),
-                    }
+                   'cm_id':forms.HiddenInput,
+                   }
                    
 
 class AddGenre(forms.ModelForm):

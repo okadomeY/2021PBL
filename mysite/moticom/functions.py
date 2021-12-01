@@ -4,7 +4,7 @@ import json
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 
-from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
+from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord, KeyWord
 
 #データ抽出日付調整
 #データ抽出日付調整 ←一応コピペ（基本的に不要になる予定）
@@ -103,26 +103,22 @@ def get_cm_chart(context):
     return context
     
     
-
-
-"""
-context['data'] = {
-                     'monthly':{
-                              'chart_id': "monthly",
-                              'day_list': monthly_day_list,
-                              'data_list': monthly_data_list,
-                              },
-                              
-                     'weekly':{
-                             'chart_id': "weekly",
-                             'day_list': weekly_day_list,
-                             'data_list': weekly_data_list,
-                             },
-                             
-                    'bymonth':{
-                             'chart_id': "bymonth",
-                             'day_list': bymonth_day_list,
-                             'data_list': bymonth_data_list,
-                             },
-                      }
-"""
+def assign_cm(report_text):
+    assign_ID = []
+    KEY_WORDS=KeyWord.objects.all()
+    for kw in KEY_WORDS:
+        if report_text.find(kw.key_words) != -1:
+            assign_ID.append(kw.cm_id)
+    if len(assign_ID)==1:
+        return assign_ID[0]
+    else:
+        assign_dict = {}
+        for ID in assign_ID:
+            assign_dict[ID] = 0
+            KW_list = KEY_WORDS.filter(cm_id=ID).values_list('key_words', flat=True)
+            for kw in KW_list:
+                if report_text.find(kw) != -1:
+                    assign_dict[ID] += 1
+        max_ID_list = [i[0] for i in assign_dict.items() if i[1] == max(assign_dict.values())]
+        if len(max_ID_list)==1:
+            return max_ID_list[0]
