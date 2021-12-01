@@ -20,6 +20,9 @@
         {% for chart_data in genre_count.values %}
                 {% include 'moticom/charts/pie_plot.html' with chart_data=chart_data %}
         {% endfor %}
+        {% for chart_data in cm_count.values %}
+                {% include 'moticom/charts/pie_plot.html' with chart_data=chart_data %}
+        {% endfor %}
         </div>
         <div class="row" style="padding-top: 50px;">
             <div class="col-md-8 col-md-offset-2">

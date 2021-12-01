@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 #NGワード処理（要修正→NGワードをDBから取得、NGワード判定）
 def ng_word(value):
     NG_WORDS=NGWord.objects.all().values_list('ng_words', flat=True)#←DBから取得するように修正が必要
-    print(NG_WORDS)
     for ng in NG_WORDS:
         if value.find(ng) != -1:
             raise ValidationError('禁止用語が含まれています。')

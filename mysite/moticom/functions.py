@@ -85,6 +85,22 @@ def get_genre_chart(context):
     get_charts_context(context, ID, *genre_count(), title, "genre_count")
     return context
     
+def cm_count():
+    labels=[]
+    posts_count = []
+    cms = ControlMeasure.objects.all()
+    for cm in cms:
+        labels.append(cm.cm_name)
+        posts_count.append(Report.objects.filter(cm_id=cm.id).count())
+    return json.dumps(labels), json.dumps(posts_count)
+
+def get_cm_chart(context):
+    title = "管理策別投稿数"
+    ID = "cm"
+    get_charts_context(context, ID, *cm_count(), title, "cm_count")
+    return context
+    
+    
 
 
 """
