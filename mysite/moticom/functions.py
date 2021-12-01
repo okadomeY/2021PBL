@@ -92,6 +92,8 @@ def cm_count():
     for cm in cms:
         labels.append(cm.cm_name)
         posts_count.append(Report.objects.filter(cm_id=cm.id).count())
+    labels.append("未割り当て")
+    posts_count.append(Report.objects.filter(cm_id__isnull=True).count())
     return json.dumps(labels), json.dumps(posts_count)
 
 def get_cm_chart(context):
