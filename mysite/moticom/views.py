@@ -26,7 +26,7 @@ fd = d.replace(day=1)
 ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
 #各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
-class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
+class TopView(LoginRequiredMixin,TemplateView):
     template_name = 'moticom/main.html'
     
     def get_context_data(self, **kwargs):
