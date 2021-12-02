@@ -17,8 +17,8 @@ urlpatterns = [
     path('complaints', views.ComplaintsView.as_view(), name='complaints'),
     path('help', views.HelpView.as_view(), name='help'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'), name='password_change_form'),    # 追加
-    path('accounts/password_change/done', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_finish.html'), name='password_change_done'), 
+    #path('accounts/password_change/', auth_views.PasswordChangeView.as_view(template_name='registration/password_change.html'), name='password_change_form'),    # 追加
+    #path('accounts/password_change/done', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_finish.html'), name='password_change_done'), 
     
     #管理者用ページ↓
     path('admin', views.AdminView.as_view(), name='admin'),
