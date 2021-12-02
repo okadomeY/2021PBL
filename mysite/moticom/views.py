@@ -21,6 +21,9 @@ from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControl
 from .functions import (get_count, monthly_count, weekly_count, 
                         bymonth_count, get_count_chart, get_genre_chart, 
                         get_cm_chart, assign_cm)
+                        
+from django.contrib.auth.models import User
+
 #データ抽出日付調整
 d = datetime.date.today()
 yd = (d - datetime.timedelta(days=1))
@@ -217,7 +220,7 @@ def DeleteComment(request):
 
 class UserView(ListView):
     template_name = 'moticom/user.html'
-    model = Account
+    queryset = User.objects.filter(id__gt=1)
     context_object_name = 'user_list'
 
 #
