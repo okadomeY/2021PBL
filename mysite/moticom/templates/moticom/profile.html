@@ -13,16 +13,14 @@
         <div class="row g-0">
           <h1 class="card-title" style="padding-bottom: 50px;">プロフィール</h1>
           <div class="col-md-4">
-            <img src="assets/images/bs-images/img-2x2.png" class="img-thumbnail" alt="rounded-circle">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="200" height="200"><path fill-rule="evenodd" d="M12 2.5a5.5 5.5 0 00-3.096 10.047 9.005 9.005 0 00-5.9 8.18.75.75 0 001.5.045 7.5 7.5 0 0114.993 0 .75.75 0 101.499-.044 9.005 9.005 0 00-5.9-8.181A5.5 5.5 0 0012 2.5zM8 8a4 4 0 118 0 4 4 0 01-8 0z"></path></svg>
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <p class="card-text">ユーザー名</p>
-              <span class="border border-dark border-1"></span>
-              <p class="card-text">メールアドレス</p>
-              <span class="border border-dark border-1"></span>
-              <p class="card-text">パスワード</p>
-              <span></span>
+              <span class="fw-bold, fs-4">{{ user.username }}</span>
+              <p class="card-text" style="padding-top: 10px;">パスワード</p>
+              <span class="fw-bold, fs-6">{{ user.password }}</span>
               {% if form_name == "password_change" %}
                 {% else %}
               <div style="text-align: center; padding-left: 70%;">
