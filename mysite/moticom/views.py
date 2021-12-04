@@ -150,7 +150,9 @@ def create_post(request):
 
 #
 class ProfileView(TemplateView):
+    model = User
     template_name = 'moticom/profile.html'
+    
 
 #
 class ComplaintsView(TemplateView):
