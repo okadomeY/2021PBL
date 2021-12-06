@@ -20,13 +20,13 @@
               <p class="card-text">ユーザー名</p>
               <span class="fw-bold, fs-4">{{ user.username }}</span>
               <p class="card-text" style="padding-top: 10px;">パスワード</p>
-              <span class="fw-bold, fs-6">{{ user.password }}</span>
+              <input type="password" value="{{ user.password }}" disabled>
+              <div style="text-align: center; padding-left: 70%;">
               {% if form_name == "password_change" %}
                 {% else %}
-              <div style="text-align: center; padding-left: 70%;">
                 <a class="btn btn-primary" href="{% url 'password_change_form' %}" role="button">パスワードの変更</a>
+              {% endif  %}
               </div>
-              {% endif %}
             </div>
           </div>
         </div>
