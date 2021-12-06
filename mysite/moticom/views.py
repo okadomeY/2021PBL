@@ -30,7 +30,7 @@ ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 #各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
 class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
     template_name = 'moticom/main.html'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
         context["form_name"] = "main"
@@ -304,13 +304,15 @@ class CreativeControlMeasureView(CreateView):
     template_name = "moticom/cm_create_forms.html"
     model         = ControlMeasure
     form_class    = CreativeControlMeasure
-    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
+    success_url   =  "/moticom/cm_create" #正しいところに移ったときに修正
     def get_form(self):
         form = super(CreativeControlMeasureView, self).get_form()
         form.fields['cm_name'].label = '管理策名'
         form.fields['cm_contents'].label = '管理策'
         form.fields['genre_id'].label = 'ジャンル'
         return form
+    
+    
 #管理策データ修正
 class UpdateControlMeasureView(UpdateView):
     template_name = "moticom/cm_update_form.html"

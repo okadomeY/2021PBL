@@ -57,7 +57,11 @@ class CreativeControlMeasure(forms.ModelForm):
     class Meta:
         model = ControlMeasure
         fields = ("cm_name", "cm_contents", "genre_id")
+        widgets = {'cm_contents':forms.Textarea,
+                   }
 
+
+        
 class CreateComment(forms.ModelForm):
     class Meta:
         model = Comment
