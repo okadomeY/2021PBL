@@ -24,6 +24,24 @@
                 <input class="form-control" type="text" placeholder="{{ genre_id }}" aria-label="Disabled input example" disabled>
               </div>
             </div>
+             <div style="text-align: center; padding-bottom: 2%;">
+            </style>
+                <button type="button" class="btn btn-primary btn-sm" onclick="sendPushNotification(); style.display='none';">通知する</button>
+                <script>
+                 function sendPushNotification(){
+                  Push.create("Moticomより投稿情報", 
+                   {
+                    body: "新着投稿をお知らせします",
+                    icon: '',
+                    timeout: 8000,
+                    onClick: function () {
+                    window.focus(); 
+                    this.close();
+                    }
+                  })
+                }
+                </script>
+            </div>
             <div class="card-footer" style="text-align: center;">
               <a class="btn btn-primary" href="{% url 'moticom:report' %}" role="button">問題報告画面に戻る</a>
             </div>
