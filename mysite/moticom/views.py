@@ -89,12 +89,12 @@ class BoardView(ListView):
     
 #ジャンル別表示処理
 def genre_display(request):
-    context = {
-               'report_list':Report.objects.filter(genre_id=request.GET.get('genre_id')).order_by('-created_at'),
-               'genre_list':Genre.objects.all(),
-               }
-
-    return render(request, 'moticom/board.html', context)
+    if request.method == 'GET':
+        context = {
+                   'report_list':Report.objects.filter(genre_id=request.GET.get('genre_id')).order_by('-created_at'),
+                   'genre_list':Genre.objects.all(),
+                   }
+        return render(request, 'moticom/board.html', context)
     
 #報告画面
 class ReportView(FormView):
