@@ -27,8 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('login', views.Login.as_view(), name='login'),　←viewsをインポートできなかったので、コメントアウト
     path('', include('django.contrib.auth.urls')),# これを追加
-    
-]
+    ]
 
 
 """
