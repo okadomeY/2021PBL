@@ -13,18 +13,24 @@
         <div>
             <h1 class="mt-4 border-bottom">分析結果</h1>
         </div>
-        <div class="row">
-        {% for chart_data in data.values %}
-                {% include 'moticom/charts/line_plot.html' with chart_data=chart_data %}
-        {% endfor %}
-        {% for chart_data in genre_count.values %}
-                {% include 'moticom/charts/pie_plot.html' with chart_data=chart_data %}
-        {% endfor %}
-        {% for chart_data in cm_count.values %}
-                {% include 'moticom/charts/pie_plot.html' with chart_data=chart_data %}
-        {% endfor %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for chart_data in data.values %}
+                    {% include 'moticom/charts/line_plot.html' with chart_data=chart_data %}
+            {% endfor %}
         </div>
-        <div class="row" style="padding-top: 50px;">
+        <div class="row row-cols-1 row-cols-md-3 g-4" style="padding-top: 50px;">
+            <div class="col">
+            {% for chart_data in genre_count.values %}
+                    {% include 'moticom/charts/pie_plot.html' with chart_data=chart_data %}
+            {% endfor %}
+            </div>
+            <div class="col">
+            {% for chart_data in cm_count.values %}
+                    {% include 'moticom/charts/pie_plot.html' with chart_data=chart_data %}
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row" style="padding-top: 50px; ">
             <div class="col-md-8 col-md-offset-2">
                 <h7>データ一覧</h7>
                 <div class="overflow-auto">
