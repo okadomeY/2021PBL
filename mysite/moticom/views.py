@@ -30,14 +30,11 @@ yd = (d - datetime.timedelta(days=1))
 fd = d.replace(day=1)
 ed = d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
-#各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
-class TopView(LoginRequiredMixin,TemplateView):
-    template_name = 'moticom/main.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
-        context["form_name"] = "main"
-        return context
+@login_required
+def TopView(request):
+    context = {}
+    context["form_name"] = "main"
+    return render(request, 'moticom/main.html', context)
 
 #各ページ内容表示用
 #ログイン画面
@@ -130,7 +127,7 @@ def create_post(request):
         else:
             form_contents = {
                 'report_text':request.session['request_text'],
-                'user_id':'2',#←暫定で"2"で適用中、本来はログインユーザーIDを取る
+                'user_id': request.user.pk,#←暫定で"2"で適用中、本来はログインユーザーIDを取る
                 'genre_id':request.POST.get('genre_id'),
                 'cm_id':assign_cm(request.session['request_text']),
             }
@@ -309,13 +306,15 @@ class CreativeControlMeasureView(CreateView):
     template_name = "moticom/cm_create_forms.html"
     model         = ControlMeasure
     form_class    = CreativeControlMeasure
-    success_url   = "/moticom/cm_create" #正しいところに移ったときに修正
+    success_url   =  "/moticom/cm_create" #正しいところに移ったときに修正
     def get_form(self):
         form = super(CreativeControlMeasureView, self).get_form()
         form.fields['cm_name'].label = '管理策名'
         form.fields['cm_contents'].label = '管理策'
         form.fields['genre_id'].label = 'ジャンル'
         return form
+    
+    
 #管理策データ修正
 class UpdateControlMeasureView(UpdateView):
     template_name = "moticom/cm_update_form.html"
@@ -542,4 +541,13 @@ class TopView(TemplateView):#(LoginRequiredMixin,TemplateView):
 #各ページ内容表示用
 ""
 
+"""
+"""
+#各ページ共通部品表示用（ヘッダー・フッター・サイドバー）
+class TopView(LoginRequiredMixin,TemplateView):
+    template_name = 'moticom/main.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # 継承元のメソッドCALL
+        context["form_name"] = "main"
+        return context
 """

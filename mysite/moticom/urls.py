@@ -6,7 +6,8 @@ from django.contrib.auth import views as auth_views
 
 app_name = 'moticom'
 urlpatterns = [
-    path('', views.TopView.as_view(), name='main'),
+    path('', views.TopView, name='main'),
+    #path('', views.TopView.as_view(), name='main'),
     path('index', views.IndexView.as_view(), name='index'),
     path('board', views.BoardView.as_view(), name='board'),
     path('genre_display', views.genre_display, name='genre_display'),
