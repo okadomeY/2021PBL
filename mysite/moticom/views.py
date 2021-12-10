@@ -16,8 +16,8 @@ from django.views.generic import ListView, CreateView, TemplateView, FormView, U
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 #, AddAccountForm # ユーザーアカウントフォーム #LoginForm
-from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord
-from .forms import ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord#, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
+from .models import Report, Genre, Account, ControlMeasure, Comment, NGWord, KeyWord
+from .forms import (ReportForm, CreatePost, AddGenre, SearchForm, CreativeControlMeasure, CreateComment, AddNgWord, AddKeyWord)#, AccountForm, UserCreationForm#, AddAccountForm # ユーザーアカウントフォーム #LoginForm
 from .functions import (get_count, monthly_count, weekly_count, 
                         bymonth_count, get_count_chart, get_genre_chart, 
                         get_cm_chart, assign_cm)
@@ -294,9 +294,21 @@ def sorting(request):
     return render(request, 'moticom/sorting.html', params)
 
 #
-class LinkingView(TemplateView):
+class LinkingView(FormView):
     template_name = 'moticom/linking.html'
+    model = KeyWord
+    form_class = AddKeyWord
     
+    def post(self, request, *args, **kwargs):
+        form = AddKeyWord(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('moticom:linking')
+    
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['keyword_list'] = KeyWord.objects.all()
+        return context
 #
 class Cm_CreateView(ListView):
     template_name = 'moticom/cm_create.html'
@@ -327,6 +339,7 @@ class UpdateControlMeasureView(UpdateView):
         form.fields['cm_contents'].label = '管理策'
         form.fields['genre_id'].label = 'ジャンル'
         return form
+
 #管理策データ削除
 class DeleteControlMeasureView(DeleteView):
     template_name = "moticom/cm_delete_form.html"
@@ -355,6 +368,7 @@ class SignUp(CreateView):
     
 class SignUpFinish(TemplateView):
     template_name = 'moticom/signup_finish.html'
+    
 
 #class Login(LoginView):
 #    form_class = LoginForm

@@ -24,59 +24,38 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">＃</th>
-                                    <th scope="col">＃</th>
-                                    <th scope="col">＃</th>
-                                    <th scope="col">＃</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">キーワード</th>
+                                    <th scope="col">管理策名</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for cm in keyword_list %}
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                    <td>＃</td>
+                                    <th scope="row">{{ cm.id }}</th>
+                                    <td>{{ cm.key_words }}</td>
+                                    <td>{{ cm.cm_id }}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                    <td>＃</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
         <div style="padding-top: 30px;">
             <h5 style="padding-bottom: 10px;">キーワード追加</h5>
         </div>
         <div class="row g-3" style="padding-top: 20px;">
-            <div class="col">
-                <input type="text" class="form-control" aria-label="NG-Word">
-            </div>
-            <div class="col">
-                <a class="btn btn-primary" href="#" role="button">追加する</a>
-            </div>
+            <form action="{% url 'moticom:linking' %}" method="post">
+                <div class="col">
+                    {% csrf_token %}
+                    {{ form }}
+                </div>
+                <div class="col">
+                    <input type="submit" value="登録" class="btn btn-primary" role="button">
+                </div>
+            </form>
         </div>
     </div>
 </body>
