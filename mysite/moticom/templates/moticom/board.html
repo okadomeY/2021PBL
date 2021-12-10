@@ -29,7 +29,11 @@
                         {% for report in report_list %}
                         <div class="card-group">
                             <div class="card d-block ps-3 pb-3 mt-0 mb-0 small lh-sm border-bottom" style="background: rgb(150, 200, 200)">
+                                {% if report.anonymous %}
+                                <strong>@匿名</strong>
+                                {% else %}
                                 <strong>@{{ report.user_id }}</strong>
+                                {% endif %}
                                 <p>{{ report.report_text }}</p>
                                 {% for comment in report.comment_set.all %}
                                     <p>{{ comment.comment_text }} </p>

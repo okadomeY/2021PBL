@@ -29,7 +29,7 @@ class ReportForm(forms.Form):
 class CreatePost(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ['report_text', 'user_id', 'genre_id', 'cm_id']
+        fields = ['report_text', 'user_id', 'genre_id', 'cm_id', 'anonymous']
         labels = {'report_text':"",
                   'user_id':"",
                   'genre_id':"",

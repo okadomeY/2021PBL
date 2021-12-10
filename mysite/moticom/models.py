@@ -30,7 +30,7 @@ class Report(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     genre_id = models.ForeignKey(Genre, on_delete=models.CASCADE)
     cm_id = models.ForeignKey(ControlMeasure, on_delete=models.CASCADE, null=True, blank=True,)
-    anonymous = models.BooleanField(verbose_name='', null=True,)
+    anonymous = models.BooleanField(default=False,)
     
     def __str__(self):
         return self.report_text

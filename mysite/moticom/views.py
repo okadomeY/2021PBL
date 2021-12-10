@@ -120,21 +120,23 @@ def create_post(request):
         if request.POST.get('anonymous'):
             form_contents = {
                 'report_text':request.session['request_text'],
-                'user_id':'1',#←匿名用ユーザーID"1"を入れる
+                'user_id':request.user.pk,
                 'genre_id':request.POST.get('genre_id'),
                 'cm_id':assign_cm(request.session['request_text']),
+                'anonymous':True,
             }
         else:
             form_contents = {
                 'report_text':request.session['request_text'],
-                'user_id': request.user.pk,#←暫定で"2"で適用中、本来はログインユーザーIDを取る
+                'user_id': request.user.pk,
                 'genre_id':request.POST.get('genre_id'),
                 'cm_id':assign_cm(request.session['request_text']),
+                'anonymous':False,
             }
         form = CreatePost(form_contents)
         if form.is_valid():
             form.save()
-            newPost = Report.objects.filter(user_id=2).order_by('-created_at')[0]
+            newPost = Report.objects.filter(user_id=request.user.pk).order_by('-created_at')[0]
         else:
             return redirect('moticom:genre')
             
