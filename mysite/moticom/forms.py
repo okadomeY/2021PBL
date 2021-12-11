@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm#, PasswordChangeForm
 from django.contrib.auth.models import User
 
-from .models import Report, Genre, ControlMeasure, Comment, NGWord, Account
+from .models import Report, Genre, ControlMeasure, Comment, NGWord, Account, KeyWord
 
 #NGワード処理（要修正→NGワードをDBから取得、NGワード判定）
 def ng_word(value):
@@ -29,16 +29,18 @@ class ReportForm(forms.Form):
 class CreatePost(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ['report_text', 'user_id', 'genre_id', 'cm_id']
+        fields = ['report_text', 'user_id', 'genre_id', 'cm_id', 'anonymous']
         labels = {'report_text':"",
                   'user_id':"",
                   'genre_id':"",
                   'cm_id':"",
+                  'anonymous':"",
                   }
         widgets = {'report_text':forms.HiddenInput,
                    'user_id':forms.HiddenInput,
                    'genre_id':forms.RadioSelect(attrs={'class':'form-check-input',}),
                    'cm_id':forms.HiddenInput,
+                   'anonymous':forms.HiddenInput,
                    }
                    
 
@@ -103,6 +105,12 @@ class SearchForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        
+class AddKeyWord(forms.ModelForm):
+    class Meta:
+        model = KeyWord
+        fields = ('key_words', 'cm_id',)
+        labels = {'key_words':"キーワード", 'cm_id':"管理策",}
 
 #class LoginForm(AuthenticationForm):
 #    def __init__(self, *args, **kwargs):
