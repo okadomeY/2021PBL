@@ -166,8 +166,9 @@ class HelpView(TemplateView):
 class AdminView(TemplateView):
     template_name = 'moticom/admin.html'
 #
-class AnalysisView(TemplateView):
+class AnalysisView(ListView):
     template_name = 'moticom/analysis.html'
+    model = ControlMeasure
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
