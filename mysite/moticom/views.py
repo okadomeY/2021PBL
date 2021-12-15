@@ -162,9 +162,11 @@ class HelpView(TemplateView):
     template_name = 'moticom/help.html'
     
 #管理者用（別アプリに分ける予定）
-#
-class AdminView(TemplateView):
-    template_name = 'moticom/admin.html'
+@login_required
+def AdminView(request):
+    return render(request, 'moticom/admin.html')
+#class AdminView(TemplateView):
+#    template_name = 'moticom/admin.html'
 #
 class AnalysisView(ListView):
     template_name = 'moticom/analysis.html'

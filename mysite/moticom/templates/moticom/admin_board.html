@@ -10,15 +10,24 @@
                  {% if report_list %}
                         {% for report in report_list %}
                             <div class="card ps-3 pb-3 mt-0 mb-0 small lh-sm border-bottom" style="background: rgb(150, 200, 200)">
+                                {% if report.anonymous %}
+                                <strong class="d-block">@匿名</strong>
+                                {% else %}
                                 <strong class="d-block">@{{ report.user_id }}</strong>
+                                {% endif %}
                                 <p>{{ report.report_text }}</p>
                                 {% for comment in report.comment_set.all %}
-                                <div>{{ comment.comment_text }} 
-                                    <form action="{% url 'moticom:delete_comment' %}" method='post'>
-                                        {% csrf_token %}
-                                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                        <input type="submit" value="削除"class="btn btn-primary" role="button">
-                                    </form>
+                                <div class="row">
+                                    <div class="col">
+                                        {{ comment.comment_text }}
+                                    </div>
+                                    <div class="col">
+                                        <form action="{% url 'moticom:delete_comment' %}" method='post'>
+                                            {% csrf_token %}
+                                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                            <input type="submit" value="削除" class="btn btn-primary " role="button">
+                                        </form>
+                                    </div>
                                 </div>
                                 {% endfor %}
                                 <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample{{report.id}}" role="button"

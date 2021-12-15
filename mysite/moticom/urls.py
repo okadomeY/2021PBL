@@ -22,7 +22,7 @@ urlpatterns = [
     #path('accounts/password_change/done', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_finish.html'), name='password_change_done'), 
     
     #管理者用ページ↓
-    path('admin', views.AdminView.as_view(), name='admin'),
+    path('admin', views.AdminView, name='admin'),
     path('analysis', views.AnalysisView.as_view(), name='analysis'),
     path('admin_board', views.Admin_BoardView, name='admin_board'),
     path('delete_comment', views.DeleteComment, name='delete_comment'),
