@@ -9,9 +9,9 @@
 {% block content %}
 <body>
     <script src="{% static 'moticom/js/chart.js/dist/chart.js' %}"></script>
-    <div class="container gx-5" style="padding: 10px 10px 10px 10px;">
+    <div class="container">
         <div>
-            <h1 class="mt-4 border-bottom">分析結果</h1>
+            <h2 class="mt-4 border-bottom">分析結果</h2>
         </div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for chart_data in data.values %}
@@ -32,7 +32,7 @@
         </div>
         <div class="row" style="padding-top: 50px; ">
             <div class="col col-md-offset-2">
-                <h7>管理策一覧</h7>
+                <h5>管理策一覧</h5>
                 <div class="overflow-auto">
                     <table class="table table-striped">
                         <thead>

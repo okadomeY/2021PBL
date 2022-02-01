@@ -6,7 +6,6 @@
   <body>
     <div class="container">
       <h2 class="mt-4 border-bottom">プロフィール管理</h2>
-      <div></div>
     </div> 
     <div class="row justify-content-md-center" style="padding-top: 40px;">
       <div class="card mb-3" style="max-width: 800px;">
@@ -21,10 +20,10 @@
               <span class="fw-bold, fs-4">{{ user.username }}</span>
               <p class="card-text" style="padding-top: 10px;">パスワード</p>
               <input type="password" value="{{ user.password }}" disabled>
-              <div style="text-align: center; padding-left: 70%;">
+              <div style="text-align: right;">
               {% if form_name == "password_change" %}
                 {% else %}
-                <a class="btn btn-primary" href="{% url 'password_change_form' %}" role="button">パスワードの変更</a>
+                <a class="btn btn-primary" href="{% url 'password_change_form' %}" role="button">パスワード変更画面へ</a>
               {% endif  %}
               </div>
             </div>

@@ -4,11 +4,11 @@
   <body>
     <div class="container">
         <h2 class="mt-4 border-bottom">管理策追加画面</h2>
-    </div>
     <form method="post" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="保存">
+        <input type="submit" class="btn btn-primary" value="保存">
     </form>
+    </div>
   </body>
 {% endblock content %}

@@ -7,7 +7,7 @@
         <form method="post" novalidate>
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="保存">
+            <input type="submit" class="btn btn-primary" value="保存">
             <!-- helpから移送されたらcm_deleteに修正 -->
             <a class="btn btn-primary" href="{% url 'moticom:delete' controlmeasure.pk %}" role="button">管理策を削除したいときはこちら</a>
         </form>

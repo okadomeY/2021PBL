@@ -2,14 +2,18 @@
 {% load static %}
 {% block content %}
 <body>
-<h1>新規登録</h1>
-   <div>
-        <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">登録</button>
-        </form>
+    <div class="container">
+      <h2 class="mt-4 border-bottom">ユーザ新規登録</h2>
+      <div style="padding-top: 40px;">
+       <form method="post">
+       {% csrf_token %}
+    　 {{ form.as_p }}
+       <div style="padding-left:800px;">
+        <button type="submit" class="btn btn-primary">登録</button> 
+       </div> 
+  　　</form>
+  　　</div>
     </div>
+ </body>
 
-</body>
 {% endblock %}

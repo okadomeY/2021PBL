@@ -5,13 +5,13 @@
 {% block content %}
   <body>
     <div class="container">
-        <h2 class="mt-2 border-bottom pb-2">問題報告</h2>
+        <h2 class="mt-4 border-bottom">問題報告</h2>
     </div> 
     <div class="row justify-content-md-center">
       <div class="col-md-6">
         <div class="container mt-5">
           <form action="{% url 'moticom:complete' %}" method='post' class="card">
-            <div class="card-header">ジャンルの選択画面</div>
+            <div class="card-header">ジャンル選択画面</div>
             <div class="card-body">
               <h5 class="card-title">以下より、もっとも当てはまるジャンルを選択してください</h5>
              {% csrf_token %}

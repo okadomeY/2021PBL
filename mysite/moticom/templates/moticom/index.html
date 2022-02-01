@@ -8,11 +8,11 @@
         <div class="container">
             <h2 class="mt-4 border-bottom">ダッシュボード</h2>
             <!--グラフ表示-->
-            <div class="row">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for chart_data in data.values %}
                 {% include 'moticom/charts/line_plot.html' with chart_data=chart_data %}
             {% endfor %}
-            
+            </div>
             <h2 class="mt-5 border-bottom pb-2">新着投稿</h2>
             <div class="d-flex flex-column pt-3">
                  {% if latest_report_list %}

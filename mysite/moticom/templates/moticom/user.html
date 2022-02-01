@@ -14,10 +14,12 @@
 
 {% block content %}
 <body>
-    <div class="container gx-5" style="padding: 100px 10px 10px 230px;">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1 style="padding-bottom: 20px;">ユーザー一覧</h1>
+    <div class="container">
+        <div>
+            <h2 class="mt-4 border-bottom">ユーザ確認・登録</h2>
+        </div>
+        <div class="col-md-8 col-md-offset-2" style="padding-top: 40px;">
+                <h4>ユーザー一覧</h4>
                 <div class="overflow-auto">
                     <table class="table table-striped">
                         <thead>
@@ -33,11 +35,10 @@
                             {% endfor %}  
                         </tbody>
                     </table>
-                </div>
-                <div style="text-align: center; padding-left: 90%;">
+                <div style="padding-left:640px;">
                     <a class="btn btn-primary" href="{% url 'moticom:signup' %}" role="button">追加</a>
                 </div>
-            </div>
+                </div>
         </div>
     </div>
 </body>

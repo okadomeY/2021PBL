@@ -9,7 +9,7 @@
               <p>{{ controlmeasure.cm_name }}/{{ controlmeasure.cm_contents }}/{{ controlmeasure.genre_id }}を削除しますか？</p>
               <!-- help から正しいところに置かれたら cm_update に修正 -->
               <a class="btn btn-primary" href="{% url 'moticom:update' controlmeasure.pk %}" role="button">戻る</a>
-              <input type="submit" value="削除する">
+              <input type="submit" class="btn btn-danger" value="削除">
             </form>
         </div>
     </body>

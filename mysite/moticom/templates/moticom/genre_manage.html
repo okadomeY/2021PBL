@@ -4,14 +4,17 @@
 
 {% block content %}
 <body>
-    <div class="container gx-5" style="padding: 50px 10px 10px">
+  <div class="container">
+  <div>
+    <h2 class="mt-4 border-bottom">ジャンル管理</h2>
+  </div>
+    
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
-        <h1 style="padding-bottom: 20px;">ジャンル管理</h1>
         <p>
           <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
             aria-expanded="false" aria-controls="multiCollapseExample1">追加</a>
-          <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button"
+          <a class="btn btn-danger" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button"
             aria-expanded="false" aria-controls="multiCollapseExample2">消去</a>
         </p>
         <div class="row">
@@ -30,7 +33,7 @@
                   {% if error %}
                   <p class="text-danger">{{ error }}</p>
                   {% endif %}
-                  <div style="padding-top: 20px;">
+                  <div style="padding-top: 20px; padding-left:200px;">
                     <input type="submit" value="追加"class="btn btn-primary" role="button">
                   </div>
                   </form>
@@ -52,8 +55,8 @@
                       </label>
                     </div>
                   {% endfor %}
-                  <div style="padding-top: 20px;">
-                    <input type="submit" value="送信"class="btn btn-primary" role="button">
+                  <div style="padding-top: 20px; padding-left:200px;">
+                    <input type="submit" value="削除"class="btn btn-danger" role="button">
                   </div>
                 </div>
               </form>
@@ -61,7 +64,7 @@
           </div>
         </div>
         <div style="padding-top: 10px;">
-          <h4>ジャンル名</h4>
+          <h5>ジャンル名</h5>
           <ul>
           {% for genre in genre_list %}
             <li>{{ genre }}</li>

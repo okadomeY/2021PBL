@@ -4,8 +4,17 @@
 
 {% block content %}
     <body>
+        <div class="container">
+          <div>
+              <h2 class="mt-4 border-bottom">管理策追加</h2>
+          </div>
          <!-- help から正しいところに移ったら cm_create に修正 -->
+        <div style="padding-top: 20px; padding-bottom:20px;">
         <a class="btn btn-primary" href="{% url 'moticom:create' %}" role="button">管理策追加</a>
+        </div>
+        <div style="padding-top: 30px;">
+            <h5 style="padding-bottom: 10px;">管理策一覧</h5>
+        </div>
         <div class="overflow-auto">
             <table class="table table-striped" border="1">
                 <tr>
@@ -24,6 +33,7 @@
                 </tr>
                 {% endfor %}
             </table>
+        </div>
         </div>
     </body>
 {% endblock content %}

@@ -5,9 +5,8 @@
 {% block content %}
     <body>
         <div class="container">
-            <div class="mt-2 pb-1">
-                <h2 class="float-start">投稿掲示板</h2>
-                <div class="dropdown float-end">
+                <h2 class="mt-4 float-start">投稿掲示板</h2>
+                <div class="dropdown float-end" style="padding-top: 15px;">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     ジャンル別表示
                     </button>
@@ -22,7 +21,6 @@
                         {% endfor %}
                     </ul>
                 </div>
-            </div>
             <div class="clearfix"></div>
             <div class="d-flex flex-column pt-3 border-top">
                  {% if report_list %}

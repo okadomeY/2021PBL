@@ -2,6 +2,12 @@
 {% load static %}
 
 {% block content %}
-<h1>ユーザー登録完了！！！</h1>
-<p><a href="{% url 'moticom:user' %}">ホームに戻る</a></p>
+<body>
+　<div class="container">
+    <h2 class="mt-4">ユーザ登録完了！！</h2>
+    <div style="padding-top: 40px;">
+     <a class="btn btn-primary btn-sm" href="{% url 'moticom:user' %}" role="button">ユーザ確認・登録に戻る</a>
+    </div>
+　</div>
+</body>
 {% endblock %}
